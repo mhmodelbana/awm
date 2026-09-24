@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="AWM Store — اختيارات رجالي مميزة ومنتجات متجددة مع طلب مباشر عبر واتساب.">
+  <meta name="description" content="AWM Digital Showroom — اختيارات رجالي مميزة ومنتجات متجددة والاستفسار المباشر عبر واتساب.">
   <meta name="theme-color" content="#0a0a0a">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="awm-manifest.webmanifest">
@@ -148,6 +148,8 @@
     .filters-wrap { padding: 8px 0 22px; }
     .filter-row { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
     .filter-row::-webkit-scrollbar { display: none; }
+    .collection-filter-row { margin-top: 7px; }
+    .collection-filter-row.hidden { display: none; }
     .chip {
       flex: 0 0 auto; min-height: 38px; padding: 8px 15px; border: 1px solid var(--line-strong);
       border-radius: var(--pill); background: #fff; color: #333; font-size: 12px; font-weight: 800;
@@ -607,6 +609,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
 
     <section class="container filters-wrap" aria-label="فلترة المنتجات">
       <div class="filter-row" id="categoryChips"></div>
+      <div class="filter-row collection-filter-row hidden" id="collectionChips" aria-label="فلترة الكولكشن"></div>
       <div class="desktop-select">
         <select class="select" id="desktopSort" aria-label="ترتيب المنتجات">
           <option value="new">الأحدث أولاً</option>
@@ -682,8 +685,8 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
 </main>
 
   <footer class="container" id="footer">
-    <h2 class="footer-brand serif">AWM Exclusive</h2>
-    <p class="footer-desc">اختيارات رجالي متجددة، وتفاصيل بسيطة تخلي كل قطعة أشيك.</p>
+    <h2 class="footer-brand serif" id="footerBrand">AWM Exclusive</h2>
+    <p class="footer-desc" id="footerDesc">اختيارات رجالي متجددة، وتفاصيل بسيطة تخلي كل قطعة أشيك.</p>
     <div class="footer-links">
       <a class="footer-link" href="https://wa.me/201020776397" target="_blank" rel="noopener noreferrer">واتساب</a>
       <a class="footer-link" href="https://www.tiktok.com/@awm.store11" target="_blank" rel="noopener noreferrer">تيك توك</a>
@@ -713,6 +716,12 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
         <label class="form-label" for="mobileCategory">القسم</label>
         <select class="select" id="mobileCategory">
           <option value="all">كل الأقسام</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="mobileCollection">الكولكشن</label>
+        <select class="select" id="mobileCollection">
+          <option value="all">كل الكولكشنات</option>
         </select>
       </div>
       <div class="form-group">
@@ -808,7 +817,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
   <div class="display-inner">
     <div class="display-media"><img id="displayImage" src="awm-logo.jpg" alt="AWM"></div>
     <div class="display-copy">
-      <div class="display-kicker">AWM DIGITAL SHOWROOM</div>
+      <div class="display-kicker" id="displayKicker">AWM DIGITAL SHOWROOM</div>
       <h2 id="displayName">AWM</h2>
       <div class="display-price" id="displayPrice"></div>
       <div class="display-meta" id="displayMeta"></div>
@@ -853,6 +862,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
     const state = {
       products: [],
       activeCategory: 'all',
+      activeCollection: 'all',
       searchQuery: '',
       sort: 'new',
       minPrice: '',
@@ -866,7 +876,11 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
       lastScroll: 0,
       fromDirectProduct: false,
       realtimeChannel: null,
-      realtimeRefreshTimer: null
+       realtimeRefreshTimer: null,
+       showroomChannel: null,
+       displayPlaylist: [],
+       taxonomyCategories: [],
+       taxonomyCollections: []
     };
 
     const $ = (selector, root = document) => root.querySelector(selector);
@@ -990,9 +1004,14 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
 
     async function stopProductRealtime() {
       clearTimeout(state.realtimeRefreshTimer);
-      if (!state.realtimeChannel || !db) return;
-      try { await db.removeChannel(state.realtimeChannel); } catch (_) {}
+      if (state.realtimeChannel && db) {
+        try { await db.removeChannel(state.realtimeChannel); } catch (_) {}
+      }
       state.realtimeChannel = null;
+      if (state.showroomChannel && db) {
+        try { await db.removeChannel(state.showroomChannel); } catch (_) {}
+      }
+      state.showroomChannel = null;
     }
 
     function showToast(message) {
@@ -1064,6 +1083,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
       $('#desktopSearch').value = state.searchQuery;
       $('#mobileSearch').value = state.searchQuery;
       $('#mobileCategory').value = state.activeCategory;
+      $('#mobileCollection').value = state.activeCollection;
       $('#mobileSort').value = state.sort;
       $('#desktopSort').value = state.sort;
       $('#minPrice').value = state.minPrice;
@@ -1091,6 +1111,10 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
         const categoryKey = normalizeArabic(state.activeCategory);
         list = list.filter(p => normalizeArabic(p?.category) === categoryKey);
       }
+      if (state.activeCollection !== 'all') {
+        const collectionKey = normalizeArabic(state.activeCollection);
+        list = list.filter(p => normalizeArabic(p?.collection) === collectionKey);
+      }
       const query = normalizeArabic(state.searchQuery);
       if (query) list = list.filter(p => productSearchText(p).includes(query));
 
@@ -1111,6 +1135,8 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
   if(product?.is_last_piece)return '<span class="badge-pill sold">آخر قطعة</span>';
   const b=String(product?.showroom_badge||'').toLowerCase();
   const map={new:'جديد',featured:'مميز',trending:'Trending',limited:'Limited',exclusive:'Exclusive',coming_soon:'قريبًا',last_piece:'آخر قطعة'};
+  if(product?.is_bestseller)return '<span class="badge-pill sale">الأكثر طلبًا</span>';
+  if(product?.is_featured)return '<span class="badge-pill new">مميز</span>';
   return map[b]?`<span class="badge-pill ${b==='limited'||b==='exclusive'?'sale':'new'}">${map[b]}</span>`:'';
 }
 
@@ -1164,7 +1190,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
         moreBtn.textContent = allList.length > list.length ? `عرض المزيد (${Math.min(48, allList.length-list.length)})` : 'عرض المزيد من القطع';
       }
       if (!list.length) {
-        const hasFilters = state.searchQuery || state.activeCategory !== 'all' || state.minPrice !== '' || state.maxPrice !== '';
+        const hasFilters = state.searchQuery || state.activeCategory !== 'all' || state.activeCollection !== 'all' || state.minPrice !== '' || state.maxPrice !== '';
         grid.innerHTML = `
           <div class="state-box">
             <h3>${hasFilters ? 'مش لاقيين القطعة دي 😕' : 'لسه مفيش منتجات'}</h3>
@@ -1178,14 +1204,43 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
     }
 
     function renderCategories() {
-      const categories = [...new Set(state.products.map(p => p?.category).filter(Boolean))];
+      const productCategories = [...new Set(state.products.map(p => p?.category).filter(Boolean))];
+      const taxonomyCategories = (state.taxonomyCategories || [])
+        .filter(x => x?.is_active !== false && x?.name)
+        .sort((a,b) => Number(a.sort_order||0) - Number(b.sort_order||0));
+      const categories = taxonomyCategories.length ? taxonomyCategories.map(x => x.name) : productCategories;
+
       const chipHtml = [
         `<button class="chip ${state.activeCategory === 'all' ? 'active' : ''}" type="button" data-category="all">كل القطع</button>`,
         ...categories.map(category => `<button class="chip ${normalizeArabic(state.activeCategory) === normalizeArabic(category) ? 'active' : ''}" type="button" data-category="${escAttr(category)}">${esc(category)}</button>`)
       ].join('');
       $('#categoryChips').innerHTML = chipHtml;
       $('#mobileCategory').innerHTML = `<option value="all">كل الأقسام</option>` + categories.map(c => `<option value="${escAttr(c)}">${esc(c)}</option>`).join('');
+
+      const productCollections = [...new Set(state.products.map(p => p?.collection).filter(Boolean))];
+      const taxonomyCollections = (state.taxonomyCollections || [])
+        .filter(x => x?.is_active !== false && x?.name)
+        .sort((a,b) => Number(a.sort_order||0) - Number(b.sort_order||0));
+      const collections = taxonomyCollections.length ? taxonomyCollections.map(x => x.name) : productCollections;
+
+      renderCollectionChips(collections);
+      $('#mobileCollection').innerHTML = `<option value="all">كل الكولكشنات</option>` + collections.map(c => `<option value="${escAttr(c)}">${esc(c)}</option>`).join('');
       syncInputs();
+    }
+
+    function renderCollectionChips(collections) {
+      const root = $('#collectionChips');
+      if (!root) return;
+      if (!collections.length) {
+        root.innerHTML = '';
+        root.classList.add('hidden');
+        return;
+      }
+      root.classList.remove('hidden');
+      root.innerHTML = [
+        `<button class="chip collection-chip ${state.activeCollection === 'all' ? 'active' : ''}" type="button" data-collection="all">كل الكولكشنات</button>`,
+        ...collections.map(collection => `<button class="chip collection-chip ${normalizeArabic(state.activeCollection) === normalizeArabic(collection) ? 'active' : ''}" type="button" data-collection="${escAttr(collection)}">${esc(collection)}</button>`)
+      ].join('');
     }
 
     function renderRecent() {
@@ -1337,8 +1392,8 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
             <button class="share-btn" id="productQRBtn" type="button">QR القطعة</button></div>
             <div class="seo-share">رابط مشاركة مباشر للقطعة + بيانات SEO تلقائية.</div>
             <div class="policy-grid">
-              <div class="policy-card"><strong>الطلب</strong><span>للاستفسار وتأكيد الطلب تواصل معنا مباشرة على واتساب.</span></div>
-              <div class="policy-card"><strong>الاستبدال</strong><span>التفاصيل تُراجع معانا قبل تأكيد الطلب.</span></div>
+              <div class="policy-card"><strong>الاستفسار</strong><span>للاستفسار عن القطعة والتفاصيل تواصل معنا مباشرة على واتساب.</span></div>
+              <div class="policy-card"><strong>التوفر</strong><span>التوفر بيتحدث من لوحة الإدارة بشكل مباشر.</span></div>
               <div class="policy-card"><strong>دليل المقاس</strong><span id="productSizeGuideText">اسألنا على واتساب عن المقاس المناسب.</span></div>
             </div>
             <div class="product-extra"><div class="section-head"><div><h3 style="margin:0;font-size:17px">ممكن يعجبك كمان</h3><p style="margin:4px 0 0;color:var(--muted);font-size:10px">اقتراحات من نفس القسم أو الكولكشن.</p></div></div><div class="recommend-grid" id="recommendGrid"></div></div>
@@ -1527,6 +1582,7 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
 
     function resetFilters() {
       state.activeCategory = 'all';
+      state.activeCollection = 'all';
       state.searchQuery = '';
       state.sort = 'new';
       state.minPrice = '';
@@ -1641,7 +1697,8 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
     $('#productWhatsapp').addEventListener('click', orderViaWhatsapp);
     $('#desktopSort').addEventListener('change', event => { state.sort = event.target.value; syncInputs(); renderProducts(); });
     $('#mobileSort').addEventListener('change', () => {});
-    $('#mobileCategory').addEventListener('change', () => {});
+    $('#mobileCategory').addEventListener('change', event => { state.activeCategory = event.target.value; });
+    $('#mobileCollection').addEventListener('change', event => { state.activeCollection = event.target.value; });
     $('#desktopPriceBtn').addEventListener('click', () => openSheet('filterSheet','filterBackdrop'));
     $('#applyFilters').addEventListener('click', () => {
       state.searchQuery = $('#mobileSearch').value;
@@ -1668,12 +1725,22 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
       renderProducts();
     }
     $('#desktopSearch').addEventListener('input', e => syncSearch(e.target.value));
-    $('#mobileSearch').addEventListener('input', () => {});
+    $('#mobileSearch').addEventListener('input', e => syncSearch(e.target.value));
 
     $('#categoryChips').addEventListener('click', event => {
       const chip = event.target.closest('[data-category]');
       if (!chip) return;
       state.activeCategory = chip.dataset.category || 'all';
+      state.activeCollection = 'all';
+      state.visibleProductCount = 48;
+      renderCategories();
+      renderProducts();
+    });
+
+    $('#collectionChips')?.addEventListener('click', event => {
+      const chip = event.target.closest('[data-collection]');
+      if (!chip) return;
+      state.activeCollection = chip.dataset.collection || 'all';
       state.visibleProductCount = 48;
       renderCategories();
       renderProducts();
@@ -1763,9 +1830,20 @@ body.showroom-display-mode>*:not(.display-mode){display:none!important}
       stopProductRealtime();
     });
 /* ======================== AWM V2 STOREFRONT ======================== */
-state.homeSections=[]; state.activeOffer=null; state.offerTimer=null; state.productMetaCache=new Map(); state.deferredInstallPrompt=null; state.visibleProductCount=48; state.productsCacheKey='awm_showroom_products_cache_v4';
+state.homeSections=[]; state.activeOffer=null; state.offerTimer=null; state.productMetaCache=new Map(); state.deferredInstallPrompt=null; state.visibleProductCount=48; state.productsCacheKey='awm_showroom_products_cache_v5';
 async function optionalRows(table, columns='*', build=''){
   try{let q=db.from(table).select(columns); if(build)q=build(q); const r=await q;if(r.error)throw r.error;return r.data||[];}catch(e){console.warn('AWM optional table',table,e.message);return []}
+}
+
+async function loadPublicTaxonomy(){
+  const [cats, cols] = await Promise.all([
+    optionalRows('categories','id,name,slug,description,image_url,sort_order,is_active',q=>q.eq('is_active',true).order('sort_order',{ascending:true})),
+    optionalRows('collections','id,name,slug,description,image_url,sort_order,is_active',q=>q.eq('is_active',true).order('sort_order',{ascending:true}))
+  ]);
+  state.taxonomyCategories = Array.isArray(cats) ? cats : [];
+  state.taxonomyCollections = Array.isArray(cols) ? cols : [];
+  renderCategories();
+  renderHomepage();
 }
 const analyticsQueue=[]; let analyticsFlushTimer=null;
 function queueEvent(event_type,product_id=null,metadata={}){if(!db)return;analyticsQueue.push({event_type,product_id:product_id?String(product_id):null,session_id:getSessionId(),metadata});if(analyticsQueue.length>=5)flushAnalytics();else if(!analyticsFlushTimer)analyticsFlushTimer=setTimeout(flushAnalytics,4000)}
@@ -1785,10 +1863,14 @@ function getSessionId(){let k=sessionStorage.getItem('awm_session_id');if(!k){k=
 function effectivePrice(product){let p=Number(product?.price||0);const offer=state.activeOffer;if(!offer||!Array.isArray(offer.product_ids)||!offer.product_ids.length||!offer.product_ids.map(String).includes(String(product?.id)))return p;if(offer.type==='percent')return Math.max(0,p-(p*Number(offer.discount_value||0)/100));if(offer.type==='amount')return Math.max(0,p-Number(offer.discount_value||0));return p;}
 function offerActiveNow(x){const now=Date.now();if(x?.is_active===false)return false;if(x?.start_at&&new Date(x.start_at).getTime()>now)return false;if(x?.end_at&&new Date(x.end_at).getTime()<now)return false;return true;}
 async function loadOffer(){const rows=await optionalRows('offers','*');const active=rows.filter(offerActiveNow).sort((a,b)=>new Date(a.end_at||'2999')-new Date(b.end_at||'2999'));state.activeOffer=active[0]||null;renderOfferStrip();if(state.activeOffer?.end_at){clearInterval(state.offerTimer);state.offerTimer=setInterval(renderOfferStrip,1000)}}
-function renderOfferStrip(){let x=state.activeOffer;const strip=$('#offerStrip');if(x&&x.end_at&&new Date(x.end_at).getTime()<=Date.now()){state.activeOffer=null;x=null;clearInterval(state.offerTimer);state.offerTimer=null}if(!x||!strip){strip?.classList.remove('show');return}strip.classList.add('show');$('#offerStripTitle').textContent=x.title||'عرض AWM';$('#offerStripSubtitle').textContent=x.type==='percent'?`خصم ${Number(x.discount_value||0)}٪ على منتجات مختارة`:x.type==='amount'?`خصم ${formatMoney(x.discount_value)} جنيه`:'لفترة محدودة';let cd='';if(x.end_at){let diff=Math.max(0,new Date(x.end_at).getTime()-Date.now());const d=Math.floor(diff/86400000);diff%=86400000;const h=Math.floor(diff/3600000);diff%=3600000;const m=Math.floor(diff/60000);const sec=Math.floor(diff/1000)%60;cd=`${d?d+'ي ':''}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}$('#offerCountdown').textContent=cd||'مستمر الآن'}
+function renderOfferStrip(){let x=state.activeOffer;const strip=$('#offerStrip');if(x&&x.end_at&&new Date(x.end_at).getTime()<=Date.now()){state.activeOffer=null;x=null;clearInterval(state.offerTimer);state.offerTimer=null}if(!x||!strip){strip?.classList.remove('show');if(strip)strip.style.background='';return}strip.classList.add('show');strip.style.background=x.accent_color||'#111';$('#offerStripTitle').textContent=x.title||'عرض AWM';$('#offerStripSubtitle').textContent=x.type==='percent'?`خصم ${Number(x.discount_value||0)}٪ على منتجات مختارة`:x.type==='amount'?`خصم ${formatMoney(x.discount_value)} جنيه`:'لفترة محدودة';let cd='';if(x.end_at){let diff=Math.max(0,new Date(x.end_at).getTime()-Date.now());const d=Math.floor(diff/86400000);diff%=86400000;const h=Math.floor(diff/3600000);diff%=3600000;const m=Math.floor(diff/60000);const sec=Math.floor(diff/1000)%60;cd=`${d?d+'ي ':''}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}$('#offerCountdown').textContent=cd||'مستمر الآن'}
 async function loadHomepage(){state.homeSections=await optionalRows('homepage_sections','*',q=>q.eq('is_active',true).order('sort_order',{ascending:true}));renderHomepage();}
 function sectionProducts(section){let arr=[];if(Array.isArray(section.product_ids)&&section.product_ids.length){arr=section.product_ids.map(id=>state.products.find(p=>String(p.id)===String(id))).filter(Boolean)}else if(section.collection){arr=state.products.filter(p=>normalizeArabic(p.collection)===normalizeArabic(section.collection)).slice(0,8)}return arr;}
-function renderHomepage(){const root=$('#homeSections');if(!root)return;const sections=state.homeSections||[];root.innerHTML=sections.map(s=>{const title=s.title||'';const sub=s.subtitle||'';if(s.type==='hero')return `<section class="home-hero"><div class="home-hero-bg" style="background-image:url('${escAttr(s.image_url||'')}')"></div><div class="home-hero-shade"></div><div class="home-hero-content"><div class="home-kicker">AWM STORE</div><h2>${esc(title||'اختار ستايلك')}</h2><p>${esc(sub||'قطع مختارة بعناية وتحديثات مستمرة.')}</p>${s.button_url?`<a class="home-cta" href="${escAttr(s.button_url)}">${esc(s.button_text||'اكتشف الآن')}</a>`:''}</div></section>`;if(s.type==='products'||s.type==='collection'){const ps=sectionProducts(s);return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'مختارات AWM')}</h3><p>${esc(sub||'اختيارات مميزة لك')}</p></div></div><div class="home-products">${ps.map((p,i)=>cardHtml(p,i)).join('')||'<div class="state-box"><h3>لسه بنجهز المجموعة</h3><p>أضف منتجات للـSection من لوحة الإدارة.</p></div>'}</div></section>`}if(s.type==='categories'){const cats=[...new Set(state.products.map(p=>p.category).filter(Boolean))].slice(0,10);return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'الأقسام')}</h3><p>${esc(sub||'اختار القسم اللي تحبه')}</p></div></div><div class="home-categories">${cats.map(c=>`<button class="home-category" data-home-category="${escAttr(c)}"><span>${esc(c)}</span></button>`).join('')}</div></section>`}if(s.type==='banner')return `<section class="home-banner"><img src="${escAttr(s.image_url||'awm-logo.jpg')}" alt="${escAttr(title)}" loading="lazy"><div class="home-banner-content"><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></section>`;return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></div></section>`;}).join('');
+function renderHomepage(){const root=$('#homeSections');if(!root)return;const sections=state.homeSections||[];root.innerHTML=sections.map(s=>{const title=s.title||'';const sub=s.subtitle||'';if(s.type==='hero')return `<section class="home-hero"><div class="home-hero-bg" style="background-image:url('${escAttr(s.image_url||'')}')"></div><div class="home-hero-shade"></div><div class="home-hero-content"><div class="home-kicker">AWM STORE</div><h2>${esc(title||'اختار ستايلك')}</h2><p>${esc(sub||'قطع مختارة بعناية وتحديثات مستمرة.')}</p>${s.button_url?`<a class="home-cta" href="${escAttr(s.button_url)}">${esc(s.button_text||'اكتشف الآن')}</a>`:''}</div></section>`;if(s.type==='products'||s.type==='collection'){const ps=sectionProducts(s);return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'مختارات AWM')}</h3><p>${esc(sub||'اختيارات مميزة لك')}</p></div></div><div class="home-products">${ps.map((p,i)=>cardHtml(p,i)).join('')||'<div class="state-box"><h3>لسه بنجهز المجموعة</h3><p>أضف منتجات للـSection من لوحة الإدارة.</p></div>'}</div></section>`}if(s.type==='categories'){
+          const taxonomyCats=(state.taxonomyCategories||[]).filter(x=>x?.is_active!==false&&x?.name);
+          const cats=taxonomyCats.length?taxonomyCats.slice(0,10):[...new Set(state.products.map(p=>p.category).filter(Boolean))].slice(0,10);
+          return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'الأقسام')}</h3><p>${esc(sub||'اختار القسم اللي تحبه')}</p></div></div><div class="home-categories">${cats.map(c=>{const name=typeof c==='string'?c:c.name;const img=typeof c==='string'?'':c.image_url;return `<button class="home-category" data-home-category="${escAttr(name)}">${img?`<img src="${escAttr(img)}" alt="${escAttr(name)}" loading="lazy" onerror="this.style.display='none'">`:''}<span>${esc(name)}</span></button>`}).join('')}</div></section>`;
+        }if(s.type==='banner')return `<section class="home-banner"><img src="${escAttr(s.image_url||'awm-logo.jpg')}" alt="${escAttr(title)}" loading="lazy"><div class="home-banner-content"><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></section>`;return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></div></section>`;}).join('');
   root.querySelectorAll('[data-home-category]').forEach(btn=>btn.addEventListener('click',()=>{state.activeCategory=btn.dataset.homeCategory;state.visibleProductCount=48;document.querySelector('#catalog')?.scrollIntoView({behavior:'smooth'});renderCategories();renderProducts()}));
   root.querySelectorAll('[data-action="favorite"]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();toggleFavorite(btn.dataset.id);}));
   root.querySelectorAll('.product-card[data-product-id]').forEach(card=>card.addEventListener('click',e=>{if(e.target.closest('[data-action="favorite"]'))return;openProduct(card.dataset.productId)}));
@@ -1843,6 +1925,18 @@ async function loadLookbooks(){
   const rows=await optionalRows('lookbooks','*',q=>q.eq('is_active',true).order('sort_order',{ascending:true}));
   state.lookbooks=rows;
   renderLookbooks();
+}
+
+function subscribeToShowroomChanges(){
+  if(!db || state.showroomChannel)return;
+  state.showroomChannel=db.channel('awm-showroom-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'homepage_sections'},()=>loadHomepage())
+    .on('postgres_changes',{event:'*',schema:'public',table:'offers'},()=>loadOffer())
+    .on('postgres_changes',{event:'*',schema:'public',table:'showroom_settings'},()=>loadShowroomSettings())
+    .on('postgres_changes',{event:'*',schema:'public',table:'lookbooks'},()=>loadLookbooks())
+    .on('postgres_changes',{event:'*',schema:'public',table:'categories'},()=>loadPublicTaxonomy())
+    .on('postgres_changes',{event:'*',schema:'public',table:'collections'},()=>loadPublicTaxonomy())
+    .subscribe(status=>{document.documentElement.dataset.showroomRealtime=status;});
 }
 function renderStoreInfo(){
   const s={...showroomSettingsFallback(),...(state.showroomSettings||{})};
@@ -1905,11 +1999,13 @@ function startDisplayMode(){
 }
 function stopDisplayMode(){clearInterval(state.displayTimer);state.displayTimer=null;document.body.classList.remove('showroom-display-mode')}
 function renderDisplaySlide(){
-  const p=state.products[state.displayIndex]; if(!p)return;
+  const list=state.displayPlaylist?.length?state.displayPlaylist:state.products; const p=list[state.displayIndex]; if(!p)return;
   $('#displayImage').src=parseImages(p)[0]||'awm-logo.jpg';
+  const showroom={...showroomSettingsFallback(),...(state.showroomSettings||{})};
+  $('#displayKicker').textContent=showroom.display_message||'AWM DIGITAL SHOWROOM';
   $('#displayName').textContent=p.name||'AWM';
   $('#displayPrice').textContent=`${formatMoney(effectivePrice(p))} جنيه`;
-  $('#displayMeta').textContent=[p.category,p.collection,p.fabric,p.sizes].filter(Boolean).join(' • ');
+  $('#displayMeta').textContent=[p.category,p.collection,p.fabric,p.sizes,p.display_note].filter(Boolean).join(' • ');
   $('#displayDots').innerHTML=state.products.slice(0,20).map((_,i)=>`<span class="display-dot ${i===state.displayIndex%20?'active':''}"></span>`).join('');
 }
 function maybeStartDisplayFromUrl(){
@@ -1948,7 +2044,9 @@ loadProducts = async function(opts={}) {
 };
 
 setupInstallPrompt();bindV2Events();
+loadPublicTaxonomy();
 loadShowroomData();
+subscribeToShowroomChanges();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('awm-sw.js').catch(()=>{}));}
 
   </script>
