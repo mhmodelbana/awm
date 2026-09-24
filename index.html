@@ -3,34 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>AWM | Always Your Store</title>
-<meta name="description" content="AWM Store — معرض الملابس الرجالي">
-<meta name="theme-color" content="#0b0b0b">
+
+<meta
+  name="description"
+  content="AWM Store — Fashion Gallery"
+>
+
+<meta
+  name="theme-color"
+  content="#0b0b0b"
+>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap"
+  rel="stylesheet"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
+
   --black:#0b0b0b;
+  --black2:#131313;
   --ink:#151515;
+
+  --paper:#f5f5f3;
+  --card:#ffffff;
+
   --muted:#777;
-  --muted2:#9a9a9a;
-  --paper:#f6f6f4;
-  --card:#fff;
+  --muted2:#999;
+
   --line:#e8e8e6;
   --line2:#dededb;
+
   --red:#d71920;
+  --red-dark:#b9141a;
+  --red-bg:#fff0f1;
+
   --green:#16834b;
-  --greenbg:#eaf8f0;
-  --redbg:#fff0f1;
-  --shadow:0 12px 35px rgba(0,0,0,.055);
-  --shadow2:0 28px 90px rgba(0,0,0,.16);
-  --radius:22px;
+  --green-bg:#eaf8f0;
+
+  --gold:#b68a32;
+  --gold-bg:#fbf5e8;
+
+  --shadow-sm:0 6px 22px rgba(0,0,0,.045);
+  --shadow:0 14px 38px rgba(0,0,0,.07);
+  --shadow-lg:0 28px 100px rgba(0,0,0,.18);
+
+  --radius-sm:11px;
+  --radius:18px;
+  --radius-lg:24px;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -45,12 +84,20 @@ body{
   margin:0;
   background:var(--paper);
   color:var(--ink);
+
   font-family:Cairo,Arial,sans-serif;
+
   overflow-x:hidden;
 }
 
-body.modal-open{
+body.modal-open,
+body.drawer-open{
   overflow:hidden;
+}
+
+img{
+  display:block;
+  max-width:100%;
 }
 
 button,
@@ -64,13 +111,12 @@ button{
 }
 
 a{
-  text-decoration:none;
   color:inherit;
+  text-decoration:none;
 }
 
-img{
-  display:block;
-  max-width:100%;
+.hidden{
+  display:none!important;
 }
 
 .container{
@@ -79,28 +125,33 @@ img{
 }
 
 
-/* =====================================================
+/* =========================================================
    TOPBAR
-===================================================== */
+========================================================= */
 
 .topbar{
   background:var(--black);
   color:#fff;
-  font-size:11px;
+
   border-bottom:1px solid rgba(255,255,255,.08);
+
+  font-size:10px;
 }
 
 .topbar .container{
-  min-height:34px;
+  min-height:33px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   gap:8px;
+
   opacity:.92;
 }
 
 .topbar b{
-  font-family:Montserrat,sans-serif;
+  font:900 10px Montserrat,sans-serif;
   letter-spacing:2px;
 }
 
@@ -109,63 +160,86 @@ img{
 }
 
 
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 .header{
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(255,255,255,.94);
+
+  z-index:60;
+
+  background:rgba(255,255,255,.95);
+
   backdrop-filter:blur(18px) saturate(130%);
   -webkit-backdrop-filter:blur(18px) saturate(130%);
+
   border-bottom:1px solid rgba(0,0,0,.07);
 }
 
 .nav{
   min-height:76px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+
+  gap:18px;
 }
 
 .brand{
+  min-width:160px;
+
   display:flex;
   align-items:center;
+
   gap:10px;
-  min-width:160px;
+
   flex-shrink:0;
 }
 
 .brand img{
   width:46px;
   height:46px;
+
   border-radius:12px;
+
   object-fit:cover;
-  box-shadow:0 7px 20px rgba(0,0,0,.11);
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.11);
 }
 
 .brand strong{
+  display:block;
+
   font:900 22px Montserrat,sans-serif;
+
   letter-spacing:3.5px;
 }
 
 .brand small{
   display:block;
-  color:#8a8a8a;
-  font:700 8px Montserrat,sans-serif;
-  letter-spacing:1.4px;
+
   margin-top:2px;
+
+  color:#888;
+
+  font:700 8px Montserrat,sans-serif;
+
+  letter-spacing:1.3px;
 }
 
 .navlinks{
   display:flex;
-  gap:26px;
   align-items:center;
-  font-size:14px;
-  font-weight:800;
+  justify-content:center;
+
+  gap:27px;
+
+  font-size:13px;
+  font-weight:900;
 }
 
 .navlinks a{
@@ -173,44 +247,67 @@ img{
   white-space:nowrap;
 }
 
-.navlinks a:after{
+.navlinks a::after{
   content:"";
+
   position:absolute;
+
   right:0;
   left:100%;
+
   bottom:-8px;
+
   height:2px;
+
+  border-radius:99px;
+
   background:var(--red);
+
   transition:.22s;
 }
 
-.navlinks a.active:after,
-.navlinks a:hover:after{
+.navlinks a:hover::after,
+.navlinks a.active::after{
   left:0;
 }
 
 .nav-actions{
   display:flex;
   align-items:center;
-  gap:8px;
+
+  gap:7px;
+
   flex-shrink:0;
 }
 
 .icon-btn{
+  position:relative;
+
   width:42px;
   height:42px;
-  border:1px solid var(--line2);
-  background:#fff;
-  border-radius:13px;
+
   display:grid;
   place-items:center;
-  transition:.22s;
+
+  border:1px solid var(--line2);
+
+  border-radius:13px;
+
+  background:#fff;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
 }
 
 .icon-btn:hover{
   transform:translateY(-1px);
+
   border-color:#111;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.08);
 }
 
 .icon-btn svg{
@@ -218,21 +315,53 @@ img{
   height:18px;
 }
 
+.fav-count{
+  position:absolute;
 
-/* =====================================================
-   HERO — MINIMAL / PREMIUM
-===================================================== */
+  top:-5px;
+  left:-4px;
+
+  min-width:17px;
+  height:17px;
+
+  padding:0 4px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:999px;
+
+  background:var(--red);
+
+  color:#fff;
+
+  font:900 8px Arial,sans-serif;
+
+  border:2px solid #fff;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero-minimal{
   position:relative;
+
   width:min(1360px,calc(100% - 34px));
+
   min-height:340px;
+
   margin:18px auto 0;
+
   display:flex;
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   overflow:hidden;
+
   isolation:isolate;
 
   background:
@@ -248,6 +377,7 @@ img{
     );
 
   border:1px solid rgba(0,0,0,.05);
+
   border-radius:25px;
 
   box-shadow:
@@ -256,133 +386,187 @@ img{
 
 .hero-glow{
   position:absolute;
+
   width:240px;
   height:240px;
+
   left:50%;
   top:50%;
+
   transform:translate(-50%,-50%);
+
   border-radius:50%;
 
-  background:radial-gradient(
-    circle,
-    rgba(215,25,32,.11),
-    transparent 68%
-  );
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,25,32,.11),
+      transparent 68%
+    );
 
   filter:blur(12px);
-  animation:heroGlow 5s ease-in-out infinite;
+
+  animation:
+    heroGlow 5s ease-in-out infinite;
+
   pointer-events:none;
 }
 
 .hero-logo-animation{
   position:relative;
+
   width:105px;
   height:105px;
+
   display:flex;
   align-items:center;
   justify-content:center;
 
-  animation:logoFloat 4.5s ease-in-out infinite;
+  animation:
+    logoFloat 4.5s ease-in-out infinite;
 
-  filter:drop-shadow(
-    0 14px 22px rgba(0,0,0,.10)
-  );
+  filter:
+    drop-shadow(
+      0 14px 22px rgba(0,0,0,.10)
+    );
 }
 
 .hero-logo-animation img{
   position:relative;
   z-index:3;
+
   width:82px;
   height:82px;
+
   object-fit:cover;
+
   border-radius:19px;
+
   background:#fff;
 
   box-shadow:
     0 0 0 1px rgba(0,0,0,.045),
     0 10px 28px rgba(0,0,0,.08);
 
-  animation:logoBreath 3.8s ease-in-out infinite;
+  animation:
+    logoBreath 3.8s ease-in-out infinite;
 }
 
 .logo-aura{
   position:absolute;
+
   inset:5px;
+
   border-radius:26px;
 
-  background:radial-gradient(
-    circle,
-    rgba(215,25,32,.14),
-    transparent 67%
-  );
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,25,32,.14),
+      transparent 67%
+    );
 
   filter:blur(10px);
-  animation:logoAura 3.8s ease-in-out infinite;
+
+  animation:
+    logoAura 3.8s ease-in-out infinite;
 }
 
 .logo-shine{
   position:absolute;
+
   z-index:5;
+
   top:-20%;
   left:-80%;
+
   width:27%;
   height:140%;
 
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.95),
-    transparent
-  );
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.95),
+      transparent
+    );
 
   transform:rotate(18deg);
-  animation:logoShine 5.2s ease-in-out infinite;
+
+  animation:
+    logoShine 5.2s ease-in-out infinite;
+
   pointer-events:none;
 }
 
 .hero-minimal h1{
   position:relative;
   z-index:5;
+
   margin:21px 0 0;
+
   color:#111;
+
   font-size:clamp(36px,4.5vw,51px);
+
   line-height:1.1;
+
   letter-spacing:-1.8px;
+
   font-weight:900;
+
   text-align:center;
 }
 
 .hero-minimal h1 span{
-  color:var(--red);
   position:relative;
+
+  color:var(--red);
 }
 
 .hero-minimal h1 span::after{
   content:"";
+
   position:absolute;
+
   right:0;
   left:0;
+
   bottom:-5px;
+
   height:2px;
-  border-radius:100px;
+
+  border-radius:99px;
+
   background:var(--red);
+
   transform:scaleX(.35);
+
   transform-origin:center;
-  animation:titleAccent 3s ease-in-out infinite;
+
+  animation:
+    titleAccent 3s ease-in-out infinite;
 }
 
 .hero-explore{
   position:relative;
+
   z-index:5;
-  margin-top:22px;
+
   min-width:100px;
+
   height:40px;
+
+  margin-top:22px;
+
   display:flex;
   align-items:center;
   justify-content:center;
 
   border-radius:10px;
+
   background:#111;
+
   color:#fff;
 
   font-size:9px;
@@ -391,14 +575,12 @@ img{
   box-shadow:
     0 9px 22px rgba(0,0,0,.11);
 
-  transition:
-    transform .22s ease,
-    background .22s ease,
-    box-shadow .22s ease;
+  transition:.22s;
 }
 
 .hero-explore:hover{
   transform:translateY(-2px);
+
   background:var(--red);
 
   box-shadow:
@@ -406,143 +588,252 @@ img{
 }
 
 
-/* =====================================================
-   HERO ANIMATIONS
-===================================================== */
+/* =========================================================
+   COLLECTION NAV
+========================================================= */
 
-@keyframes logoFloat{
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-7px);
-  }
+.collections{
+  margin-top:32px;
 }
 
-@keyframes logoBreath{
-  0%,100%{
-    transform:scale(1);
-  }
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
 
-  50%{
-    transform:scale(1.025);
-  }
+  gap:15px;
+
+  margin-bottom:14px;
 }
 
-@keyframes logoAura{
-  0%,100%{
-    opacity:.30;
-    transform:scale(.92);
-  }
+.section-kicker{
+  color:var(--red);
 
-  50%{
-    opacity:.72;
-    transform:scale(1.08);
-  }
+  font:800 9px Montserrat,sans-serif;
+
+  letter-spacing:2px;
 }
 
-@keyframes logoShine{
-  0%,15%{
-    left:-80%;
-    opacity:0;
-  }
+.section-title{
+  margin:4px 0 0;
 
-  25%{
-    opacity:.85;
-  }
+  font-size:28px;
 
-  42%,100%{
-    left:140%;
-    opacity:0;
-  }
+  line-height:1.1;
+
+  letter-spacing:-1px;
+
+  font-weight:900;
 }
 
-@keyframes heroGlow{
-  0%,100%{
-    transform:translate(-50%,-50%) scale(.92);
-    opacity:.55;
-  }
+.section-sub{
+  margin:5px 0 0;
 
-  50%{
-    transform:translate(-50%,-50%) scale(1.08);
-    opacity:1;
-  }
+  color:#808080;
+
+  font-size:11px;
 }
 
-@keyframes titleAccent{
-  0%,100%{
-    transform:scaleX(.35);
-    opacity:.4;
-  }
+.collection-row{
+  display:flex;
 
-  50%{
-    transform:scaleX(1);
-    opacity:1;
-  }
+  gap:9px;
+
+  overflow:auto;
+
+  padding-bottom:3px;
+
+  scrollbar-width:none;
+}
+
+.collection-row::-webkit-scrollbar{
+  display:none;
+}
+
+.collection-chip{
+  position:relative;
+
+  flex:0 0 auto;
+
+  min-width:115px;
+  min-height:74px;
+
+  padding:13px 14px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  background:#fff;
+
+  overflow:hidden;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+.collection-chip::after{
+  content:"";
+
+  position:absolute;
+
+  width:65px;
+  height:65px;
+
+  right:-18px;
+  bottom:-30px;
+
+  border-radius:50%;
+
+  background:
+    rgba(215,25,32,.06);
+}
+
+.collection-chip:hover{
+  transform:translateY(-2px);
+
+  border-color:#d6d6d3;
+
+  box-shadow:var(--shadow-sm);
+}
+
+.collection-chip.active{
+  background:#111;
+
+  color:#fff;
+
+  border-color:#111;
+}
+
+.collection-chip.active::after{
+  background:rgba(255,255,255,.08);
+}
+
+.collection-chip strong{
+  position:relative;
+  z-index:2;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+.collection-chip span{
+  position:relative;
+  z-index:2;
+
+  margin-top:2px;
+
+  color:#888;
+
+  font-size:8px;
+  font-weight:700;
+}
+
+.collection-chip.active span{
+  color:#aaa;
 }
 
 
-/* =====================================================
-   CATALOG INTRO
-===================================================== */
+/* =========================================================
+   CATALOG
+========================================================= */
 
 .catalog-shell{
-  padding-top:26px;
+  padding-top:28px;
 }
 
 .catalog-bar{
   display:flex;
   align-items:end;
   justify-content:space-between;
+
   gap:18px;
-  margin-bottom:16px;
+
+  margin-bottom:15px;
 }
 
 .catalog-title .eyebrow{
-  margin:0 0 6px;
+  margin-bottom:6px;
+
   color:var(--red);
+
   font:800 10px Montserrat,sans-serif;
+
   letter-spacing:2.2px;
+
   text-transform:uppercase;
 }
 
 .catalog-title h1{
   margin:0;
+
   font-size:clamp(30px,4vw,45px);
+
   line-height:1;
+
   letter-spacing:-1.4px;
 }
 
 .catalog-title p{
   margin:6px 0 0;
+
   color:var(--muted);
+
   font-size:13px;
 }
 
 .catalog-count{
   color:#777;
-  font-size:12px;
+
+  font-size:11px;
+
   font-weight:800;
+
   white-space:nowrap;
 }
 
 
-/* =====================================================
-   FILTERS
-===================================================== */
+/* =========================================================
+   SMART SEARCH
+========================================================= */
+
+.filters-wrap{
+  position:relative;
+}
+
+.filter-trigger-mobile{
+  display:none;
+}
 
 .filters{
+  position:relative;
+
   background:#fff;
+
   border:1px solid var(--line);
+
   border-radius:20px;
+
   padding:11px;
-  box-shadow:0 10px 30px rgba(0,0,0,.035);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.035);
 }
 
 .filter-row{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 170px 150px;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    170px
+    150px;
+
   gap:8px;
 }
 
@@ -550,51 +841,178 @@ img{
   position:relative;
 }
 
-.search-wrap svg{
+.search-wrap > svg{
   position:absolute;
+
   right:13px;
   top:50%;
+
   transform:translateY(-50%);
+
   color:#999;
+
   pointer-events:none;
 }
 
 .search{
   width:100%;
   height:44px;
-  padding:0 41px 0 13px;
+
+  padding:
+    0 41px 0 13px;
+
   border:1px solid var(--line);
+
   border-radius:12px;
+
   outline:none;
+
   background:#fafafa;
+
+  color:#111;
+
   transition:.2s;
 }
 
 .search:focus{
   background:#fff;
+
   border-color:#111;
-  box-shadow:0 0 0 4px rgba(0,0,0,.035);
+
+  box-shadow:
+    0 0 0 4px rgba(0,0,0,.035);
+}
+
+.search-suggestions{
+  position:absolute;
+
+  right:0;
+  left:0;
+
+  top:calc(100% + 6px);
+
+  z-index:40;
+
+  display:none;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.12);
+}
+
+.search-suggestions.open{
+  display:block;
+}
+
+.suggestion{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+
+  padding:10px 12px;
+
+  border:0;
+
+  background:#fff;
+
+  text-align:right;
+
+  transition:.18s;
+}
+
+.suggestion:hover{
+  background:#f7f7f5;
+}
+
+.suggestion img{
+  width:38px;
+  height:46px;
+
+  flex:0 0 38px;
+
+  object-fit:cover;
+
+  border-radius:7px;
+
+  background:#eee;
+}
+
+.suggestion-main{
+  min-width:0;
+  flex:1;
+}
+
+.suggestion-main strong{
+  display:block;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.suggestion-main span{
+  display:block;
+
+  margin-top:2px;
+
+  color:#999;
+
+  font-size:8px;
+}
+
+.suggestion-price{
+  flex:0 0 auto;
+
+  font:900 10px Montserrat,sans-serif;
 }
 
 .select,
 .toggle{
+  width:100%;
   height:44px;
+
   border:1px solid var(--line);
+
   border-radius:12px;
+
   background:#fff;
+
+  color:#111;
 }
 
 .select{
-  width:100%;
   padding:0 11px;
+
   outline:none;
+}
+
+.select:focus{
+  border-color:#111;
 }
 
 .toggle{
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   gap:8px;
+
   font-size:11px;
   font-weight:900;
 }
@@ -602,13 +1020,16 @@ img{
 .toggle .dot{
   width:8px;
   height:8px;
+
   border-radius:50%;
+
   background:#aaa;
 }
 
 .toggle.active{
   background:#111;
   color:#fff;
+
   border-color:#111;
 }
 
@@ -616,12 +1037,97 @@ img{
   background:#39d47b;
 }
 
+.advanced-filters{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:8px;
+
+  padding-top:8px;
+}
+
+.price-row{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:8px;
+}
+
+.price-input{
+  width:100%;
+
+  height:42px;
+
+  border:1px solid var(--line);
+
+  border-radius:11px;
+
+  background:#fafafa;
+
+  outline:none;
+
+  padding:0 10px;
+
+  font-size:10px;
+}
+
+.price-input:focus{
+  border-color:#111;
+
+  background:#fff;
+}
+
+.filter-actions{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding-top:9px;
+}
+
+.filter-summary{
+  color:#888;
+
+  font-size:9px;
+}
+
+.filter-clear{
+  border:0;
+
+  background:transparent;
+
+  color:#111;
+
+  text-decoration:underline;
+
+  text-underline-offset:3px;
+
+  font-size:9px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   CATEGORY CHIPS
+========================================================= */
+
 .categories{
   display:flex;
+
   gap:7px;
+
   overflow:auto;
-  scrollbar-width:none;
+
   padding-top:10px;
+
+  scrollbar-width:none;
 }
 
 .categories::-webkit-scrollbar{
@@ -629,20 +1135,32 @@ img{
 }
 
 .cat{
+  flex:0 0 auto;
+
   white-space:nowrap;
+
   border:1px solid var(--line2);
+
   background:#fff;
+
   color:#333;
+
   border-radius:999px;
+
   padding:8px 12px;
+
   font-size:10px;
+
   font-weight:900;
+
   transition:.2s;
 }
 
 .cat.active{
   background:#111;
+
   color:#fff;
+
   border-color:#111;
 }
 
@@ -651,136 +1169,278 @@ img{
 }
 
 
-/* =====================================================
-   FEATURED
-===================================================== */
+/* =========================================================
+   FEATURE STRIPS
+========================================================= */
 
-.featured{
-  margin-top:30px;
+.product-section{
+  margin-top:32px;
 }
 
-.featured-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:12px;
-  margin-bottom:13px;
+.product-section[hidden]{
+  display:none!important;
 }
 
-.featured-head .kicker{
-  color:var(--red);
-  font:800 10px Montserrat,sans-serif;
-  letter-spacing:2px;
-}
-
-.featured-head h2{
-  margin:3px 0 0;
-  font-size:27px;
-  letter-spacing:-.7px;
-}
-
-.featured-head p{
-  margin:4px 0 0;
+.section-count{
   color:#777;
-  font-size:11px;
-}
 
-.featured-count{
-  font-size:11px;
-  color:#777;
+  font-size:10px;
+
   font-weight:800;
 }
 
-.featured-grid{
+.section-grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
   gap:13px;
 }
 
-.featured-card{
-  min-height:360px;
+
+/* =========================================================
+   MINI FEATURE CARD
+========================================================= */
+
+.mini-card{
   position:relative;
+
   overflow:hidden;
-  border-radius:20px;
+
+  min-height:350px;
+
   background:#111;
+
+  border-radius:20px;
+
   cursor:pointer;
-  box-shadow:0 18px 45px rgba(0,0,0,.11);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.10);
+
+  isolation:isolate;
 }
 
-.featured-card img{
+.mini-card img{
   position:absolute;
+
   inset:0;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
-  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+
+  transition:
+    transform .55s cubic-bezier(.2,.7,.2,1);
 }
 
-.featured-card:after{
+.mini-card::after{
   content:"";
+
   position:absolute;
+
   inset:0;
-  background:linear-gradient(
-    180deg,
-    rgba(0,0,0,.03) 30%,
-    rgba(0,0,0,.76) 100%
-  );
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 25%,
+      rgba(0,0,0,.80) 100%
+    );
 }
 
-.featured-card:hover img{
+.mini-card:hover img{
   transform:scale(1.05);
 }
 
-.featured-tag{
+.mini-badge{
   position:absolute;
-  z-index:2;
-  top:11px;
-  right:11px;
-  background:#fff;
-  color:#111;
-  border-radius:999px;
+
+  top:10px;
+  right:10px;
+
+  z-index:3;
+
   padding:6px 9px;
-  font-size:9px;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  color:#111;
+
+  font-size:8px;
+
   font-weight:900;
 }
 
-.featured-info{
+.mini-info{
   position:absolute;
-  z-index:2;
+
+  z-index:3;
+
   right:14px;
   left:14px;
   bottom:14px;
+
   color:#fff;
 }
 
-.featured-info small{
-  font-size:9px;
-  color:rgba(255,255,255,.68);
+.mini-info small{
+  color:rgba(255,255,255,.67);
+
+  font-size:8px;
 }
 
-.featured-info strong{
+.mini-info strong{
   display:block;
-  font-size:17px;
-  margin:2px 0 6px;
+
+  margin:2px 0 5px;
+
+  font-size:16px;
+
+  line-height:1.3;
 }
 
-.featured-info b{
-  font:800 14px Montserrat,sans-serif;
+.mini-price{
+  font:900 13px Montserrat,sans-serif;
+}
+
+.mini-old{
+  margin-right:6px;
+
+  color:rgba(255,255,255,.48);
+
+  text-decoration:line-through;
+
+  font:700 10px Montserrat,sans-serif;
 }
 
 
-/* =====================================================
-   RESULTS
-===================================================== */
+/* =========================================================
+   OFFER STRIP
+========================================================= */
+
+.offer-banner{
+  position:relative;
+
+  margin-top:28px;
+
+  padding:21px 24px;
+
+  overflow:hidden;
+
+  background:#111;
+
+  color:#fff;
+
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+.offer-banner::before{
+  content:"";
+
+  position:absolute;
+
+  width:240px;
+  height:240px;
+
+  left:-60px;
+  top:-130px;
+
+  border-radius:50%;
+
+  background:
+    rgba(215,25,32,.20);
+
+  filter:blur(8px);
+}
+
+.offer-content{
+  position:relative;
+  z-index:2;
+}
+
+.offer-content small{
+  display:block;
+
+  color:#ff7276;
+
+  font:800 8px Montserrat,sans-serif;
+
+  letter-spacing:2px;
+}
+
+.offer-content strong{
+  display:block;
+
+  margin-top:4px;
+
+  font-size:19px;
+}
+
+.offer-content p{
+  margin:3px 0 0;
+
+  color:#9b9b9b;
+
+  font-size:9px;
+}
+
+.offer-action{
+  position:relative;
+
+  z-index:2;
+
+  flex:0 0 auto;
+
+  min-width:115px;
+
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:#fff;
+
+  color:#111;
+
+  font-size:9px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   MAIN RESULTS
+========================================================= */
 
 .results-line{
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
+  justify-content:space-between;
+
   gap:10px;
-  padding:22px 0 10px;
+
+  padding:24px 0 11px;
+
   color:#777;
-  font-size:11px;
+
+  font-size:10px;
 }
 
 .results-line strong{
@@ -789,32 +1449,50 @@ img{
 
 .clear-btn{
   border:0;
+
   background:transparent;
-  text-decoration:underline;
-  text-underline-offset:3px;
-  font-size:10px;
-  font-weight:900;
+
   color:#111;
+
+  text-decoration:underline;
+
+  text-underline-offset:3px;
+
+  font-size:9px;
+
+  font-weight:900;
 }
 
 
-/* =====================================================
+/* =========================================================
    PRODUCTS GRID
-===================================================== */
+========================================================= */
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
   gap:14px;
-  padding-bottom:65px;
+
+  padding-bottom:60px;
 }
 
 .card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:19px;
+  position:relative;
+
   overflow:hidden;
-  box-shadow:0 6px 22px rgba(0,0,0,.035);
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  box-shadow:
+    0 6px 22px rgba(0,0,0,.035);
+
   transition:
     transform .25s ease,
     box-shadow .25s ease,
@@ -823,50 +1501,116 @@ img{
 
 .card:hover{
   transform:translateY(-4px);
-  box-shadow:var(--shadow);
+
   border-color:#ddd;
+
+  box-shadow:var(--shadow);
 }
 
 .card-media{
   position:relative;
+
   aspect-ratio:4/5;
+
   overflow:hidden;
+
   background:#ecece9;
+
+  cursor:pointer;
 }
 
 .card-media img{
   width:100%;
   height:100%;
+
   object-fit:cover;
-  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+
+  transition:
+    transform .5s cubic-bezier(.2,.7,.2,1);
 }
 
 .card:hover .card-media img{
   transform:scale(1.035);
 }
 
+.card-fav{
+  position:absolute;
+
+  left:9px;
+  top:9px;
+
+  z-index:5;
+
+  width:34px;
+  height:34px;
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid rgba(0,0,0,.05);
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.92);
+
+  color:#111;
+
+  box-shadow:
+    0 7px 18px rgba(0,0,0,.10);
+
+  backdrop-filter:blur(8px);
+
+  transition:.2s;
+}
+
+.card-fav:hover{
+  transform:scale(1.05);
+}
+
+.card-fav.active{
+  color:var(--red);
+}
+
+.card-fav svg{
+  width:16px;
+  height:16px;
+}
+
 .card-badges{
   position:absolute;
+
   top:9px;
   right:9px;
-  z-index:2;
+
+  z-index:4;
+
   display:flex;
-  gap:5px;
   flex-wrap:wrap;
-  max-width:80%;
+
+  gap:4px;
+
+  max-width:75%;
 }
 
 .badge{
   border-radius:999px;
+
   padding:5px 8px;
-  font-size:8px;
-  font-weight:900;
+
   background:#fff;
-  box-shadow:0 4px 11px rgba(0,0,0,.08);
+
+  color:#111;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 4px 11px rgba(0,0,0,.08);
 }
 
 .badge.green{
-  background:var(--greenbg);
+  background:var(--green-bg);
   color:var(--green);
 }
 
@@ -880,19 +1624,36 @@ img{
   color:#fff;
 }
 
+.badge.gold{
+  background:var(--gold-bg);
+  color:var(--gold);
+}
+
 .photo-count{
   position:absolute;
+
   left:8px;
   bottom:8px;
-  z-index:2;
-  padding:5px 7px;
+
+  z-index:3;
+
+  height:24px;
+
+  padding:0 8px;
+
+  display:flex;
+  align-items:center;
+
+  border-radius:999px;
+
+  background:rgba(0,0,0,.58);
+
+  color:#fff;
+
   font-size:8px;
   font-weight:900;
-  color:#fff;
-  border-radius:999px;
-  background:rgba(0,0,0,.58);
+
   backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
 }
 
 .card-body{
@@ -900,89 +1661,140 @@ img{
 }
 
 .card-meta{
-  color:#888;
+  color:#8c8c8c;
+
   font-size:9px;
+
   margin-bottom:3px;
 }
 
 .card-name{
-  font-size:15px;
-  line-height:1.35;
-  font-weight:900;
   min-height:40px;
+
+  color:#111;
+
+  font-size:15px;
+
+  line-height:1.4;
+
+  font-weight:900;
 }
 
-.card-foot{
+.card-price-row{
   display:flex;
+
   align-items:center;
-  justify-content:space-between;
-  gap:8px;
+
+  gap:7px;
+
   margin-top:9px;
 }
 
 .card-price{
   font:900 15px Montserrat,sans-serif;
+
   white-space:nowrap;
+}
+
+.card-old-price{
+  color:#a0a0a0;
+
+  text-decoration:line-through;
+
+  font:700 10px Montserrat,sans-serif;
+}
+
+.card-discount{
+  color:var(--red);
+
+  font-size:8px;
+
+  font-weight:900;
+}
+
+.card-meta-row{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:7px;
+
+  min-height:19px;
+
+  margin-top:6px;
+}
+
+.stock-note{
+  color:#16834b;
+
+  font-size:8px;
+
+  font-weight:900;
+}
+
+.stock-note.low{
+  color:var(--red);
 }
 
 .card-detail{
   width:100%;
-  margin-top:10px;
+
   height:37px;
+
+  margin-top:10px;
+
   border:1px solid var(--line2);
-  background:#fff;
+
   border-radius:10px;
+
+  background:#fff;
+
+  color:#111;
+
   font-size:10px;
+
   font-weight:900;
+
   transition:.2s;
 }
 
 .card-detail:hover{
   background:#111;
+
   color:#fff;
+
   border-color:#111;
 }
 
-/* موجود للداخل فقط في حال احتاجه أي جزء آخر */
-.card-contact{
-  width:100%;
-  margin-top:7px;
-  height:37px;
-  border:1px solid #1f9b61;
-  background:#f3fbf7;
-  color:#147447;
-  border-radius:10px;
-  font-size:10px;
-  font-weight:900;
-  transition:.2s;
-}
 
-.card-contact:hover{
-  background:#147447;
-  color:#fff;
-}
-
-
-/* =====================================================
-   SKELETON / EMPTY
-===================================================== */
+/* =========================================================
+   EMPTY / SKELETON
+========================================================= */
 
 .skeleton{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:19px;
   overflow:hidden;
+
+  background:#fff;
+
+  border:1px solid #eee;
+
+  border-radius:18px;
 }
 
 .skel{
-  background:linear-gradient(
-    90deg,
-    #ededeb 25%,
-    #fafaf8 37%,
-    #ededeb 63%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #ededeb 25%,
+      #fafaf8 37%,
+      #ededeb 63%
+    );
+
   background-size:400% 100%;
-  animation:shimmer 1.25s infinite;
+
+  animation:
+    shimmer 1.25s infinite;
 }
 
 .skel-img{
@@ -991,8 +1803,10 @@ img{
 
 .skel-line{
   height:11px;
-  border-radius:8px;
+
   margin:12px 13px 0;
+
+  border-radius:8px;
 }
 
 .skel-line.short{
@@ -1001,76 +1815,423 @@ img{
 
 .skel-line.mid{
   width:64%;
+
   height:17px;
 }
 
 .skel-btn{
   height:37px;
-  border-radius:10px;
+
   margin:10px 13px 13px;
-}
 
-@keyframes shimmer{
-  0%{
-    background-position:100% 0;
-  }
-
-  100%{
-    background-position:0 0;
-  }
+  border-radius:10px;
 }
 
 .empty{
   grid-column:1/-1;
-  background:#fff;
-  border:1px dashed #d9d9d6;
-  border-radius:20px;
+
   padding:55px 18px;
+
   text-align:center;
+
+  background:#fff;
+
+  border:1px dashed #d9d9d6;
+
+  border-radius:20px;
 }
 
 .empty-icon{
   width:48px;
   height:48px;
+
+  margin:0 auto 11px;
+
   display:grid;
   place-items:center;
+
   border-radius:50%;
+
   background:#f0f0ee;
-  margin:0 auto 11px;
+
   color:#888;
 }
 
 .empty h3{
   margin:0;
+
   font-size:18px;
 }
 
 .empty p{
   margin:5px 0 0;
+
   color:#888;
+
   font-size:11px;
 }
 
 
-/* =====================================================
-   MODAL
-===================================================== */
+/* =========================================================
+   RECENTLY VIEWED
+========================================================= */
+
+.recent-section{
+  padding-bottom:10px;
+}
+
+.recent-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:12px;
+}
+
+.recent-card{
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+
+  padding:9px;
+
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.recent-card:hover{
+  border-color:#d2d2ce;
+
+  transform:translateY(-1px);
+}
+
+.recent-card img{
+  width:50px;
+  height:60px;
+
+  flex:0 0 50px;
+
+  object-fit:cover;
+
+  border-radius:8px;
+
+  background:#eee;
+}
+
+.recent-info{
+  min-width:0;
+}
+
+.recent-info strong{
+  display:block;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  font-size:10px;
+
+  font-weight:900;
+}
+
+.recent-info span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#999;
+
+  font-size:8px;
+}
+
+.recent-info b{
+  display:block;
+
+  margin-top:4px;
+
+  font:900 10px Montserrat,sans-serif;
+}
+
+
+/* =========================================================
+   WHY AWM
+========================================================= */
+
+.why-section{
+  margin-top:35px;
+
+  padding:30px 0 36px;
+}
+
+.why-head{
+  text-align:center;
+
+  margin-bottom:19px;
+}
+
+.why-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:11px;
+}
+
+.why-card{
+  padding:19px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:17px;
+
+  text-align:center;
+
+  box-shadow:
+    0 6px 22px rgba(0,0,0,.025);
+}
+
+.why-icon{
+  width:42px;
+  height:42px;
+
+  margin:0 auto 9px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:13px;
+
+  background:#f5f5f2;
+
+  color:#111;
+}
+
+.why-icon svg{
+  width:19px;
+  height:19px;
+}
+
+.why-card strong{
+  display:block;
+
+  font-size:11px;
+  font-weight:900;
+}
+
+.why-card p{
+  margin:5px 0 0;
+
+  color:#888;
+
+  font-size:8px;
+
+  line-height:1.8;
+}
+
+
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+.social-section{
+  margin-top:10px;
+
+  padding:0 0 45px;
+}
+
+.social-box{
+  padding:22px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+.social-copy small{
+  color:var(--red);
+
+  font:800 8px Montserrat,sans-serif;
+
+  letter-spacing:1.8px;
+}
+
+.social-copy strong{
+  display:block;
+
+  margin-top:4px;
+
+  font-size:18px;
+}
+
+.social-copy p{
+  margin:3px 0 0;
+
+  color:#888;
+
+  font-size:9px;
+}
+
+.social-links{
+  display:flex;
+
+  gap:7px;
+}
+
+.social-link{
+  min-width:100px;
+
+  height:39px;
+
+  padding:0 13px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:7px;
+
+  border-radius:10px;
+
+  border:1px solid var(--line2);
+
+  background:#fff;
+
+  font-size:9px;
+
+  font-weight:900;
+
+  transition:.2s;
+}
+
+.social-link:hover{
+  background:#111;
+
+  color:#fff;
+
+  border-color:#111;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  margin-top:0;
+
+  padding:35px 0 17px;
+
+  background:#090909;
+
+  color:#fff;
+}
+
+.footer-main{
+  display:grid;
+
+  grid-template-columns:
+    1.4fr 1fr 1fr;
+
+  gap:30px;
+}
+
+.footer h3{
+  margin:0 0 8px;
+
+  font-size:16px;
+}
+
+.footer p,
+.footer li{
+  margin:0;
+
+  color:#9b9b9b;
+
+  font-size:10px;
+
+  line-height:1.9;
+}
+
+.footer ul{
+  list-style:none;
+
+  padding:0;
+
+  margin:0;
+}
+
+.footer a{
+  color:#fff;
+}
+
+.footer a:hover{
+  text-decoration:underline;
+
+  text-underline-offset:3px;
+}
+
+.footer-bottom{
+  margin-top:24px;
+
+  padding-top:13px;
+
+  border-top:1px solid #202020;
+
+  display:flex;
+  justify-content:space-between;
+
+  gap:10px;
+
+  color:#666;
+
+  font-size:9px;
+}
+
+
+/* =========================================================
+   PRODUCT MODAL
+========================================================= */
 
 .modal{
   position:fixed;
+
   inset:0;
+
   z-index:100;
 
   display:none;
+
   align-items:center;
   justify-content:center;
 
   padding:16px;
 
-  background:rgba(0,0,0,.68);
+  background:rgba(0,0,0,.70);
 
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
 }
 
 .modal.open{
@@ -1079,49 +2240,64 @@ img{
 
 .modal-box{
   position:relative;
-  width:min(1080px,100%);
+
+  width:min(1120px,100%);
+
   max-height:94vh;
 
   overflow:hidden;
 
   background:#fff;
+
   border-radius:27px;
 
-  box-shadow:var(--shadow2);
+  box-shadow:var(--shadow-lg);
 
   display:grid;
-  grid-template-columns:1.03fr .97fr;
+
+  grid-template-columns:
+    1.03fr .97fr;
 }
 
 .modal-media{
   min-height:640px;
-  background:#efefed;
+
+  background:#eeeeec;
 
   display:flex;
   flex-direction:column;
 }
 
 .main-image{
-  flex:1;
-  min-height:0;
   position:relative;
+
+  flex:1;
+
+  min-height:0;
+
   overflow:hidden;
-  background:#efefed;
+
+  background:#eeeeec;
 }
 
 .main-image img{
   width:100%;
   height:100%;
+
   object-fit:contain;
+
   transition:opacity .18s ease;
 }
 
 .gallery-caption{
   position:absolute;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
+
   z-index:4;
+
+  left:50%;
+  bottom:12px;
+
+  transform:translateX(-50%);
 
   min-width:52px;
   height:28px;
@@ -1134,26 +2310,31 @@ img{
 
   border-radius:999px;
 
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.58);
+
   color:#fff;
 
   font-size:9px;
+
   font-weight:900;
 
   backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
 }
 
 .modal-nav{
   position:absolute;
+
   top:50%;
-  transform:translateY(-50%);
-  z-index:3;
+
+  z-index:5;
 
   width:40px;
   height:40px;
 
-  border:1px solid rgba(0,0,0,.07);
+  transform:translateY(-50%);
+
+  border:1px solid rgba(0,0,0,.08);
+
   border-radius:50%;
 
   background:rgba(255,255,255,.92);
@@ -1161,15 +2342,17 @@ img{
   display:grid;
   place-items:center;
 
-  box-shadow:0 7px 20px rgba(0,0,0,.12);
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.12);
 
-  font-size:22px;
-  line-height:1;
+  font-size:21px;
+
   transition:.2s;
 }
 
 .modal-nav:hover{
   background:#111;
+
   color:#fff;
 }
 
@@ -1183,12 +2366,15 @@ img{
 
 .thumbs{
   display:flex;
+
   gap:7px;
+
   padding:10px;
 
   overflow:auto;
 
   border-top:1px solid #ddd;
+
   background:#fff;
 
   scrollbar-width:none;
@@ -1204,11 +2390,13 @@ img{
   width:62px;
   height:75px;
 
-  border:1px solid #ddd;
-  border-radius:10px;
-
   padding:0;
+
   overflow:hidden;
+
+  border:1px solid #ddd;
+
+  border-radius:10px;
 
   background:#f5f5f3;
 }
@@ -1220,403 +2408,925 @@ img{
 .thumb img{
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
 .modal-close{
   position:absolute;
+
   left:13px;
   top:13px;
-  z-index:8;
+
+  z-index:20;
 
   width:40px;
   height:40px;
 
   border:0;
+
   border-radius:50%;
 
   background:#fff;
 
-  box-shadow:0 7px 20px rgba(0,0,0,.15);
+  color:#111;
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.15);
 
   font-size:20px;
-  line-height:1;
 
   transition:.2s;
 }
 
 .modal-close:hover{
   background:#111;
+
   color:#fff;
+
   transform:rotate(4deg);
 }
 
 .modal-info{
-  padding:38px;
+  padding:34px;
+
   overflow:auto;
+
   scrollbar-width:thin;
 }
 
 .modal-topline{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
 }
 
 .modal-category{
   color:#888;
-  font-size:11px;
-  font-weight:800;
+
+  font-size:10px;
+
+  font-weight:900;
 }
 
 .modal-photo-count{
   color:#999;
-  font-size:10px;
+
+  font-size:9px;
+
   font-weight:800;
 }
 
 .modal-name{
-  font-size:33px;
-  line-height:1.18;
-  letter-spacing:-.9px;
+  margin-top:6px;
+
+  font-size:31px;
+
+  line-height:1.2;
+
+  letter-spacing:-.8px;
+
   font-weight:900;
-  margin-top:7px;
+}
+
+.modal-price-wrap{
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  margin:11px 0;
 }
 
 .modal-price{
-  font:900 28px Montserrat,sans-serif;
-  margin:12px 0;
+  font:900 27px Montserrat,sans-serif;
+}
+
+.modal-old-price{
+  color:#9a9a9a;
+
+  text-decoration:line-through;
+
+  font:700 12px Montserrat,sans-serif;
+}
+
+.modal-discount{
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  background:var(--red-bg);
+
+  color:var(--red);
+
+  font-size:8px;
+
+  font-weight:900;
 }
 
 .modal-status{
   display:flex;
+
   width:max-content;
+
   align-items:center;
+
   gap:7px;
 
-  border-radius:999px;
   padding:7px 10px;
 
-  font-size:10px;
+  border-radius:999px;
+
+  font-size:9px;
+
   font-weight:900;
 }
 
 .modal-status.on{
-  background:var(--greenbg);
+  background:var(--green-bg);
+
   color:var(--green);
 }
 
 .modal-status.off{
-  background:var(--redbg);
+  background:var(--red-bg);
+
   color:var(--red);
 }
 
-.modal-info > #modalMeta{
-  margin-top:9px !important;
+.modal-status.low{
+  background:var(--gold-bg);
+
+  color:var(--gold);
 }
 
-.info-chips{
+.modal-meta{
   display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
 
-.info-label{
-  margin:0;
-  font-size:10px;
-  color:#888;
-  font-weight:900;
+  flex-wrap:wrap;
+
+  gap:5px;
+
+  margin-top:9px;
 }
 
 .detail-divider{
   width:100%;
+
   height:1px;
+
+  margin:19px 0;
+
   background:var(--line);
-  margin:20px 0;
 }
 
 .details-grid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:7px;
 }
 
 .detail-stat{
-  min-height:67px;
+  min-height:64px;
+
+  padding:10px;
 
   border:1px solid var(--line);
-  border-radius:13px;
+
+  border-radius:12px;
 
   background:#fafaf8;
-
-  padding:11px;
 }
 
 .detail-stat small{
   display:block;
-  color:#999;
-  font-size:8px;
-  font-weight:700;
+
   margin-bottom:4px;
+
+  color:#999;
+
+  font-size:7px;
+
+  font-weight:700;
 }
 
 .detail-stat strong{
   display:block;
+
   color:#111;
-  font-size:11px;
-  font-weight:900;
+
+  font-size:10px;
+
   line-height:1.45;
+
+  font-weight:900;
 }
 
 .detail-section{
-  margin-top:20px;
+  margin-top:19px;
 }
 
 .detail-label-row{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
+
   margin-bottom:8px;
+}
+
+.info-label{
+  color:#888;
+
+  font-size:9px;
+
+  font-weight:900;
 }
 
 .detail-note{
   color:#aaa;
-  font-size:8px;
+
+  font-size:7px;
+
   font-weight:700;
 }
 
 .detail-chip-group{
   display:flex;
+
   flex-wrap:wrap;
-  gap:7px;
+
+  gap:6px;
 }
 
 .detail-chip{
-  min-width:42px;
-  padding:8px 10px;
+  min-width:40px;
+
+  min-height:33px;
+
+  padding:7px 9px;
 
   display:inline-flex;
   align-items:center;
   justify-content:center;
 
   border:1px solid var(--line2);
+
   border-radius:9px;
 
   background:#fff;
 
-  font-size:10px;
+  font-size:9px;
+
   font-weight:900;
 }
 
 .detail-chip.color{
-  gap:7px;
+  gap:6px;
+
   border-radius:999px;
 }
 
 .color-dot{
-  width:13px;
-  height:13px;
+  width:12px;
+  height:12px;
 
-  flex:0 0 13px;
+  flex:0 0 12px;
 
   border-radius:50%;
+
   border:1px solid rgba(0,0,0,.15);
 }
 
 .modal-desc{
+  margin:7px 0 0;
+
   color:#777;
-  font-size:13px;
+
+  font-size:11px;
+
   line-height:1.9;
-  margin:8px 0 0;
+}
+
+.modal-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr;
+
+  gap:7px;
+
+  margin-top:20px;
+}
+
+.modal-action{
+  min-height:44px;
+
+  border:1px solid var(--line2);
+
+  border-radius:11px;
+
+  background:#fff;
+
+  color:#111;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:6px;
+
+  font-size:9px;
+
+  font-weight:900;
+
+  transition:.2s;
+}
+
+.modal-action:hover{
+  border-color:#111;
+
+  background:#111;
+
+  color:#fff;
+}
+
+.modal-action.favorite.active{
+  color:var(--red);
+
+  border-color:#efc3c5;
+
+  background:#fff6f6;
+}
+
+.modal-action svg{
+  width:16px;
+  height:16px;
 }
 
 .contact-box{
-  margin-top:24px;
-  padding-top:18px;
+  margin-top:13px;
+
+  padding-top:15px;
+
   border-top:1px solid var(--line);
 }
 
 .contact-btn{
   width:100%;
+
   min-height:49px;
 
-  border:1px solid #16834b;
-  background:#16834b;
+  border:1px solid var(--green);
+
+  border-radius:13px;
+
+  background:var(--green);
+
   color:#fff;
-
-  border-radius:14px;
-
-  font-size:13px;
-  font-weight:900;
 
   display:flex;
   align-items:center;
   justify-content:center;
+
   gap:9px;
 
-  box-shadow:0 10px 25px rgba(22,131,75,.16);
+  box-shadow:
+    0 10px 25px rgba(22,131,75,.16);
+
+  font-size:12px;
+
+  font-weight:900;
 
   transition:.22s;
 }
 
 .contact-btn:hover{
   transform:translateY(-1px);
-  box-shadow:0 14px 28px rgba(22,131,75,.22);
+
+  box-shadow:
+    0 14px 28px rgba(22,131,75,.22);
 }
 
 .contact-note{
-  margin:7px 0 0;
+  margin:6px 0 0;
+
   color:#888;
-  font-size:10px;
+
+  font-size:8px;
+
   text-align:center;
 }
 
+.related-section{
+  margin-top:25px;
 
-/* =====================================================
-   FOOTER
-===================================================== */
+  padding-top:18px;
 
-.footer{
-  background:#090909;
-  color:#fff;
-  margin-top:16px;
-  padding:35px 0 17px;
+  border-top:1px solid var(--line);
 }
 
-.footer-main{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 1fr;
-  gap:30px;
+.related-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:9px;
 }
 
-.footer h3{
-  margin:0 0 8px;
-  font-size:16px;
-}
-
-.footer p,
-.footer li{
-  margin:0;
-  color:#9b9b9b;
+.related-head strong{
   font-size:11px;
-  line-height:1.9;
+  font-weight:900;
 }
 
-.footer ul{
-  list-style:none;
-  padding:0;
-  margin:0;
+.related-head span{
+  color:#999;
+  font-size:8px;
 }
 
-.footer a{
-  color:#fff;
+.related-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:7px;
 }
 
-.footer a:hover{
-  text-decoration:underline;
-  text-underline-offset:3px;
+.related-card{
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  border-radius:10px;
+
+  background:#fff;
+
+  cursor:pointer;
+
+  transition:.2s;
 }
 
-.footer-bottom{
-  border-top:1px solid #202020;
-  margin-top:24px;
-  padding-top:13px;
+.related-card:hover{
+  transform:translateY(-1px);
+
+  border-color:#ccc;
+}
+
+.related-card img{
+  width:100%;
+  aspect-ratio:4/5;
+
+  object-fit:cover;
+
+  background:#eee;
+}
+
+.related-card div{
+  padding:7px;
+}
+
+.related-card strong{
+  display:block;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  font-size:8px;
+
+  font-weight:900;
+}
+
+.related-card span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#777;
+
+  font:900 8px Montserrat,sans-serif;
+}
+
+
+/* =========================================================
+   WISHLIST DRAWER
+========================================================= */
+
+.drawer-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:120;
+
+  background:rgba(0,0,0,.45);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.25s;
+}
+
+.drawer-backdrop.open{
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+.wishlist-drawer{
+  position:fixed;
+
+  top:0;
+  right:0;
+  bottom:0;
+
+  z-index:130;
+
+  width:min(390px,92vw);
+
+  background:#fff;
+
+  box-shadow:
+    -22px 0 70px rgba(0,0,0,.18);
+
+  transform:translateX(105%);
+
+  transition:
+    transform .30s cubic-bezier(.2,.7,.2,1);
 
   display:flex;
-  justify-content:space-between;
-  gap:10px;
 
-  color:#666;
-  font-size:9px;
+  flex-direction:column;
 }
 
+.wishlist-drawer.open{
+  transform:translateX(0);
+}
 
-/* =====================================================
-   TO TOP
-===================================================== */
+.drawer-head{
+  min-height:72px;
 
-.to-top{
-  position:fixed;
-  left:16px;
-  bottom:16px;
+  padding:0 16px;
 
-  width:44px;
-  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-  border:1px solid rgba(0,0,0,.08);
+  gap:10px;
+
+  border-bottom:1px solid var(--line);
+}
+
+.drawer-head strong{
+  font-size:18px;
+  font-weight:900;
+}
+
+.drawer-close{
+  width:36px;
+  height:36px;
+
+  border:1px solid var(--line);
+
   border-radius:50%;
 
-  background:rgba(255,255,255,.95);
+  background:#fff;
 
   display:grid;
   place-items:center;
 
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(8px);
+  font-size:18px;
+}
 
-  transition:.22s;
+.drawer-body{
+  flex:1;
+
+  overflow:auto;
+
+  padding:12px;
+}
+
+.wish-item{
+  display:grid;
+
+  grid-template-columns:60px minmax(0,1fr) auto;
+
+  gap:9px;
+
+  padding:9px 0;
+
+  border-bottom:1px solid var(--line);
+}
+
+.wish-item img{
+  width:60px;
+  height:72px;
+
+  object-fit:cover;
+
+  border-radius:9px;
+
+  background:#eee;
+}
+
+.wish-main{
+  min-width:0;
+}
+
+.wish-main strong{
+  display:block;
+
+  font-size:10px;
+  font-weight:900;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+}
+
+.wish-main span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#999;
+
+  font-size:8px;
+}
+
+.wish-main b{
+  display:block;
+
+  margin-top:5px;
+
+  font:900 10px Montserrat,sans-serif;
+}
+
+.wish-remove{
+  align-self:start;
+
+  width:27px;
+  height:27px;
+
+  border:1px solid var(--line);
+
+  border-radius:50%;
+
+  background:#fff;
+
+  font-size:14px;
+}
+
+.drawer-empty{
+  min-height:250px;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+}
+
+.drawer-empty-icon{
+  width:54px;
+  height:54px;
+
+  display:grid;
+  place-items:center;
+
+  margin-bottom:10px;
+
+  border-radius:50%;
+
+  background:#f5f5f2;
+
+  color:#888;
+}
+
+.drawer-empty strong{
+  font-size:14px;
+}
+
+.drawer-empty p{
+  margin:5px 0 0;
+
+  color:#999;
+
+  font-size:9px;
+}
+
+
+/* =========================================================
+   FILTER MOBILE SHEET
+========================================================= */
+
+.mobile-filter-backdrop{
+  display:none;
+}
+
+@media(max-width:760px){
+
+  .mobile-filter-backdrop{
+    position:fixed;
+
+    inset:0;
+
+    z-index:140;
+
+    display:block;
+
+    background:rgba(0,0,0,.48);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.2s;
+  }
+
+  .mobile-filter-backdrop.open{
+    opacity:1;
+
+    pointer-events:auto;
+  }
+
+  .filters-mobile-shell{
+    display:block!important;
+  }
+}
+
+.filters-mobile-shell{
+  display:none;
+}
+
+
+/* =========================================================
+   TO TOP
+========================================================= */
+
+.to-top{
+  position:fixed;
+
+  left:16px;
+  bottom:16px;
 
   z-index:70;
 
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  width:44px;
+  height:44px;
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid rgba(0,0,0,.08);
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.95);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transform:translateY(8px);
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.12);
+
+  transition:.22s;
 }
 
 .to-top.show{
   opacity:1;
+
   pointer-events:auto;
+
   transform:none;
 }
 
 
-/* =====================================================
-   LARGE LAPTOP
-===================================================== */
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+  bottom:22px;
+
+  z-index:200;
+
+  transform:
+    translate(-50%,18px);
+
+  min-width:230px;
+
+  max-width:calc(100% - 30px);
+
+  padding:11px 15px;
+
+  border:1px solid rgba(0,0,0,.08);
+
+  border-radius:12px;
+
+  background:#111;
+
+  color:#fff;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.16);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  text-align:center;
+
+  font-size:9px;
+
+  font-weight:900;
+
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
+
+
+/* =========================================================
+   DESKTOP SMALL
+========================================================= */
 
 @media(max-width:1180px){
 
   .navlinks{
-    gap:18px;
-    font-size:13px;
+    gap:17px;
+
+    font-size:11px;
   }
 
   .grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
   }
 
-  .featured-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
+  .section-grid{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
   }
 
-  .featured-card:nth-child(4){
+  .section-grid .mini-card:nth-child(4){
     display:none;
   }
 
-  .modal-box{
-    width:min(960px,100%);
+  .recent-grid{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
   }
 
-  .modal-info{
-    padding:30px;
+  .why-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLET
-===================================================== */
+========================================================= */
 
 @media(max-width:900px){
 
   .container{
-    width:min(100% - 24px,1360px);
+    width:calc(100% - 24px);
   }
 
   .nav{
     min-height:68px;
-    gap:12px;
+    gap:11px;
   }
 
   .brand{
@@ -1626,47 +3336,31 @@ img{
   .brand img{
     width:42px;
     height:42px;
-    border-radius:11px;
   }
 
   .brand strong{
     font-size:19px;
-    letter-spacing:2.8px;
   }
 
   .brand small{
     font-size:7px;
-    letter-spacing:1px;
   }
 
   .navlinks{
-    gap:15px;
-    font-size:11px;
-  }
-
-  .icon-btn{
-    width:40px;
-    height:40px;
-  }
-
-  .hero-minimal{
-    width:calc(100% - 24px);
+    gap:14px;
+    font-size:10px;
   }
 
   .filter-row{
-    grid-template-columns:minmax(0,1fr) 150px 135px;
+    grid-template-columns:
+      minmax(0,1fr)
+      150px
+      135px;
   }
 
-  .featured-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .featured-card{
-    min-height:310px;
-  }
-
-  .featured-card:nth-child(4){
-    display:block;
+  .advanced-filters{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 
   .modal{
@@ -1674,20 +3368,21 @@ img{
   }
 
   .modal-box{
+    width:min(960px,100%);
+
     max-height:96vh;
-    grid-template-columns:1fr .9fr;
   }
 
   .modal-media{
-    min-height:550px;
+    min-height:570px;
   }
 
   .modal-info{
-    padding:24px;
+    padding:25px;
   }
 
   .modal-name{
-    font-size:28px;
+    font-size:27px;
   }
 
   .modal-price{
@@ -1695,15 +3390,17 @@ img{
   }
 
   .footer-main{
-    grid-template-columns:1.2fr 1fr 1fr;
+    grid-template-columns:
+      1.2fr 1fr 1fr;
+
     gap:20px;
   }
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
 @media(max-width:760px){
 
@@ -1716,11 +3413,11 @@ img{
   }
 
   .topbar{
-    font-size:9px;
+    font-size:8px;
   }
 
   .topbar .container{
-    min-height:29px;
+    min-height:28px;
     gap:6px;
   }
 
@@ -1728,31 +3425,32 @@ img{
     width:calc(100% - 18px);
   }
 
-  /* header */
 
-  .header{
-    background:rgba(255,255,255,.96);
-  }
+  /* header */
 
   .nav{
     min-height:62px;
+
     gap:8px;
   }
 
   .brand{
-    gap:8px;
+    gap:7px;
+
     min-width:0;
   }
 
   .brand img{
-    width:38px;
-    height:38px;
+    width:37px;
+    height:37px;
+
     border-radius:10px;
   }
 
   .brand strong{
-    font-size:17px;
-    letter-spacing:2.4px;
+    font-size:16px;
+
+    letter-spacing:2.2px;
   }
 
   .brand small{
@@ -1760,30 +3458,33 @@ img{
   }
 
   .navlinks{
-    gap:11px;
-    font-size:9px;
+    gap:9px;
+
     flex:1;
+
     justify-content:center;
+
+    font-size:8px;
   }
 
-  .navlinks a:after{
-    bottom:-6px;
-    height:1.5px;
+  .navlinks a:nth-child(3){
+    display:none;
   }
 
   .nav-actions{
-    gap:5px;
+    gap:4px;
   }
 
   .icon-btn{
-    width:38px;
-    height:38px;
-    border-radius:11px;
+    width:37px;
+    height:37px;
+
+    border-radius:10px;
   }
 
   .icon-btn svg{
-    width:16px;
-    height:16px;
+    width:15px;
+    height:15px;
   }
 
 
@@ -1791,15 +3492,17 @@ img{
 
   .hero-minimal{
     width:calc(100% - 18px);
+
     min-height:280px;
+
     margin-top:10px;
+
     border-radius:20px;
   }
 
   .hero-glow{
     width:190px;
     height:190px;
-    filter:blur(10px);
   }
 
   .hero-logo-animation{
@@ -1810,18 +3513,18 @@ img{
   .hero-logo-animation img{
     width:67px;
     height:67px;
-    border-radius:15px;
-  }
 
-  .logo-aura{
-    inset:5px;
+    border-radius:15px;
   }
 
   .hero-minimal h1{
     margin-top:17px;
+
     font-size:29px;
+
     letter-spacing:-1.2px;
-    max-width:94%;
+
+    max-width:95%;
   }
 
   .hero-minimal h1 span::after{
@@ -1832,26 +3535,73 @@ img{
   .hero-explore{
     min-width:96px;
     height:38px;
+
     margin-top:18px;
+
     border-radius:10px;
+
     font-size:8.5px;
+  }
+
+
+  /* collections */
+
+  .collections{
+    margin-top:22px;
+  }
+
+  .section-head{
+    margin-bottom:10px;
+  }
+
+  .section-kicker{
+    font-size:8px;
+
+    letter-spacing:1.6px;
+  }
+
+  .section-title{
+    font-size:22px;
+  }
+
+  .section-sub{
+    font-size:9px;
+  }
+
+  .collection-chip{
+    min-width:104px;
+    min-height:66px;
+
+    padding:10px 11px;
+
+    border-radius:14px;
+  }
+
+  .collection-chip strong{
+    font-size:10px;
+  }
+
+  .collection-chip span{
+    font-size:7px;
   }
 
 
   /* catalog */
 
   .catalog-shell{
-    padding-top:20px;
+    padding-top:21px;
   }
 
   .catalog-bar{
     align-items:flex-start;
-    margin-bottom:12px;
+
+    margin-bottom:11px;
   }
 
   .catalog-title .eyebrow{
     font-size:8px;
-    letter-spacing:1.7px;
+
+    letter-spacing:1.6px;
   }
 
   .catalog-title h1{
@@ -1859,113 +3609,237 @@ img{
   }
 
   .catalog-title p{
-    max-width:280px;
-    font-size:10px;
+    max-width:285px;
+
+    font-size:9px;
+
     line-height:1.7;
   }
 
   .catalog-count{
-    font-size:10px;
     padding-top:3px;
+
+    font-size:9px;
   }
 
 
-  /* filters */
+  /* filter trigger */
+
+  .filter-trigger-mobile{
+    width:100%;
+
+    height:44px;
+
+    margin-bottom:8px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 12px;
+
+    border:1px solid var(--line);
+
+    border-radius:13px;
+
+    background:#fff;
+
+    font-size:10px;
+
+    font-weight:900;
+  }
+
+  .filter-trigger-mobile span{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+  }
+
+  .filter-trigger-mobile em{
+    padding:4px 7px;
+
+    border-radius:999px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-style:normal;
+
+    font-size:7px;
+  }
+
+
+  /* filter sheet */
 
   .filters{
-    padding:8px;
-    border-radius:16px;
+    position:fixed;
+
+    right:10px;
+    left:10px;
+    bottom:10px;
+
+    z-index:150;
+
+    max-height:
+      calc(100dvh - 20px);
+
+    overflow:auto;
+
+    padding:10px;
+
+    border-radius:18px;
+
+    transform:
+      translateY(120%);
+
+    transition:
+      transform .30s
+      cubic-bezier(.2,.7,.2,1);
+  }
+
+  .filters.mobile-open{
+    transform:translateY(0);
   }
 
   .filter-row{
     grid-template-columns:1fr;
+
     gap:7px;
   }
 
-  .search{
-    height:42px;
-    font-size:11px;
-  }
+  .advanced-filters{
+    grid-template-columns:1fr 1fr;
 
-  .select,
-  .toggle{
-    height:40px;
-    font-size:10px;
+    gap:7px;
+
+    padding-top:7px;
   }
 
   .categories{
     padding-top:8px;
-    gap:6px;
   }
 
   .cat{
     padding:7px 10px;
+
+    font-size:8.5px;
+  }
+
+  .filter-actions{
+    position:sticky;
+
+    bottom:0;
+
+    padding-top:9px;
+
+    background:#fff;
+  }
+
+  .filter-mobile-close{
+    width:100%;
+
+    height:40px;
+
+    margin-top:7px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#111;
+
+    color:#fff;
+
     font-size:9px;
+
+    font-weight:900;
   }
 
 
-  /* featured */
+  /* feature sections */
 
-  .featured{
-    margin-top:24px;
+  .product-section{
+    margin-top:23px;
   }
 
-  .featured-head{
-    align-items:flex-start;
-    margin-bottom:10px;
-  }
+  .section-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
 
-  .featured-head .kicker{
-    font-size:8px;
-    letter-spacing:1.5px;
-  }
-
-  .featured-head h2{
-    font-size:22px;
-  }
-
-  .featured-head p{
-    font-size:9px;
-  }
-
-  .featured-count{
-    font-size:9px;
-  }
-
-  .featured-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:8px;
   }
 
-  .featured-card{
-    min-height:245px;
+  .section-grid .mini-card:nth-child(3),
+  .section-grid .mini-card:nth-child(4){
+    display:block;
+  }
+
+  .mini-card{
+    min-height:230px;
+
     border-radius:15px;
   }
 
-  .featured-tag{
+  .mini-badge{
     top:8px;
     right:8px;
+
     padding:5px 7px;
+
     font-size:7px;
   }
 
-  .featured-info{
+  .mini-info{
     right:10px;
     left:10px;
     bottom:10px;
   }
 
-  .featured-info small{
+  .mini-info small{
     font-size:7px;
   }
 
-  .featured-info strong{
-    font-size:13px;
-    margin:2px 0 4px;
+  .mini-info strong{
+    font-size:12px;
   }
 
-  .featured-info b{
-    font-size:11px;
+  .mini-price{
+    font-size:10px;
+  }
+
+  .mini-old{
+    font-size:8px;
+  }
+
+
+  /* offer */
+
+  .offer-banner{
+    margin-top:21px;
+
+    padding:17px;
+
+    border-radius:15px;
+  }
+
+  .offer-content strong{
+    font-size:15px;
+  }
+
+  .offer-content p{
+    font-size:8px;
+  }
+
+  .offer-action{
+    min-width:92px;
+
+    height:34px;
+
+    font-size:8px;
   }
 
 
@@ -1973,46 +3847,65 @@ img{
 
   .results-line{
     padding:18px 0 8px;
-    font-size:9px;
+
+    font-size:8px;
   }
 
   .clear-btn{
-    font-size:9px;
+    font-size:8px;
   }
 
 
-  /* product grid */
+  /* grid */
 
   .grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
     gap:8px;
-    padding-bottom:48px;
+
+    padding-bottom:44px;
   }
 
   .card{
     border-radius:15px;
   }
 
-  .card-media{
-    aspect-ratio:4/5;
+  .card-fav{
+    width:31px;
+    height:31px;
+
+    left:7px;
+    top:7px;
+  }
+
+  .card-fav svg{
+    width:14px;
+    height:14px;
   }
 
   .card-badges{
     top:7px;
     right:7px;
-    gap:4px;
+
+    gap:3px;
   }
 
   .badge{
     padding:4px 6px;
-    font-size:7px;
+
+    font-size:6.5px;
   }
 
   .photo-count{
     left:6px;
     bottom:6px;
-    padding:4px 6px;
-    font-size:7px;
+
+    height:21px;
+
+    padding:0 6px;
+
+    font-size:6.5px;
   }
 
   .card-body{
@@ -2020,50 +3913,172 @@ img{
   }
 
   .card-meta{
-    font-size:7.5px;
-    margin-bottom:2px;
+    font-size:7px;
   }
 
   .card-name{
-    font-size:12px;
-    line-height:1.35;
-    min-height:33px;
+    min-height:32px;
+
+    font-size:11px;
   }
 
-  .card-foot{
+  .card-price-row{
+    gap:5px;
+
     margin-top:6px;
   }
 
   .card-price{
-    font-size:11px;
+    font-size:10px;
+  }
+
+  .card-old-price{
+    font-size:7px;
+  }
+
+  .card-discount{
+    font-size:6.5px;
+  }
+
+  .card-meta-row{
+    margin-top:4px;
+  }
+
+  .stock-note{
+    font-size:6.5px;
   }
 
   .card-detail{
     height:34px;
+
     margin-top:8px;
+
     border-radius:9px;
-    font-size:8.5px;
+
+    font-size:8px;
   }
 
 
-  /* empty */
+  /* recent */
 
-  .empty{
-    padding:40px 14px;
-    border-radius:16px;
+  .recent-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:7px;
   }
 
-  .empty-icon{
-    width:42px;
-    height:42px;
+  .recent-card{
+    padding:7px;
+
+    gap:7px;
+
+    border-radius:11px;
   }
 
-  .empty h3{
-    font-size:16px;
+  .recent-card img{
+    width:44px;
+    height:52px;
+
+    flex-basis:44px;
   }
 
-  .empty p{
-    font-size:10px;
+  .recent-info strong{
+    font-size:8px;
+  }
+
+  .recent-info span{
+    font-size:7px;
+  }
+
+  .recent-info b{
+    font-size:8px;
+  }
+
+
+  /* why */
+
+  .why-section{
+    margin-top:24px;
+
+    padding:22px 0 25px;
+  }
+
+  .why-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:7px;
+  }
+
+  .why-card{
+    padding:13px;
+
+    border-radius:13px;
+  }
+
+  .why-icon{
+    width:36px;
+    height:36px;
+
+    margin-bottom:7px;
+
+    border-radius:10px;
+  }
+
+  .why-icon svg{
+    width:16px;
+    height:16px;
+  }
+
+  .why-card strong{
+    font-size:9px;
+  }
+
+  .why-card p{
+    font-size:7px;
+  }
+
+
+  /* social */
+
+  .social-section{
+    padding-bottom:29px;
+  }
+
+  .social-box{
+    padding:16px;
+
+    border-radius:15px;
+
+    flex-direction:column;
+
+    align-items:stretch;
+  }
+
+  .social-copy strong{
+    font-size:15px;
+  }
+
+  .social-copy p{
+    font-size:8px;
+  }
+
+  .social-links{
+    display:grid;
+
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .social-link{
+    min-width:0;
+
+    height:36px;
+
+    padding:0 7px;
+
+    font-size:7.5px;
   }
 
 
@@ -2071,26 +4086,31 @@ img{
 
   .modal{
     padding:0;
-    align-items:flex-end;
-    background:rgba(0,0,0,.72);
-  }
 
-  .modal.open{
-    display:flex;
+    align-items:flex-end;
+
+    background:rgba(0,0,0,.74);
   }
 
   .modal-box{
     width:100%;
     max-width:none;
+
     height:100dvh;
     max-height:100dvh;
+
     border-radius:0;
+
     grid-template-columns:1fr;
-    grid-template-rows:minmax(285px,43dvh) minmax(0,1fr);
+
+    grid-template-rows:
+      minmax(285px,43dvh)
+      minmax(0,1fr);
   }
 
   .modal-media{
     min-height:0;
+
     height:auto;
   }
 
@@ -2103,16 +4123,20 @@ img{
   }
 
   .gallery-caption{
-    bottom:9px;
-    height:25px;
-    min-width:48px;
-    font-size:8px;
+    bottom:8px;
+
+    height:24px;
+
+    min-width:46px;
+
+    font-size:7px;
   }
 
   .modal-nav{
-    width:36px;
-    height:36px;
-    font-size:19px;
+    width:35px;
+    height:35px;
+
+    font-size:18px;
   }
 
   .modal-prev{
@@ -2124,214 +4148,295 @@ img{
   }
 
   .thumbs{
-    gap:6px;
+    gap:5px;
+
     padding:7px;
   }
 
   .thumb{
-    width:49px;
-    height:58px;
+    width:47px;
+    height:55px;
+
     border-radius:8px;
   }
 
   .modal-close{
     width:36px;
     height:36px;
+
     left:10px;
     top:10px;
-    font-size:19px;
+
+    font-size:18px;
   }
 
   .modal-info{
-    padding:18px 14px 28px;
-    overflow:auto;
-    overscroll-behavior:contain;
-  }
+    padding:16px 13px 26px;
 
-  .modal-topline{
-    min-height:18px;
+    overflow:auto;
   }
 
   .modal-category{
-    font-size:9px;
-  }
-
-  .modal-photo-count{
     font-size:8px;
   }
 
-  .modal-name{
-    font-size:24px;
-    line-height:1.2;
-    letter-spacing:-.5px;
-    margin-top:5px;
-  }
-
-  .modal-price{
-    font-size:21px;
-    margin:9px 0;
-  }
-
-  .modal-status{
-    padding:6px 9px;
-    font-size:8.5px;
-  }
-
-  .modal-info > #modalMeta{
-    margin-top:7px !important;
-  }
-
-  .info-chips{
-    gap:5px;
-  }
-
-  .modal-info .badge{
-    padding:5px 7px;
+  .modal-photo-count{
     font-size:7px;
   }
 
+  .modal-name{
+    font-size:22px;
+
+    margin-top:5px;
+  }
+
+  .modal-price-wrap{
+    margin:8px 0;
+  }
+
+  .modal-price{
+    font-size:20px;
+  }
+
+  .modal-old-price{
+    font-size:9px;
+  }
+
+  .modal-discount{
+    padding:4px 6px;
+
+    font-size:7px;
+  }
+
+  .modal-status{
+    padding:6px 8px;
+
+    font-size:7.5px;
+  }
+
+  .modal-meta{
+    margin-top:7px;
+  }
+
   .detail-divider{
-    margin:14px 0;
+    margin:13px 0;
   }
 
   .details-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:6px;
   }
 
   .detail-stat{
-    min-height:57px;
-    padding:9px;
+    min-height:56px;
+
+    padding:8px;
+
     border-radius:10px;
   }
 
   .detail-stat small{
-    font-size:7px;
-    margin-bottom:3px;
+    font-size:6.5px;
   }
 
   .detail-stat strong{
-    font-size:9px;
-    line-height:1.4;
+    font-size:8.5px;
   }
 
   .detail-section{
-    margin-top:15px;
-  }
-
-  .detail-label-row{
-    margin-bottom:7px;
+    margin-top:14px;
   }
 
   .info-label{
-    font-size:9px;
+    font-size:8px;
   }
 
   .detail-note{
-    font-size:7px;
-  }
-
-  .detail-chip-group{
-    gap:5px;
+    font-size:6.5px;
   }
 
   .detail-chip{
-    min-width:38px;
-    padding:7px 8px;
-    font-size:8.5px;
-    border-radius:8px;
-  }
+    min-height:30px;
 
-  .detail-chip.color{
-    gap:6px;
-    padding:6px 9px;
-    border-radius:999px;
+    min-width:37px;
+
+    padding:6px 8px;
+
+    font-size:8px;
   }
 
   .color-dot{
-    width:11px;
-    height:11px;
-    flex-basis:11px;
+    width:10px;
+    height:10px;
+
+    flex-basis:10px;
   }
 
   .modal-desc{
-    font-size:10px;
-    line-height:1.8;
-    margin-top:5px;
+    font-size:9px;
+
+    line-height:1.85;
+  }
+
+  .modal-actions{
+    grid-template-columns:
+      repeat(3,1fr);
+
+    gap:5px;
+
+    margin-top:15px;
+  }
+
+  .modal-action{
+    min-height:39px;
+
+    border-radius:9px;
+
+    font-size:7.5px;
+  }
+
+  .modal-action svg{
+    width:14px;
+    height:14px;
   }
 
   .contact-box{
-    margin-top:18px;
-    padding-top:14px;
+    margin-top:11px;
+
+    padding-top:12px;
   }
 
   .contact-btn{
-    min-height:47px;
-    border-radius:12px;
-    font-size:11px;
+    min-height:45px;
+
+    border-radius:11px;
+
+    font-size:10px;
   }
 
   .contact-note{
-    font-size:8px;
+    font-size:7px;
+  }
+
+  .related-section{
+    margin-top:19px;
+
+    padding-top:14px;
+  }
+
+  .related-head strong{
+    font-size:10px;
+  }
+
+  .related-head span{
+    font-size:7px;
+  }
+
+  .related-grid{
+    gap:5px;
+  }
+
+  .related-card{
+    border-radius:8px;
+  }
+
+  .related-card div{
+    padding:6px;
+  }
+
+  .related-card strong{
+    font-size:7px;
+  }
+
+  .related-card span{
+    font-size:7px;
+  }
+
+
+  /* drawer */
+
+  .wishlist-drawer{
+    width:min(360px,94vw);
+  }
+
+  .drawer-head{
+    min-height:64px;
+  }
+
+  .drawer-head strong{
+    font-size:16px;
+  }
+
+  .wish-item{
+    grid-template-columns:
+      53px minmax(0,1fr) auto;
+  }
+
+  .wish-item img{
+    width:53px;
+    height:64px;
   }
 
 
   /* footer */
 
   .footer{
-    padding:28px 0 15px;
-    margin-top:10px;
+    padding:29px 0 15px;
   }
 
   .footer-main{
     grid-template-columns:1fr;
+
     gap:20px;
   }
 
   .footer h3{
     font-size:14px;
-    margin-bottom:6px;
   }
 
   .footer p,
   .footer li{
-    font-size:10px;
-    line-height:1.8;
+    font-size:9px;
   }
 
   .footer-bottom{
     flex-direction:column;
+
     align-items:center;
-    justify-content:center;
+
     text-align:center;
-    margin-top:20px;
+
+    margin-top:19px;
+
     padding-top:11px;
-    font-size:8px;
+
+    font-size:7.5px;
   }
 
   .to-top{
     width:40px;
     height:40px;
-    left:11px;
-    bottom:11px;
+
+    left:10px;
+    bottom:10px;
   }
+
 }
 
 
-/* =====================================================
+/* =========================================================
    VERY SMALL PHONES
-===================================================== */
+========================================================= */
 
 @media(max-width:390px){
 
   .navlinks{
-    gap:8px;
-    font-size:8px;
+    gap:7px;
+
+    font-size:7.5px;
   }
 
   .brand strong{
     font-size:15px;
-    letter-spacing:2px;
   }
 
   .brand img{
@@ -2340,8 +4445,8 @@ img{
   }
 
   .icon-btn{
-    width:36px;
-    height:36px;
+    width:35px;
+    height:35px;
   }
 
   .hero-minimal{
@@ -2365,76 +4470,54 @@ img{
   .hero-explore{
     min-width:92px;
     height:36px;
-    font-size:8px;
   }
 
-  .featured-card{
-    min-height:225px;
+  .mini-card{
+    min-height:215px;
   }
 
   .card-name{
-    font-size:11px;
+    font-size:10.5px;
   }
 
   .card-price{
-    font-size:10px;
+    font-size:9px;
   }
 
   .card-detail{
     height:32px;
-    font-size:8px;
   }
 
   .modal-box{
-    grid-template-rows:minmax(265px,41dvh) minmax(0,1fr);
+    grid-template-rows:
+      minmax(260px,41dvh)
+      minmax(0,1fr);
   }
 
-  .modal-info{
-    padding:16px 12px 24px;
-  }
-
-  .modal-name{
-    font-size:22px;
-  }
-
-  .modal-price{
-    font-size:19px;
-  }
 }
 
 
-/* =====================================================
+/* =========================================================
    LANDSCAPE MOBILE
-===================================================== */
+========================================================= */
 
 @media(max-width:760px) and (orientation:landscape){
 
   .modal-box{
     grid-template-columns:1fr 1fr;
+
     grid-template-rows:1fr;
   }
 
   .modal-media{
     min-height:100dvh;
   }
-
-  .modal-info{
-    padding:18px 14px 20px;
-  }
-
-  .modal-name{
-    font-size:21px;
-  }
-
-  .modal-price{
-    font-size:18px;
-  }
 }
 
 
-/* =====================================================
+/* =========================================================
    REDUCED MOTION
-===================================================== */
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -2442,97 +4525,271 @@ img{
     scroll-behavior:auto;
   }
 
-  .hero-minimal *,
-  .hero-minimal::before,
-  .hero-minimal::after{
-    animation:none!important;
-  }
-
   *,
   *::before,
   *::after{
-    scroll-behavior:auto!important;
+    animation:none!important;
+
+    transition:none!important;
   }
+
+}
+
+
+/* =========================================================
+   MOBILE FILTER CLOSE
+========================================================= */
+
+.filter-mobile-close{
+  display:none;
+}
+
+@media(max-width:760px){
+
+  .filter-mobile-close{
+    display:block;
+  }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
+
+<!-- ========================================================
+     TOPBAR
+========================================================= -->
+
 <div class="topbar">
+
   <div class="container">
+
     <b>AWM</b>
+
     <span>•</span>
+
     <span>Always Your Store</span>
+
     <span>•</span>
-    <span>معرض الملابس</span>
+
+    <span>Fashion Gallery</span>
+
   </div>
+
 </div>
 
 
+<!-- ========================================================
+     HEADER
+========================================================= -->
+
 <header class="header">
+
   <div class="container nav">
 
-    <a href="#hero" class="brand" aria-label="AWM">
-      <img src="awm-logo.jpg" alt="AWM">
+    <a
+      href="#hero"
+      class="brand"
+      aria-label="AWM">
+
+      <img
+        src="awm-logo.jpg"
+        alt="AWM"
+        onerror="this.src='awm-logo.jpg'"
+      >
+
       <div>
-        <strong>AWM</strong>
-        <small>ALWAYS YOUR STORE</small>
+
+        <strong>
+          AWM
+        </strong>
+
+        <small>
+          ALWAYS YOUR STORE
+        </small>
+
       </div>
+
     </a>
 
-    <nav class="navlinks" aria-label="التنقل">
-      <a href="#hero" class="active">الرئيسية</a>
-      <a href="#gallery">المعرض</a>
-      <a href="#featured" id="featuredNav" hidden>المميز</a>
-      <a href="#footer">تواصل</a>
+
+    <nav
+      class="navlinks"
+      aria-label="التنقل">
+
+      <a
+        href="#hero"
+        class="active">
+        الرئيسية
+      </a>
+
+      <a
+        href="#gallery">
+        المعرض
+      </a>
+
+      <a
+        href="#collections"
+        id="collectionsNav">
+        الكولكشن
+      </a>
+
+      <a
+        href="#footer">
+        تواصل
+      </a>
+
     </nav>
 
+
     <div class="nav-actions">
-      <button class="icon-btn" onclick="focusSearch()" aria-label="البحث" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
-          <circle cx="11" cy="11" r="6.5"/>
-          <path d="m16 16 4 4"/>
+
+      <button
+        class="icon-btn"
+        id="wishlistHeaderBtn"
+        type="button"
+        aria-label="المفضلة"
+        title="المفضلة">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8">
+
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>
+
         </svg>
+
+        <span
+          class="fav-count"
+          id="favCount"
+          hidden>
+          0
+        </span>
+
       </button>
+
+
+      <button
+        class="icon-btn"
+        id="headerSearchBtn"
+        type="button"
+        aria-label="البحث"
+        title="البحث">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9">
+
+          <circle
+            cx="11"
+            cy="11"
+            r="6.5"/>
+
+          <path
+            d="m16 16 4 4"/>
+
+        </svg>
+
+      </button>
+
     </div>
 
   </div>
+
 </header>
 
 
-<!-- =====================================================
+<!-- ========================================================
      HERO
-===================================================== -->
+========================================================= -->
 
-<section class="hero-minimal" id="hero">
+<section
+  class="hero-minimal"
+  id="hero">
 
   <div class="hero-glow"></div>
 
   <div class="hero-logo-animation">
+
     <span class="logo-aura"></span>
+
     <span class="logo-shine"></span>
 
-    <img src="awm-logo.jpg" alt="AWM">
+    <img
+      src="awm-logo.jpg"
+      alt="AWM"
+      onerror="this.src='awm-logo.jpg'"
+    >
+
   </div>
+
 
   <h1>
     ستايلك <span>يبدأ من هنا</span>
   </h1>
 
-  <a href="#gallery" class="hero-explore">
+
+  <a
+    href="#gallery"
+    class="hero-explore">
+
     استكشف
+
   </a>
 
 </section>
 
 
-<main id="gallery">
+<!-- ========================================================
+     COLLECTIONS
+========================================================= -->
 
-  <!-- =====================================================
-       CATALOG
-  ====================================================== -->
+<section
+  class="collections container"
+  id="collections">
+
+  <div class="section-head">
+
+    <div>
+
+      <div class="section-kicker">
+        AWM COLLECTIONS
+      </div>
+
+      <h2 class="section-title">
+        اختار مودك
+      </h2>
+
+      <p class="section-sub">
+        تصفح التشكيلة بالطريقة اللي تناسبك.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="collection-row"
+    id="collectionsRow">
+  </div>
+
+</section>
+
+
+<!-- ========================================================
+     CATALOG
+========================================================= -->
+
+<main id="gallery">
 
   <section class="catalog-shell container">
 
@@ -2549,90 +4806,286 @@ img{
         </h1>
 
         <p>
-          تشكيلة الملابس الرجالي — تفاصيل واضحة، صور متعددة، وسعر محدث.
+          اكتشف القطع، قارن التفاصيل، واحفظ المفضلة.
         </p>
-
-      </div>
-
-      <div class="catalog-count" id="catalogCount">
-        جاري التحميل...
-      </div>
-
-    </div>
-
-
-    <!-- ===================================================
-         FILTERS
-    ==================================================== -->
-
-    <div class="filters" id="filters">
-
-      <div class="filter-row">
-
-        <div class="search-wrap">
-
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.9">
-            <circle cx="11" cy="11" r="6.5"/>
-            <path d="m16 16 4 4"/>
-          </svg>
-
-          <input
-            id="search"
-            class="search"
-            autocomplete="off"
-            placeholder="ابحث عن قطعة، قسم، لون، مقاس..."
-          >
-
-        </div>
-
-
-        <select id="sort" class="select" aria-label="ترتيب">
-
-          <option value="featured">
-            المميز أولاً
-          </option>
-
-          <option value="new">
-            الأحدث
-          </option>
-
-          <option value="priceAsc">
-            السعر الأقل
-          </option>
-
-          <option value="priceDesc">
-            السعر الأعلى
-          </option>
-
-          <option value="name">
-            الاسم
-          </option>
-
-        </select>
-
-
-        <button
-          id="availableOnly"
-          class="toggle"
-          type="button">
-
-          <span class="dot"></span>
-          المتاح فقط
-
-        </button>
 
       </div>
 
 
       <div
-        class="categories"
-        id="categories">
+        class="catalog-count"
+        id="catalogCount">
+
+        جاري التحميل...
+
+      </div>
+
+    </div>
+
+
+    <!-- mobile trigger -->
+
+    <button
+      class="filter-trigger-mobile"
+      id="openFilters"
+      type="button">
+
+      <span>
+
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8">
+
+          <path d="M4 6h16"/>
+          <path d="M7 12h10"/>
+          <path d="M10 18h4"/>
+
+        </svg>
+
+        الفلاتر والبحث
+
+      </span>
+
+      <em
+        id="filterCountMobile">
+        0
+      </em>
+
+    </button>
+
+
+    <!-- filters -->
+
+    <div
+      class="filters-wrap">
+
+      <div
+        class="mobile-filter-backdrop"
+        id="filterBackdrop">
+      </div>
+
+
+      <div
+        class="filters"
+        id="filters">
+
+
+        <div class="filter-row">
+
+
+          <!-- SEARCH -->
+
+          <div class="search-wrap">
+
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9">
+
+              <circle
+                cx="11"
+                cy="11"
+                r="6.5"/>
+
+              <path
+                d="m16 16 4 4"/>
+
+            </svg>
+
+
+            <input
+              id="search"
+              class="search"
+              autocomplete="off"
+              placeholder="ابحث عن قطعة، قسم، لون، مقاس..."
+            >
+
+
+            <div
+              class="search-suggestions"
+              id="searchSuggestions">
+            </div>
+
+          </div>
+
+
+          <!-- SORT -->
+
+          <select
+            id="sort"
+            class="select"
+            aria-label="ترتيب">
+
+            <option value="featured">
+              المميز أولاً
+            </option>
+
+            <option value="new">
+              الأحدث
+            </option>
+
+            <option value="priceAsc">
+              السعر الأقل
+            </option>
+
+            <option value="priceDesc">
+              السعر الأعلى
+            </option>
+
+            <option value="name">
+              الاسم
+            </option>
+
+            <option value="views">
+              الأكثر مشاهدة
+            </option>
+
+          </select>
+
+
+          <!-- AVAILABLE -->
+
+          <button
+            id="availableOnly"
+            class="toggle"
+            type="button">
+
+            <span class="dot"></span>
+
+            المتاح فقط
+
+          </button>
+
+        </div>
+
+
+        <!-- advanced -->
+
+        <div
+          class="advanced-filters">
+
+
+          <select
+            id="categoryFilter"
+            class="select">
+
+            <option value="all">
+              كل الأقسام
+            </option>
+
+          </select>
+
+
+          <select
+            id="sizeFilter"
+            class="select">
+
+            <option value="all">
+              كل المقاسات
+            </option>
+
+          </select>
+
+
+          <select
+            id="colorFilter"
+            class="select">
+
+            <option value="all">
+              كل الألوان
+            </option>
+
+          </select>
+
+
+          <select
+            id="collectionFilter"
+            class="select">
+
+            <option value="all">
+              كل الكولكشنات
+            </option>
+
+          </select>
+
+
+        </div>
+
+
+        <!-- price -->
+
+        <div
+          class="price-row"
+          style="margin-top:8px">
+
+          <input
+            id="minPrice"
+            class="price-input"
+            type="number"
+            min="0"
+            inputmode="decimal"
+            placeholder="أقل سعر"
+          >
+
+          <input
+            id="maxPrice"
+            class="price-input"
+            type="number"
+            min="0"
+            inputmode="decimal"
+            placeholder="أعلى سعر"
+          >
+
+        </div>
+
+
+        <!-- categories -->
+
+        <div
+          class="categories"
+          id="categories">
+        </div>
+
+
+        <div class="filter-actions">
+
+          <span
+            class="filter-summary"
+            id="filterSummary">
+            بدون فلاتر
+          </span>
+
+
+          <button
+            class="filter-clear"
+            id="clearFilters"
+            type="button"
+            hidden>
+
+            مسح الفلاتر
+
+          </button>
+
+        </div>
+
+
+        <button
+          class="filter-mobile-close"
+          id="closeFilters"
+          type="button">
+
+          عرض النتائج
+
+        </button>
+
+
       </div>
 
     </div>
@@ -2640,67 +5093,156 @@ img{
   </section>
 
 
-  <!-- =====================================================
-       FEATURED
-  ====================================================== -->
+  <!-- ======================================================
+       NEW DROP
+  ======================================================= -->
 
   <section
-    class="featured container"
-    id="featured"
+    class="product-section container"
+    id="newSection"
     hidden>
 
-    <div class="featured-head">
+    <div class="section-head">
 
       <div>
 
-        <div class="kicker">
-          FEATURED COLLECTION
+        <div class="section-kicker">
+          NEW DROP
         </div>
 
-        <h2>
-          قطع مختارة
+        <h2 class="section-title">
+          أحدث القطع
         </h2>
 
-        <p>
-          اختيارات مميزة من تشكيلة AWM.
+        <p class="section-sub">
+          أحدث الإضافات إلى تشكيلة AWM.
         </p>
 
       </div>
 
       <div
-        class="featured-count"
-        id="featuredCount">
+        class="section-count"
+        id="newCount">
       </div>
 
     </div>
 
 
     <div
-      class="featured-grid"
-      id="featuredGrid">
+      class="section-grid"
+      id="newGrid">
     </div>
 
   </section>
 
 
-  <!-- =====================================================
+  <!-- ======================================================
+       BEST SELLERS / MOST VIEWED
+  ======================================================= -->
+
+  <section
+    class="product-section container"
+    id="bestSection"
+    hidden>
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-kicker">
+          AWM PICKS
+        </div>
+
+        <h2 class="section-title">
+          الأكثر طلبًا
+        </h2>
+
+        <p class="section-sub">
+          قطع بارزة من التشكيلة.
+        </p>
+
+      </div>
+
+      <div
+        class="section-count"
+        id="bestCount">
+      </div>
+
+    </div>
+
+
+    <div
+      class="section-grid"
+      id="bestGrid">
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       OFFERS
+  ======================================================= -->
+
+  <section
+    class="container"
+    id="offerSection"
+    hidden>
+
+    <div class="offer-banner">
+
+      <div class="offer-content">
+
+        <small>
+          AWM OFFERS
+        </small>
+
+        <strong>
+          عروض مختارة من التشكيلة
+        </strong>
+
+        <p>
+          أسعار مخفضة على القطع التي تحتوي على سعر قديم وخصم.
+        </p>
+
+      </div>
+
+
+      <button
+        class="offer-action"
+        id="showOffers"
+        type="button">
+
+        شوف العروض
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
        PRODUCTS
-  ====================================================== -->
+  ======================================================= -->
 
   <section class="container">
 
     <div class="results-line">
 
-      <span id="resultsSummary">
+      <span
+        id="resultsSummary">
         جاري تجهيز المعرض...
       </span>
 
+
       <button
         class="clear-btn"
-        id="clearFilters"
-        hidden
-        type="button">
+        id="clearFiltersTop"
+        type="button"
+        hidden>
+
         مسح الفلاتر
+
       </button>
 
     </div>
@@ -2710,36 +5252,328 @@ img{
       class="grid"
       id="grid">
 
-      <div class="skeleton">
-        <div class="skel skel-img"></div>
-        <div class="skel skel-line short"></div>
-        <div class="skel skel-line mid"></div>
-        <div class="skel skel-line"></div>
-        <div class="skel skel-btn"></div>
-      </div>
+
+      <!-- skeleton -->
 
       <div class="skeleton">
+
         <div class="skel skel-img"></div>
+
         <div class="skel skel-line short"></div>
+
         <div class="skel skel-line mid"></div>
+
         <div class="skel skel-line"></div>
+
         <div class="skel skel-btn"></div>
+
       </div>
 
-      <div class="skeleton">
-        <div class="skel skel-img"></div>
-        <div class="skel skel-line short"></div>
-        <div class="skel skel-line mid"></div>
-        <div class="skel skel-line"></div>
-        <div class="skel skel-btn"></div>
-      </div>
 
       <div class="skeleton">
+
         <div class="skel skel-img"></div>
+
         <div class="skel skel-line short"></div>
+
         <div class="skel skel-line mid"></div>
+
         <div class="skel skel-line"></div>
+
         <div class="skel skel-btn"></div>
+
+      </div>
+
+
+      <div class="skeleton">
+
+        <div class="skel skel-img"></div>
+
+        <div class="skel skel-line short"></div>
+
+        <div class="skel skel-line mid"></div>
+
+        <div class="skel skel-line"></div>
+
+        <div class="skel skel-btn"></div>
+
+      </div>
+
+
+      <div class="skeleton">
+
+        <div class="skel skel-img"></div>
+
+        <div class="skel skel-line short"></div>
+
+        <div class="skel skel-line mid"></div>
+
+        <div class="skel skel-line"></div>
+
+        <div class="skel skel-btn"></div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       RECENT
+  ======================================================= -->
+
+  <section
+    class="recent-section container"
+    id="recentSection"
+    hidden>
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-kicker">
+          RECENTLY VIEWED
+        </div>
+
+        <h2 class="section-title">
+          شوهدت مؤخرًا
+        </h2>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="recent-grid"
+      id="recentGrid">
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       WHY AWM
+  ======================================================= -->
+
+  <section
+    class="why-section">
+
+    <div class="container">
+
+      <div class="why-head">
+
+        <div class="section-kicker">
+          WHY AWM
+        </div>
+
+        <h2 class="section-title">
+          تجربة مختلفة
+        </h2>
+
+        <p class="section-sub">
+          كل تفصيلة معمولة عشان تصفحك يكون أسرع وأوضح.
+        </p>
+
+      </div>
+
+
+      <div class="why-grid">
+
+
+        <div class="why-card">
+
+          <div class="why-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+
+              <path d="M12 3v18"/>
+              <path d="M5 8h14"/>
+              <path d="M6 12h12"/>
+              <path d="M7 16h10"/>
+
+            </svg>
+
+          </div>
+
+          <strong>
+            تفاصيل واضحة
+          </strong>
+
+          <p>
+            السعر والمقاسات والألوان والحالة في مكان واحد.
+          </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+          <div class="why-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+
+              <rect
+                x="3"
+                y="4"
+                width="18"
+                height="16"
+                rx="3"/>
+
+              <path d="m7 14 3-3 2 2 4-5 2 2"/>
+
+            </svg>
+
+          </div>
+
+          <strong>
+            صور متعددة
+          </strong>
+
+          <p>
+            شوف القطعة من أكتر من زاوية قبل التواصل.
+          </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+          <div class="why-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+
+              <path d="M20 11.5a8.38 8.38 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-4.4a8.4 8.4 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 4 8.38 8.38 0 0 1 20 11.5Z"/>
+
+            </svg>
+
+          </div>
+
+          <strong>
+            تواصل مباشر
+          </strong>
+
+          <p>
+            اسأل عن القطعة مباشرة من زر واتساب داخل التفاصيل.
+          </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+          <div class="why-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+
+              <path
+                d="M20 11.5a8.5 8.5 0 1 1-2.49-6.01"/>
+
+              <path d="M20 4v6h-6"/>
+
+            </svg>
+
+          </div>
+
+          <strong>
+            محدث باستمرار
+          </strong>
+
+          <p>
+            المعرض مرتبط مباشرة بالبيانات الحالية للمنتجات.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       SOCIAL
+  ======================================================= -->
+
+  <section class="social-section">
+
+    <div class="container">
+
+      <div class="social-box">
+
+        <div class="social-copy">
+
+          <small>
+            AWM ON SOCIAL
+          </small>
+
+          <strong>
+            تابع AWM خارج الموقع
+          </strong>
+
+          <p>
+            أحدث التصويرات والقطع والكولكشنات على السوشيال.
+          </p>
+
+        </div>
+
+
+        <div class="social-links">
+
+          <a
+            class="social-link"
+            href="https://wa.me/201020776397"
+            target="_blank"
+            rel="noopener">
+
+            WhatsApp
+
+          </a>
+
+
+          <a
+            class="social-link"
+            href="https://www.tiktok.com/@awm.store11"
+            target="_blank"
+            rel="noopener">
+
+            TikTok
+
+          </a>
+
+
+          <a
+            class="social-link"
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener">
+
+            Instagram
+
+          </a>
+
+        </div>
+
       </div>
 
     </div>
@@ -2749,15 +5583,18 @@ img{
 </main>
 
 
-<!-- =====================================================
+<!-- ========================================================
      FOOTER
-====================================================== -->
+========================================================= -->
 
-<footer class="footer" id="footer">
+<footer
+  class="footer"
+  id="footer">
 
   <div class="container">
 
     <div class="footer-main">
+
 
       <div>
 
@@ -2786,7 +5623,7 @@ img{
               href="https://wa.me/201020776397"
               target="_blank"
               rel="noopener">
-              WhatsApp Group
+              WhatsApp
             </a>
           </li>
 
@@ -2817,6 +5654,7 @@ img{
 
       </div>
 
+
     </div>
 
 
@@ -2837,9 +5675,9 @@ img{
 </footer>
 
 
-<!-- =====================================================
+<!-- ========================================================
      PRODUCT MODAL
-====================================================== -->
+========================================================= -->
 
 <div
   class="modal"
@@ -2850,16 +5688,19 @@ img{
 
   <div class="modal-box">
 
+
     <button
       class="modal-close"
-      onclick="closeModal()"
-      aria-label="إغلاق"
-      type="button">
+      id="modalClose"
+      type="button"
+      aria-label="إغلاق">
+
       ×
+
     </button>
 
 
-    <!-- MEDIA -->
+    <!-- media -->
 
     <div class="modal-media">
 
@@ -2867,30 +5708,39 @@ img{
         class="main-image"
         id="mainImage">
 
+
         <button
           class="modal-nav modal-prev"
           id="prevImage"
-          aria-label="الصورة السابقة"
-          type="button">
+          type="button"
+          aria-label="الصورة السابقة">
+
           ›
+
         </button>
+
 
         <img
           id="modalImage"
           src="awm-logo.jpg"
-          alt="">
+          alt=""
+        >
+
 
         <div
           class="gallery-caption"
           id="galleryCaption">
         </div>
 
+
         <button
           class="modal-nav modal-next"
           id="nextImage"
-          aria-label="الصورة التالية"
-          type="button">
+          type="button"
+          aria-label="الصورة التالية">
+
           ‹
+
         </button>
 
       </div>
@@ -2904,9 +5754,10 @@ img{
     </div>
 
 
-    <!-- INFO -->
+    <!-- info -->
 
     <div class="modal-info">
+
 
       <div class="modal-topline">
 
@@ -2929,19 +5780,35 @@ img{
       </div>
 
 
-      <div
-        class="modal-price"
-        id="modalPrice">
+      <div class="modal-price-wrap">
+
+        <div
+          class="modal-price"
+          id="modalPrice">
+        </div>
+
+        <div
+          class="modal-old-price"
+          id="modalOldPrice">
+        </div>
+
+        <div
+          class="modal-discount"
+          id="modalDiscount"
+          hidden>
+        </div>
+
       </div>
 
 
-      <div id="modalStatus"></div>
+      <div
+        id="modalStatus">
+      </div>
 
 
       <div
-        id="modalMeta"
-        class="info-chips"
-        style="margin-top:9px">
+        class="modal-meta"
+        id="modalMeta">
       </div>
 
 
@@ -2954,7 +5821,7 @@ img{
       </div>
 
 
-      <!-- SIZES -->
+      <!-- sizes -->
 
       <div
         class="detail-section"
@@ -2973,6 +5840,7 @@ img{
 
         </div>
 
+
         <div
           class="detail-chip-group"
           id="modalSizes">
@@ -2981,7 +5849,7 @@ img{
       </div>
 
 
-      <!-- COLORS -->
+      <!-- colors -->
 
       <div
         class="detail-section"
@@ -3000,6 +5868,7 @@ img{
 
         </div>
 
+
         <div
           class="detail-chip-group"
           id="modalColors">
@@ -3008,7 +5877,7 @@ img{
       </div>
 
 
-      <!-- DESCRIPTION -->
+      <!-- description -->
 
       <div
         class="detail-section"
@@ -3023,6 +5892,7 @@ img{
 
         </div>
 
+
         <p
           class="modal-desc"
           id="modalDesc">
@@ -3031,7 +5901,105 @@ img{
       </div>
 
 
-      <!-- CONTACT -->
+      <!-- actions -->
+
+      <div class="modal-actions">
+
+
+        <button
+          class="modal-action favorite"
+          id="modalFavorite"
+          type="button">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>
+
+          </svg>
+
+          <span>
+            المفضلة
+          </span>
+
+        </button>
+
+
+        <button
+          class="modal-action"
+          id="shareProduct"
+          type="button">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <circle
+              cx="18"
+              cy="5"
+              r="3"/>
+
+            <circle
+              cx="6"
+              cy="12"
+              r="3"/>
+
+            <circle
+              cx="18"
+              cy="19"
+              r="3"/>
+
+            <path
+              d="m8.6 13.5 6.8 4"/>
+
+            <path
+              d="m15.4 6.5-6.8 4"/>
+
+          </svg>
+
+          <span>
+            مشاركة
+          </span>
+
+        </button>
+
+
+        <button
+          class="modal-action"
+          id="copyLink"
+          type="button">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <path
+              d="M10 13a5 5 0 0 0 7.07.07l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15"/>
+
+            <path
+              d="M14 11a5 5 0 0 0-7.07-.07l-2 2A5 5 0 0 0 7 20l1.15-1.15"/>
+
+          </svg>
+
+          <span>
+            نسخ الرابط
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+      <!-- whatsapp -->
 
       <div class="contact-box">
 
@@ -3045,18 +6013,51 @@ img{
             height="19"
             viewBox="0 0 24 24"
             fill="currentColor">
-            <path d="M20.5 3.5A11.84 11.84 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.59 5.96L.02 24l6.27-1.64a11.88 11.88 0 0 0 5.75 1.47h.01c6.56 0 11.91-5.35 11.91-11.91a11.86 11.86 0 0 0-3.46-8.42ZM12.05 21.83h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.72.98.99-3.63-.23-.37a9.87 9.87 0 0 1-1.51-5.32c0-5.46 4.45-9.91 9.92-9.91a9.86 9.86 0 0 1 7.01 2.9 9.86 9.86 0 0 1 2.9 7.02c0 5.47-4.45 9.91-9.92 9.91Zm5.44-7.41c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.27.49 1.7.63.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35Z"/>
+
+            <path
+              d="M20.5 3.5A11.84 11.84 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.59 5.96L.02 24l6.27-1.64a11.88 11.88 0 0 0 5.75 1.47h.01c6.56 0 11.91-5.35 11.91-11.91a11.86 11.86 0 0 0-3.46-8.42ZM12.05 21.83h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.72.98.99-3.63-.23-.37a9.87 9.87 0 0 1-1.51-5.32c0-5.46 4.45-9.91 9.92-9.91a9.86 9.86 0 0 1 7.01 2.9 9.86 9.86 0 0 1 2.9 7.02c0 5.47-4.45 9.91-9.92 9.91Zm5.44-7.41c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.27.49 1.7.63.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35Z"/>
+
           </svg>
 
           تواصل بخصوص القطعة
 
         </button>
 
+
         <div class="contact-note">
-          سيتم فتح واتساب برسالة جاهزة باسم القطعة.
+          سيتم فتح واتساب برسالة جاهزة باسم القطعة والسعر والرابط.
         </div>
 
       </div>
+
+
+      <!-- related -->
+
+      <div
+        class="related-section"
+        id="relatedSection"
+        hidden>
+
+        <div class="related-head">
+
+          <strong>
+            منتجات مشابهة
+          </strong>
+
+          <span>
+            اقتراحات لك
+          </span>
+
+        </div>
+
+
+        <div
+          class="related-grid"
+          id="relatedGrid">
+        </div>
+
+      </div>
+
 
     </div>
 
@@ -3065,15 +6066,57 @@ img{
 </div>
 
 
-<!-- =====================================================
+<!-- ========================================================
+     WISHLIST DRAWER
+========================================================= -->
+
+<div
+  class="drawer-backdrop"
+  id="drawerBackdrop">
+</div>
+
+
+<aside
+  class="wishlist-drawer"
+  id="wishlistDrawer"
+  aria-label="المفضلة">
+
+  <div class="drawer-head">
+
+    <strong>
+      المفضلة
+    </strong>
+
+    <button
+      class="drawer-close"
+      id="drawerClose"
+      type="button"
+      aria-label="إغلاق">
+
+      ×
+
+    </button>
+
+  </div>
+
+
+  <div
+    class="drawer-body"
+    id="wishlistBody">
+  </div>
+
+</aside>
+
+
+<!-- ========================================================
      TO TOP
-====================================================== -->
+========================================================= -->
 
 <button
   class="to-top"
   id="toTop"
-  aria-label="العودة للأعلى"
-  type="button">
+  type="button"
+  aria-label="العودة للأعلى">
 
   <svg
     width="17"
@@ -3091,88 +6134,253 @@ img{
 </button>
 
 
+<!-- ========================================================
+     TOAST
+========================================================= -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
 <script>
-/* =====================================================
+
+/* =========================================================
    SUPABASE
-===================================================== */
+========================================================= */
 
-const SUPABASE_URL='https://ftyvkwtbqpmehmzgsjnc.supabase.co';
+const SUPABASE_URL =
+  'https://ftyvkwtbqpmehmzgsjnc.supabase.co';
 
-const SUPABASE_PUBLISHABLE_KEY=
-'sb_publishable_CTYRVQ_EN2xiW6wTk6TL2w_7mqTDtJi';
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_CTYRVQ_EN2xiW6wTk6TL2w_7mqTDtJi';
 
-const {createClient}=supabase;
+const {createClient} = supabase;
 
-const db=
-createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-
-/* =====================================================
-   CONFIG
-===================================================== */
-
-const WHATSAPP='201020776397';
-
-let products=[];
-let activeCategory='all';
-let onlyAvailable=false;
-
-let modalImages=[];
-let modalIndex=0;
-let currentProduct=null;
-
-let touchStartX=0;
+const WHATSAPP =
+  '201020776397';
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* =========================================================
+   STATE
+========================================================= */
 
-const $=s=>document.querySelector(s);
+let products = [];
 
-const $$=s=>[
-  ...document.querySelectorAll(s)
-];
+let activeCategory = 'all';
+let onlyAvailable = false;
 
-const money=v=>
-Number(v||0)
-.toLocaleString(
-  'ar-EG',
-  {maximumFractionDigits:2}
-)+' ج.م';
+let selectedSize = 'all';
+let selectedColor = 'all';
+let selectedCollection = 'all';
 
-const esc=s=>
-String(s??'')
-.replace(
-  /[&<>"']/g,
-  m=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#039;'
-  }[m])
-);
+let modalImages = [];
+let modalIndex = 0;
+
+let currentProduct = null;
+
+let touchStartX = 0;
+
+let toastTimer = null;
+
+const STORAGE_WISHLIST = 'awm_wishlist_v3';
+const STORAGE_RECENT = 'awm_recent_v3';
 
 
-/* =====================================================
-   IMAGE URL
-===================================================== */
+/* =========================================================
+   SHORTCUTS
+========================================================= */
+
+const $ = selector =>
+  document.querySelector(selector);
+
+const $$ = selector =>
+  [...document.querySelectorAll(selector)];
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+const esc = value =>
+  String(value ?? '')
+    .replace(
+      /[&<>"']/g,
+      char => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      })[char]
+    );
+
+
+/* =========================================================
+   MONEY
+========================================================= */
+
+const money = value => {
+
+  const num =
+    Number(value || 0);
+
+  return num.toLocaleString(
+    'ar-EG',
+    {
+      maximumFractionDigits:2
+    }
+  ) + ' ج.م';
+
+};
+
+
+/* =========================================================
+   OPTIONAL DATA HELPERS
+========================================================= */
+
+function oldPrice(p){
+
+  return Number(
+    p?.old_price ??
+    p?.compare_at_price ??
+    p?.previous_price ??
+    0
+  );
+
+}
+
+function discountPercent(p){
+
+  const price =
+    Number(p?.price || 0);
+
+  const old =
+    oldPrice(p);
+
+  if(old > price && price > 0){
+
+    return Math.round(
+      ((old - price) / old) * 100
+    );
+
+  }
+
+  const manual =
+    Number(
+      p?.discount_percent ??
+      p?.discount ??
+      0
+    );
+
+  return manual > 0
+    ? Math.round(manual)
+    : 0;
+
+}
+
+function stockValue(p){
+
+  const value =
+    p?.stock ??
+    p?.quantity ??
+    p?.stock_quantity ??
+    null;
+
+  if(value === null || value === ''){
+    return null;
+  }
+
+  const n =
+    Number(value);
+
+  return Number.isFinite(n)
+    ? n
+    : null;
+
+}
+
+function getCollection(p){
+
+  return String(
+    p?.collection ??
+    p?.collection_name ??
+    ''
+  ).trim();
+
+}
+
+function getFabric(p){
+
+  return String(
+    p?.fabric ??
+    p?.material ??
+    p?.fabric_type ??
+    ''
+  ).trim();
+
+}
+
+function getViews(p){
+
+  return Number(
+    p?.views ??
+    p?.view_count ??
+    0
+  );
+
+}
+
+function isBestSeller(p){
+
+  return Boolean(
+    p?.is_bestseller ??
+    p?.best_seller ??
+    p?.is_best_seller
+  );
+
+}
+
+function getTags(p){
+
+  const raw =
+    p?.tags ??
+    p?.keywords ??
+    '';
+
+  if(Array.isArray(raw)){
+    return raw
+      .map(x=>String(x).trim())
+      .filter(Boolean);
+  }
+
+  return splitValues(raw);
+
+}
+
+
+/* =========================================================
+   IMAGE HELPERS
+========================================================= */
 
 function normalizeImageUrl(url){
 
   if(!url){
-    return'awm-logo.jpg';
+    return 'awm-logo.jpg';
   }
 
-  const raw=
+  const raw =
     String(url).trim();
 
   if(!raw){
-    return'awm-logo.jpg';
+    return 'awm-logo.jpg';
   }
 
   if(
@@ -3191,70 +6399,83 @@ function normalizeImageUrl(url){
 
   }
 
-  const clean=
+  const clean =
     raw
       .replace(/^\/+/,'')
       .replace(/^products\//,'');
 
-  return `${SUPABASE_URL}/storage/v1/object/public/products/${clean
-    .split('/')
-    .map(encodeURIComponent)
-    .join('/')}`;
+  return (
+    `${SUPABASE_URL}/storage/v1/object/public/products/` +
+    clean
+      .split('/')
+      .map(encodeURIComponent)
+      .join('/')
+  );
+
 }
 
 
-/* =====================================================
-   PARSE IMAGES
-===================================================== */
-
 function parseImages(p){
 
-  let urls=p?.image_urls;
+  let urls =
+    p?.image_urls;
 
-  if(typeof urls==='string'){
+  if(typeof urls === 'string'){
 
     try{
 
-      urls=JSON.parse(urls);
+      urls =
+        JSON.parse(urls);
 
     }catch{
 
-      urls=
+      urls =
         urls
-        .split(',')
-        .map(x=>x.trim())
-        .filter(Boolean);
+          .split(',')
+          .map(x=>x.trim())
+          .filter(Boolean);
 
     }
 
   }
 
   if(!Array.isArray(urls)){
-    urls=urls?[urls]:[];
+
+    urls =
+      urls
+        ? [urls]
+        : [];
+
   }
 
-  const merged=[
-    ...(p?.image_url?[p.image_url]:[]),
+  const merged = [
+
+    ...(p?.image_url
+      ? [p.image_url]
+      : []),
+
     ...urls
+
   ];
 
-  return[
+  return [
     ...new Set(
       merged
-      .filter(Boolean)
-      .map(normalizeImageUrl)
+        .filter(Boolean)
+        .map(normalizeImageUrl)
     )
   ];
+
 }
 
 
-/* =====================================================
-   SPLIT VALUES
-===================================================== */
+/* =========================================================
+   VALUES
+========================================================= */
 
-function splitValues(v){
+function splitValues(value){
 
-  return String(v??'')
+  return String(value ?? '')
     .split(/[,،|/]/)
     .map(x=>x.trim())
     .filter(Boolean);
@@ -3262,36 +6483,38 @@ function splitValues(v){
 }
 
 
-/* =====================================================
-   NEW PRODUCT
-===================================================== */
+/* =========================================================
+   NEW
+========================================================= */
 
 function isNew(p){
 
-  const d=
-    new Date(p?.created_at||0);
+  const date =
+    new Date(
+      p?.created_at || 0
+    );
 
-  return(
-    !Number.isNaN(d.getTime()) &&
-    (Date.now()-d.getTime())
-      <=14*86400000
+  return (
+    !Number.isNaN(date.getTime()) &&
+    (Date.now() - date.getTime())
+      <= 14 * 86400000
   );
 
 }
 
 
-/* =====================================================
-   COLOR
-===================================================== */
+/* =========================================================
+   COLOR CSS
+========================================================= */
 
-function colorCss(v){
+function colorCss(value){
 
-  const s=
-    String(v||'')
+  const s =
+    String(value || '')
       .trim()
       .toLowerCase();
 
-  const map={
+  const map = {
 
     'اسود':'#111',
     'أسود':'#111',
@@ -3324,239 +6547,415 @@ function colorCss(v){
     'brown':'#8c5a3c',
 
     'كحلي':'#1d2b52',
-    'navy':'#1d2b52'
+    'navy':'#1d2b52',
+
+    'موف':'#8b5cf6',
+    'purple':'#8b5cf6',
+
+    'وردي':'#ec4899',
+    'pink':'#ec4899',
+
+    'برتقالي':'#f97316',
+    'orange':'#f97316',
+
+    'أصفر':'#eab308',
+    'اصفر':'#eab308',
+    'yellow':'#eab308'
 
   };
 
-  return map[s]||'#c9c9c5';
+  return (
+    map[s] ||
+    '#c9c9c5'
+  );
+
 }
 
 
-/* =====================================================
+/* =========================================================
    SEARCH TEXT
-===================================================== */
+========================================================= */
 
 function getSearchText(p){
 
-  return[
-    p.name,
-    p.category,
-    p.description,
-    p.condition,
-    p.colors,
-    p.sizes,
+  return [
 
-    ...splitValues(p.colors),
-    ...splitValues(p.sizes)
+    p?.name,
+    p?.category,
+    p?.description,
+    p?.condition,
+    p?.colors,
+    p?.sizes,
+    getCollection(p),
+    getFabric(p),
+    ...getTags(p),
+
+    ...splitValues(p?.colors),
+    ...splitValues(p?.sizes)
 
   ]
-  .filter(Boolean)
-  .join(' ')
-  .toLowerCase();
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
 
 }
 
 
-/* =====================================================
-   LOAD PRODUCTS
-===================================================== */
+/* =========================================================
+   WISHLIST
+========================================================= */
 
-async function loadProducts(){
+function getWishlist(){
 
-  const{
-    data,
-    error
-  }=
-  await db
-    .from('products')
-    .select('*')
-    .eq('is_active',true)
-    .order(
-      'sort_order',
-      {ascending:true}
-    )
-    .order(
-      'created_at',
-      {ascending:false}
+  try{
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_WISHLIST
+        ) || '[]'
+      );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+function saveWishlist(list){
+
+  localStorage.setItem(
+    STORAGE_WISHLIST,
+    JSON.stringify(list)
+  );
+
+}
+
+function isFavorite(id){
+
+  return getWishlist()
+    .includes(String(id));
+
+}
+
+function toggleFavorite(id){
+
+  const key =
+    String(id);
+
+  let list =
+    getWishlist();
+
+  if(list.includes(key)){
+
+    list =
+      list.filter(
+        x=>x!==key
+      );
+
+    showToast(
+      'تمت إزالة القطعة من المفضلة'
     );
 
+  }else{
 
-  if(error){
+    list.push(key);
 
-    console.error(error);
+    showToast(
+      'تمت إضافة القطعة إلى المفضلة ❤️'
+    );
 
-    $('#grid').innerHTML=`
-      <div class="empty">
+  }
 
-        <div class="empty-icon">
-          !
+  saveWishlist(list);
+
+  updateWishlistUI();
+
+  renderProducts();
+
+  renderRecent();
+
+  if(currentProduct){
+
+    updateModalFavorite();
+
+  }
+
+}
+
+function updateWishlistUI(){
+
+  const count =
+    getWishlist().length;
+
+  const badge =
+    $('#favCount');
+
+  badge.textContent =
+    count;
+
+  badge.hidden =
+    count===0;
+
+  renderWishlist();
+
+}
+
+function renderWishlist(){
+
+  const body =
+    $('#wishlistBody');
+
+  const ids =
+    getWishlist();
+
+  const list =
+    ids
+      .map(id =>
+        products.find(
+          p=>String(p.id)===String(id)
+        )
+      )
+      .filter(Boolean);
+
+  if(!list.length){
+
+    body.innerHTML = `
+
+      <div class="drawer-empty">
+
+        <div class="drawer-empty-icon">
+
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>
+
+          </svg>
+
         </div>
 
-        <h3>
-          تعذر تحميل المعرض
-        </h3>
+        <strong>
+          مفيش قطع محفوظة
+        </strong>
 
         <p>
-          تحقق من إعدادات Supabase والاتصال بالبيانات.
+          اضغط على القلب بجوار أي قطعة لإضافتها للمفضلة.
         </p>
 
       </div>
+
     `;
 
-    $('#resultsSummary').textContent=
-      'تعذر تحميل البيانات';
-
     return;
+
   }
 
 
-  products=data||[];
-
-  renderCategories();
-  renderFeatured();
-  renderProducts();
-
-}
-
-
-/* =====================================================
-   CATEGORIES
-===================================================== */
-
-function renderCategories(){
-
-  const counts={};
-
-  products.forEach(p=>{
-
-    if(p.category){
-      counts[p.category]=
-        (counts[p.category]||0)+1;
-    }
-
-  });
-
-
-  const cats=
-    Object.keys(counts)
-      .sort(
-        (a,b)=>
-          a.localeCompare(b,'ar')
-      );
-
-
-  $('#categories').innerHTML=
-
-    `<button
-      class="cat ${activeCategory==='all'?'active':''}"
-      data-cat="all"
-      type="button">
-
-      الكل
-      <span>${products.length}</span>
-
-    </button>`
-
-    +
-
-    cats.map(c=>`
-
-      <button
-        class="cat ${activeCategory===c?'active':''}"
-        data-cat="${esc(c)}"
-        type="button">
-
-        ${esc(c)}
-        <span>${counts[c]}</span>
-
-      </button>
-
-    `).join('');
-
-
-  $$('.cat').forEach(btn=>{
-
-    btn.addEventListener(
-      'click',
-      ()=>{
-
-        activeCategory=
-          btn.dataset.cat;
-
-        renderCategories();
-        renderProducts();
-
-      }
-    );
-
-  });
-
-}
-
-
-/* =====================================================
-   FEATURED
-===================================================== */
-
-function renderFeatured(){
-
-  const featured=
-    products.filter(
-      p=>p.is_featured
-    );
-
-
-  if(!featured.length){
-
-    $('#featured').hidden=true;
-    $('#featuredNav').hidden=true;
-
-    return;
-  }
-
-
-  $('#featured').hidden=false;
-  $('#featuredNav').hidden=false;
-
-  $('#featuredCount').textContent=
-    `${featured.length} قطع`;
-
-
-  $('#featuredGrid').innerHTML=
-
-    featured
-      .slice(0,4)
+  body.innerHTML =
+    list
       .map(p=>{
 
-        const img=
-          parseImages(p)[0]||
+        const img =
+          parseImages(p)[0] ||
           'awm-logo.jpg';
 
-        return`
+        return `
 
-          <article
-            class="featured-card"
-            onclick="openProduct('${p.id}')">
+          <div
+            class="wish-item"
+            data-id="${esc(p.id)}">
 
             <img
               src="${esc(img)}"
               alt="${esc(p.name||'AWM')}"
-              loading="lazy"
               onerror="this.src='awm-logo.jpg'">
 
-            <span class="featured-tag">
-              مميز
-            </span>
-
-            <div class="featured-info">
-
-              <small>
-                ${esc(p.category||'AWM')}
-              </small>
+            <div class="wish-main">
 
               <strong>
                 ${esc(p.name||'قطعة AWM')}
               </strong>
+
+              <span>
+                ${esc(p.category||'AWM')}
+              </span>
+
+              <b>
+                ${money(p.price)}
+              </b>
+
+            </div>
+
+            <button
+              class="wish-remove"
+              type="button"
+              aria-label="حذف"
+              onclick="toggleFavorite('${esc(p.id)}')">
+
+              ×
+
+            </button>
+
+          </div>
+
+        `;
+
+      })
+      .join('');
+
+
+  $$('.wish-item')
+    .forEach(item=>{
+
+      item.addEventListener(
+        'click',
+        e=>{
+
+          if(
+            e.target.closest(
+              '.wish-remove'
+            )
+          ){
+            return;
+          }
+
+          openProduct(
+            item.dataset.id
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   RECENTLY VIEWED
+========================================================= */
+
+function getRecent(){
+
+  try{
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_RECENT
+        ) || '[]'
+      );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+function addRecent(id){
+
+  const key =
+    String(id);
+
+  let list =
+    getRecent();
+
+  list =
+    list.filter(
+      x=>String(x)!==key
+    );
+
+  list.unshift(key);
+
+  list =
+    list.slice(0,8);
+
+  localStorage.setItem(
+    STORAGE_RECENT,
+    JSON.stringify(list)
+  );
+
+  renderRecent();
+
+}
+
+function renderRecent(){
+
+  const ids =
+    getRecent();
+
+  const list =
+    ids
+      .map(id =>
+        products.find(
+          p=>String(p.id)===String(id)
+        )
+      )
+      .filter(Boolean)
+      .slice(0,4);
+
+
+  if(!list.length){
+
+    $('#recentSection').hidden =
+      true;
+
+    return;
+
+  }
+
+
+  $('#recentSection').hidden =
+    false;
+
+
+  $('#recentGrid').innerHTML =
+    list
+      .map(p=>{
+
+        const img =
+          parseImages(p)[0] ||
+          'awm-logo.jpg';
+
+        return `
+
+          <article
+            class="recent-card"
+            onclick="openProduct('${esc(p.id)}')">
+
+            <img
+              src="${esc(img)}"
+              alt="${esc(p.name||'AWM')}"
+              onerror="this.src='awm-logo.jpg'">
+
+            <div class="recent-info">
+
+              <strong>
+                ${esc(p.name||'قطعة AWM')}
+              </strong>
+
+              <span>
+                ${esc(p.category||'AWM')}
+              </span>
 
               <b>
                 ${money(p.price)}
@@ -3574,13 +6973,701 @@ function renderFeatured(){
 }
 
 
-/* =====================================================
-   FILTERED PRODUCTS
-===================================================== */
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
+
+async function loadProducts(){
+
+  $('#grid').innerHTML =
+    skeletons(8);
+
+
+  const {
+    data,
+    error
+  } = await db
+    .from('products')
+    .select('*')
+    .eq('is_active',true)
+    .order(
+      'sort_order',
+      {ascending:true}
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    $('#grid').innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          !
+        </div>
+
+        <h3>
+          تعذر تحميل المعرض
+        </h3>
+
+        <p>
+          تحقق من إعدادات Supabase والاتصال بالبيانات.
+        </p>
+
+      </div>
+
+    `;
+
+    $('#resultsSummary')
+      .textContent =
+      'تعذر تحميل البيانات';
+
+    return;
+
+  }
+
+
+  products =
+    data || [];
+
+
+  buildFilters();
+
+  renderCollections();
+
+  renderFeatureSections();
+
+  renderProducts();
+
+  renderRecent();
+
+  updateWishlistUI();
+
+}
+
+
+/* =========================================================
+   SKELETONS
+========================================================= */
+
+function skeletons(n){
+
+  return Array
+    .from(
+      {length:n}
+    )
+    .map(
+      ()=>`
+
+        <div class="skeleton">
+
+          <div class="skel skel-img"></div>
+
+          <div class="skel skel-line short"></div>
+
+          <div class="skel skel-line mid"></div>
+
+          <div class="skel skel-line"></div>
+
+          <div class="skel skel-btn"></div>
+
+        </div>
+
+      `
+    )
+    .join('');
+
+}
+
+
+/* =========================================================
+   UNIQUE VALUES
+========================================================= */
+
+function uniqueSorted(values){
+
+  return [
+    ...new Set(
+      values
+        .flatMap(v =>
+          splitValues(v)
+        )
+        .filter(Boolean)
+    )
+  ].sort(
+    (a,b)=>
+      a.localeCompare(
+        b,
+        'ar'
+      )
+  );
+
+}
+
+
+/* =========================================================
+   BUILD FILTERS
+========================================================= */
+
+function buildFilters(){
+
+  const categories =
+    [
+      ...new Set(
+        products
+          .map(
+            p=>String(
+              p?.category||''
+            ).trim()
+          )
+          .filter(Boolean)
+      )
+    ]
+    .sort(
+      (a,b)=>
+        a.localeCompare(
+          b,
+          'ar'
+        )
+    );
+
+
+  $('#categoryFilter')
+    .innerHTML =
+      `
+        <option value="all">
+          كل الأقسام
+        </option>
+      ` +
+      categories
+        .map(
+          c=>
+            `<option value="${esc(c)}">
+              ${esc(c)}
+            </option>`
+        )
+        .join('');
+
+
+  const sizes =
+    uniqueSorted(
+      products.map(
+        p=>p?.sizes
+      )
+    );
+
+
+  $('#sizeFilter')
+    .innerHTML =
+      `
+        <option value="all">
+          كل المقاسات
+        </option>
+      ` +
+      sizes
+        .map(
+          s=>
+            `<option value="${esc(s)}">
+              مقاس ${esc(s)}
+            </option>`
+        )
+        .join('');
+
+
+  const colors =
+    uniqueSorted(
+      products.map(
+        p=>p?.colors
+      )
+    );
+
+
+  $('#colorFilter')
+    .innerHTML =
+      `
+        <option value="all">
+          كل الألوان
+        </option>
+      ` +
+      colors
+        .map(
+          c=>
+            `<option value="${esc(c)}">
+              ${esc(c)}
+            </option>`
+        )
+        .join('');
+
+
+  const actualCollections =
+    [
+      ...new Set(
+        products
+          .map(
+            p=>getCollection(p)
+          )
+          .filter(Boolean)
+      )
+    ]
+    .sort(
+      (a,b)=>
+        a.localeCompare(
+          b,
+          'ar'
+        )
+    );
+
+
+  $('#collectionFilter')
+    .innerHTML =
+      `
+        <option value="all">
+          كل الكولكشنات
+        </option>
+
+        <option value="new">
+          New Drop
+        </option>
+
+        <option value="featured">
+          Featured
+        </option>
+
+        <option value="best">
+          Best Sellers
+        </option>
+
+        <option value="limited">
+          Limited
+        </option>
+      ` +
+      actualCollections
+        .map(
+          c=>
+            `<option value="custom:${esc(c)}">
+              ${esc(c)}
+            </option>`
+        )
+        .join('');
+
+
+  renderCategories();
+
+}
+
+
+/* =========================================================
+   CATEGORY CHIPS
+========================================================= */
+
+function renderCategories(){
+
+  const counts = {};
+
+  products.forEach(
+    p=>{
+
+      if(p.category){
+
+        counts[p.category] =
+          (counts[p.category] || 0) + 1;
+
+      }
+
+    }
+  );
+
+
+  const cats =
+    Object
+      .keys(counts)
+      .sort(
+        (a,b)=>
+          a.localeCompare(
+            b,
+            'ar'
+          )
+      );
+
+
+  $('#categories').innerHTML =
+
+    `
+      <button
+        class="cat ${activeCategory==='all'?'active':''}"
+        data-cat="all"
+        type="button">
+
+        الكل
+        <span>
+          ${products.length}
+        </span>
+
+      </button>
+    ` +
+
+    cats
+      .map(
+        c=>`
+
+          <button
+            class="cat ${activeCategory===c?'active':''}"
+            data-cat="${esc(c)}"
+            type="button">
+
+            ${esc(c)}
+
+            <span>
+              ${counts[c]}
+            </span>
+
+          </button>
+
+        `
+      )
+      .join('');
+
+
+  $$('.cat')
+    .forEach(
+      btn=>{
+
+        btn.addEventListener(
+          'click',
+          ()=>{
+
+            activeCategory =
+              btn.dataset.cat;
+
+            $('#categoryFilter')
+              .value =
+              activeCategory;
+
+            renderCategories();
+
+            renderProducts();
+
+            updateFilterUI();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   COLLECTIONS
+========================================================= */
+
+function renderCollections(){
+
+  const collections = [];
+
+  const addCollection =
+    (key,title,count,sub)=>
+      collections.push({
+        key,
+        title,
+        count,
+        sub
+      });
+
+
+  addCollection(
+    'all',
+    'كل القطع',
+    products.length,
+    'كل التشكيلة'
+  );
+
+
+  const newCount =
+    products.filter(
+      p=>isNew(p)
+    ).length;
+
+  if(newCount){
+
+    addCollection(
+      'new',
+      'New Drop',
+      newCount,
+      'أحدث الإضافات'
+    );
+
+  }
+
+
+  const featuredCount =
+    products.filter(
+      p=>p.is_featured
+    ).length;
+
+  if(featuredCount){
+
+    addCollection(
+      'featured',
+      'Featured',
+      featuredCount,
+      'قطع مختارة'
+    );
+
+  }
+
+
+  const bestCount =
+    products.filter(
+      p=>isBestSeller(p)
+    ).length;
+
+  if(bestCount){
+
+    addCollection(
+      'best',
+      'Best Sellers',
+      bestCount,
+      'الأكثر طلبًا'
+    );
+
+  }
+
+
+  const limitedCount =
+    products.filter(
+      p=>{
+
+        const stock =
+          stockValue(p);
+
+        return(
+          stock !== null &&
+          stock > 0 &&
+          stock <= 3
+        );
+
+      }
+    ).length;
+
+  if(limitedCount){
+
+    addCollection(
+      'limited',
+      'Limited',
+      limitedCount,
+      'كميات محدودة'
+    );
+
+  }
+
+
+  const actual =
+    [
+      ...new Set(
+        products
+          .map(
+            p=>getCollection(p)
+          )
+          .filter(Boolean)
+      )
+    ]
+    .slice(0,8);
+
+
+  actual.forEach(
+    c=>{
+
+      const count =
+        products.filter(
+          p=>getCollection(p)===c
+        ).length;
+
+      addCollection(
+        `custom:${c}`,
+        c,
+        count,
+        'AWM Collection'
+      );
+
+    }
+  );
+
+
+  $('#collectionsRow').innerHTML =
+    collections
+      .map(
+        item=>`
+
+          <button
+            class="collection-chip ${item.key==='all'?'active':''}"
+            data-collection="${esc(item.key)}"
+            type="button">
+
+            <strong>
+              ${esc(item.title)}
+            </strong>
+
+            <span>
+              ${item.count} قطعة • ${esc(item.sub)}
+            </span>
+
+          </button>
+
+        `
+      )
+      .join('');
+
+
+  $$('.collection-chip')
+    .forEach(
+      btn=>{
+
+        btn.addEventListener(
+          'click',
+          ()=>{
+
+            applyCollectionSelection(
+              btn.dataset.collection
+            );
+
+            $('#gallery')
+              .scrollIntoView({
+                behavior:'smooth'
+              });
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   COLLECTION APPLY
+========================================================= */
+
+function applyCollectionSelection(
+  key
+){
+
+  selectedCollection =
+    key;
+
+  $('#collectionFilter')
+    .value =
+    key;
+
+  renderProducts();
+
+  updateFilterUI();
+
+}
+
+
+/* =========================================================
+   MATCH COLLECTION
+========================================================= */
+
+function matchesCollection(p){
+
+  if(
+    selectedCollection ===
+    'all'
+  ){
+
+    return true;
+
+  }
+
+
+  if(
+    selectedCollection ===
+    'new'
+  ){
+
+    return isNew(p);
+
+  }
+
+
+  if(
+    selectedCollection ===
+    'featured'
+  ){
+
+    return Boolean(
+      p.is_featured
+    );
+
+  }
+
+
+  if(
+    selectedCollection ===
+    'best'
+  ){
+
+    return isBestSeller(p);
+
+  }
+
+
+  if(
+    selectedCollection ===
+    'limited'
+  ){
+
+    const stock =
+      stockValue(p);
+
+    return(
+      stock !== null &&
+      stock > 0 &&
+      stock <= 3
+    );
+
+  }
+
+
+  if(
+    selectedCollection
+      .startsWith('custom:')
+  ){
+
+    return (
+      getCollection(p) ===
+      selectedCollection
+        .replace(
+          'custom:',
+          ''
+        )
+    );
+
+  }
+
+
+  return true;
+
+}
+
+
+/* =========================================================
+   FILTER PRODUCTS
+========================================================= */
 
 function filteredProducts(){
 
-  let list=
+  let list =
     products.filter(
       p=>
         activeCategory==='all' ||
@@ -3588,9 +7675,11 @@ function filteredProducts(){
     );
 
 
-  if(onlyAvailable){
+  if(
+    onlyAvailable
+  ){
 
-    list=
+    list =
       list.filter(
         p=>p.is_available
       );
@@ -3598,7 +7687,59 @@ function filteredProducts(){
   }
 
 
-  const q=
+  if(
+    selectedSize!=='all'
+  ){
+
+    list =
+      list.filter(
+        p=>
+          splitValues(
+            p.sizes
+          )
+          .some(
+            s=>
+              s.toLowerCase() ===
+              selectedSize.toLowerCase()
+          )
+      );
+
+  }
+
+
+  if(
+    selectedColor!=='all'
+  ){
+
+    list =
+      list.filter(
+        p=>
+          splitValues(
+            p.colors
+          )
+          .some(
+            c=>
+              c.toLowerCase() ===
+              selectedColor.toLowerCase()
+          )
+      );
+
+  }
+
+
+  if(
+    selectedCollection!=='all'
+  ){
+
+    list =
+      list.filter(
+        matchesCollection
+      );
+
+  }
+
+
+  const q =
     $('#search')
       .value
       .trim()
@@ -3607,7 +7748,7 @@ function filteredProducts(){
 
   if(q){
 
-    list=
+    list =
       list.filter(
         p=>
           getSearchText(p)
@@ -3617,7 +7758,44 @@ function filteredProducts(){
   }
 
 
-  const sort=
+  const min =
+    Number(
+      $('#minPrice').value || 0
+    );
+
+  const max =
+    Number(
+      $('#maxPrice').value || 0
+    );
+
+
+  if(
+    min > 0
+  ){
+
+    list =
+      list.filter(
+        p=>
+          Number(p.price||0) >= min
+      );
+
+  }
+
+
+  if(
+    max > 0
+  ){
+
+    list =
+      list.filter(
+        p=>
+          Number(p.price||0) <= max
+      );
+
+  }
+
+
+  const sort =
     $('#sort').value;
 
 
@@ -3625,11 +7803,17 @@ function filteredProducts(){
 
     list.sort(
       (a,b)=>
-        Number(b.is_featured)-
+        Number(b.is_featured) -
         Number(a.is_featured)
+
         ||
-        Number(a.sort_order||0)-
-        Number(b.sort_order||0)
+
+        Number(
+          a.sort_order || 0
+        ) -
+        Number(
+          b.sort_order || 0
+        )
     );
 
   }
@@ -3639,8 +7823,13 @@ function filteredProducts(){
 
     list.sort(
       (a,b)=>
-        new Date(b.created_at||0)-
-        new Date(a.created_at||0)
+        new Date(
+          b.created_at || 0
+        ) -
+
+        new Date(
+          a.created_at || 0
+        )
     );
 
   }
@@ -3650,8 +7839,8 @@ function filteredProducts(){
 
     list.sort(
       (a,b)=>
-        Number(a.price)-
-        Number(b.price)
+        Number(a.price||0) -
+        Number(b.price||0)
     );
 
   }
@@ -3661,8 +7850,8 @@ function filteredProducts(){
 
     list.sort(
       (a,b)=>
-        Number(b.price)-
-        Number(a.price)
+        Number(b.price||0) -
+        Number(a.price||0)
     );
 
   }
@@ -3672,11 +7861,26 @@ function filteredProducts(){
 
     list.sort(
       (a,b)=>
-        String(a.name||'')
-          .localeCompare(
-            String(b.name||''),
-            'ar'
-          )
+        String(
+          a.name || ''
+        )
+        .localeCompare(
+          String(
+            b.name || ''
+          ),
+          'ar'
+        )
+    );
+
+  }
+
+
+  if(sort==='views'){
+
+    list.sort(
+      (a,b)=>
+        getViews(b) -
+        getViews(a)
     );
 
   }
@@ -3687,62 +7891,187 @@ function filteredProducts(){
 }
 
 
-/* =====================================================
+/* =========================================================
    PRODUCT CARD
-===================================================== */
+========================================================= */
 
 function productCard(p){
 
-  const imgs=
+  const imgs =
     parseImages(p);
 
-  const img=
-    imgs[0]||
+  const img =
+    imgs[0] ||
     'awm-logo.jpg';
 
 
-  const badges=[
+  const old =
+    oldPrice(p);
 
-    p.is_available
-      ? '<span class="badge green">متاح</span>'
-      : '<span class="badge red">غير متاح</span>',
+  const discount =
+    discountPercent(p);
 
-    p.is_featured
-      ? '<span class="badge dark">مميز</span>'
-      : '',
-
-    isNew(p)
-      ? '<span class="badge">جديد</span>'
-      : ''
-
-  ].join('');
+  const stock =
+    stockValue(p);
 
 
-  return`
+  const badges = [];
+
+
+  if(p.is_available){
+
+    badges.push(
+      `<span class="badge green">
+        متاح
+      </span>`
+    );
+
+  }else{
+
+    badges.push(
+      `<span class="badge red">
+        غير متاح
+      </span>`
+    );
+
+  }
+
+
+  if(p.is_featured){
+
+    badges.push(
+      `<span class="badge dark">
+        مميز
+      </span>`
+    );
+
+  }
+
+
+  if(isNew(p)){
+
+    badges.push(
+      `<span class="badge">
+        جديد
+      </span>`
+    );
+
+  }
+
+
+  if(discount > 0){
+
+    badges.push(
+      `<span class="badge red">
+        خصم ${discount}%
+      </span>`
+    );
+
+  }
+
+
+  if(
+    stock !== null &&
+    stock > 0 &&
+    stock <= 3
+  ){
+
+    badges.push(
+      `<span class="badge gold">
+        آخر قطع
+      </span>`
+    );
+
+  }
+
+
+  let stockNote = '';
+
+
+  if(
+    stock !== null
+  ){
+
+    if(stock <= 0){
+
+      stockNote =
+        `<span class="stock-note low">
+          غير متوفر
+        </span>`;
+
+    }else if(stock <= 3){
+
+      stockNote =
+        `<span class="stock-note low">
+          متبقي ${stock} فقط
+        </span>`;
+
+    }else{
+
+      stockNote =
+        `<span class="stock-note">
+          متوفر ${stock}
+        </span>`;
+
+    }
+
+  }
+
+
+  return `
 
     <article class="card">
 
-      <div class="card-media">
+      <div
+        class="card-media"
+        onclick="openProduct('${esc(p.id)}')">
+
 
         <img
           src="${esc(img)}"
           alt="${esc(p.name||'AWM')}"
           loading="lazy"
-          onerror="this.src='awm-logo.jpg'">
+          onerror="this.src='awm-logo.jpg'"
+        >
+
 
         <div class="card-badges">
-          ${badges}
+          ${badges.join('')}
         </div>
+
+
+        <button
+          class="card-fav ${isFavorite(p.id)?'active':''}"
+          type="button"
+          aria-label="المفضلة"
+          onclick="event.stopPropagation();toggleFavorite('${esc(p.id)}')">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="${isFavorite(p.id)?'currentColor':'none'}"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>
+
+          </svg>
+
+        </button>
+
 
         ${
           imgs.length>1
-            ?`
-              <div class="photo-count">
-                ${imgs.length} صور
-              </div>
-            `
-            :''
+          ?
+          `
+            <div class="photo-count">
+              ${imgs.length} صور
+            </div>
+          `
+          :
+          ''
         }
+
 
       </div>
 
@@ -3753,23 +8082,62 @@ function productCard(p){
           ${esc(p.category||'AWM')}
         </div>
 
+
         <div class="card-name">
           ${esc(p.name||'قطعة AWM')}
         </div>
 
-        <div class="card-foot">
+
+        <div class="card-price-row">
 
           <div class="card-price">
             ${money(p.price)}
           </div>
 
+          ${
+            old > Number(p.price||0)
+            ?
+            `
+              <div class="card-old-price">
+                ${money(old)}
+              </div>
+            `
+            :
+            ''
+          }
+
+          ${
+            discount>0
+            ?
+            `
+              <div class="card-discount">
+                -${discount}%
+              </div>
+            `
+            :
+            ''
+          }
+
         </div>
+
+
+        ${
+          stockNote
+          ?
+          `
+            <div class="card-meta-row">
+              ${stockNote}
+            </div>
+          `
+          :
+          ''
+        }
 
 
         <button
           class="card-detail"
           type="button"
-          onclick="openProduct('${p.id}')">
+          onclick="openProduct('${esc(p.id)}')">
 
           عرض التفاصيل
 
@@ -3784,217 +8152,711 @@ function productCard(p){
 }
 
 
-/* =====================================================
-   SKELETONS
-===================================================== */
+/* =========================================================
+   MINI CARD
+========================================================= */
 
-function skeletons(n){
+function miniCard(
+  p,
+  label
+){
 
-  return Array.from(
-    {length:n},
-    ()=>
-      `<div class="skeleton">
+  const imgs =
+    parseImages(p);
 
-        <div class="skel skel-img"></div>
+  const img =
+    imgs[0] ||
+    'awm-logo.jpg';
 
-        <div class="skel skel-line short"></div>
+  const old =
+    oldPrice(p);
 
-        <div class="skel skel-line mid"></div>
+  return `
 
-        <div class="skel skel-line"></div>
+    <article
+      class="mini-card"
+      onclick="openProduct('${esc(p.id)}')">
 
-        <div class="skel skel-btn"></div>
+      <img
+        src="${esc(img)}"
+        alt="${esc(p.name||'AWM')}"
+        loading="lazy"
+        onerror="this.src='awm-logo.jpg'"
+      >
 
-      </div>`
-  ).join('');
-
-}
-
-
-/* =====================================================
-   RENDER PRODUCTS
-===================================================== */
-
-function renderProducts(){
-
-  const list=
-    filteredProducts();
-
-
-  $('#catalogCount').textContent=
-    `${products.length} قطعة`;
+      <span class="mini-badge">
+        ${esc(label)}
+      </span>
 
 
-  $('#resultsSummary').innerHTML=
-    `عرض <strong>${list.length}</strong> من أصل <strong>${products.length}</strong> قطعة`;
+      <div class="mini-info">
+
+        <small>
+          ${esc(p.category||'AWM')}
+        </small>
+
+        <strong>
+          ${esc(p.name||'قطعة AWM')}
+        </strong>
 
 
-  const hasFilter=
-    $('#search').value.trim() ||
-    activeCategory!=='all' ||
-    onlyAvailable;
+        <div class="mini-price">
 
+          ${money(p.price)}
 
-  $('#clearFilters').hidden=
-    !hasFilter;
-
-
-  $('#grid').innerHTML=
-
-    list.length
-
-      ? list
-          .map(productCard)
-          .join('')
-
-      :`
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            ⌕
-          </div>
-
-          <h3>
-            لا توجد نتائج مطابقة
-          </h3>
-
-          <p>
-            جرّب تغيير كلمة البحث أو الفلاتر.
-          </p>
+          ${
+            old > Number(p.price||0)
+            ?
+            `
+              <span class="mini-old">
+                ${money(old)}
+              </span>
+            `
+            :
+            ''
+          }
 
         </div>
 
-      `;
+      </div>
 
-}
+    </article>
 
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function focusSearch(){
-
-  document
-    .querySelector('#gallery')
-    .scrollIntoView({
-      behavior:'smooth'
-    });
-
-  setTimeout(
-    ()=>$('#search')?.focus(),
-    350
-  );
-
-}
-
-
-/* =====================================================
-   CLEAR FILTERS
-===================================================== */
-
-function clearFilters(){
-
-  $('#search').value='';
-  $('#sort').value='featured';
-
-  activeCategory='all';
-  onlyAvailable=false;
-
-  $('#availableOnly')
-    .classList
-    .remove('active');
-
-  renderCategories();
-  renderProducts();
-
-}
-
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
-
-function buildWhatsappUrl(p){
-
-  const msg=
-    `مرحباً AWM، أريد الاستفسار عن قطعة: ${p.name||'قطعة AWM'} — السعر ${money(p.price)}${p.category?` — القسم ${p.category}`:''}`;
-
-  return`
-    https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}
   `;
 
 }
 
 
-/* =====================================================
-   CONTACT PRODUCT
-===================================================== */
+/* =========================================================
+   FEATURE SECTIONS
+========================================================= */
 
-function contactProduct(id){
+function renderFeatureSections(){
 
-  const p=
-    products.find(
-      x=>x.id===id
-    );
-
-  if(!p)return;
-
-  window.open(
-    buildWhatsappUrl(p),
-    '_blank',
-    'noopener'
-  );
-
-}
+  const newItems =
+    products
+      .filter(
+        p=>isNew(p)
+      )
+      .slice(0,4);
 
 
-/* =====================================================
-   OPEN MODAL
-===================================================== */
-
-function openProduct(id){
-
-  const p=
-    products.find(
-      x=>x.id===id
-    );
-
-  if(!p)return;
+  $('#newSection').hidden =
+    !newItems.length;
 
 
-  currentProduct=p;
+  if(newItems.length){
 
-  modalImages=
-    parseImages(p);
+    $('#newCount').textContent =
+      `${newItems.length} قطع`;
 
-
-  if(!modalImages.length){
-
-    modalImages=[
-      'awm-logo.jpg'
-    ];
+    $('#newGrid').innerHTML =
+      newItems
+        .map(
+          p=>
+            miniCard(
+              p,
+              'جديد'
+            )
+        )
+        .join('');
 
   }
 
 
-  modalIndex=0;
+  let bestItems =
+    products
+      .filter(
+        p=>isBestSeller(p)
+      )
+      .sort(
+        (a,b)=>
+          getViews(b) -
+          getViews(a)
+      )
+      .slice(0,4);
 
 
-  $('#modalCategory').textContent=
-    p.category||'AWM';
+  if(!bestItems.length){
+
+    bestItems =
+      products
+        .filter(
+          p=>
+            getViews(p)>0 ||
+            p.is_featured
+        )
+        .sort(
+          (a,b)=>
+            getViews(b) -
+            getViews(a)
+        )
+        .slice(0,4);
+
+  }
 
 
-  $('#modalName').textContent=
-    p.name||'';
+  $('#bestSection').hidden =
+    !bestItems.length;
 
 
-  $('#modalPrice').textContent=
-    money(p.price);
+  if(bestItems.length){
+
+    $('#bestCount').textContent =
+      `${bestItems.length} قطع`;
+
+    $('#bestGrid').innerHTML =
+      bestItems
+        .map(
+          p=>
+            miniCard(
+              p,
+              isBestSeller(p)
+                ? 'الأكثر طلبًا'
+                : 'AWM PICK'
+            )
+        )
+        .join('');
+
+  }
 
 
-  $('#modalPhotoCount').textContent=
+  const offers =
+    products
+      .filter(
+        p=>
+          discountPercent(p)>0
+      );
+
+
+  $('#offerSection').hidden =
+    !offers.length;
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(){
+
+  const list =
+    filteredProducts();
+
+
+  $('#catalogCount')
+    .textContent =
+    `${products.length} قطعة`;
+
+
+  $('#resultsSummary')
+    .innerHTML =
+    `
+      عرض
+      <strong>
+        ${list.length}
+      </strong>
+      من أصل
+      <strong>
+        ${products.length}
+      </strong>
+      قطعة
+    `;
+
+
+  const filterCount =
+    countActiveFilters();
+
+
+  $('#filterCountMobile')
+    .textContent =
+    filterCount;
+
+
+  $('#filterSummary')
+    .textContent =
+    filterCount
+      ? `${filterCount} فلاتر مفعلة`
+      : 'بدون فلاتر';
+
+
+  const hasFilter =
+    Boolean(
+      filterCount
+    );
+
+
+  $('#clearFilters')
+    .hidden =
+    !hasFilter;
+
+
+  $('#clearFiltersTop')
+    .hidden =
+    !hasFilter;
+
+
+  if(list.length){
+
+    $('#grid').innerHTML =
+      list
+        .map(productCard)
+        .join('');
+
+  }else{
+
+    $('#grid').innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ⌕
+        </div>
+
+        <h3>
+          لا توجد نتائج مطابقة
+        </h3>
+
+        <p>
+          جرّب تغيير كلمة البحث أو الفلاتر.
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  renderCollectionActiveState();
+
+}
+
+
+/* =========================================================
+   FILTER COUNT
+========================================================= */
+
+function countActiveFilters(){
+
+  let count = 0;
+
+
+  if(
+    $('#search').value.trim()
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    activeCategory !== 'all'
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    onlyAvailable
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    selectedSize !== 'all'
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    selectedColor !== 'all'
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    selectedCollection !== 'all'
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    Number(
+      $('#minPrice').value || 0
+    ) > 0
+  ){
+
+    count++;
+
+  }
+
+
+  if(
+    Number(
+      $('#maxPrice').value || 0
+    ) > 0
+  ){
+
+    count++;
+
+  }
+
+
+  return count;
+
+}
+
+
+/* =========================================================
+   FILTER UI
+========================================================= */
+
+function updateFilterUI(){
+
+  $('#categoryFilter')
+    .value =
+    activeCategory;
+
+
+  $('#sizeFilter')
+    .value =
+    selectedSize;
+
+
+  $('#colorFilter')
+    .value =
+    selectedColor;
+
+
+  $('#collectionFilter')
+    .value =
+    selectedCollection;
+
+
+  $('#availableOnly')
+    .classList
+    .toggle(
+      'active',
+      onlyAvailable
+    );
+
+
+  renderProducts();
+
+}
+
+
+/* =========================================================
+   COLLECTION STATE
+========================================================= */
+
+function renderCollectionActiveState(){
+
+  $$('.collection-chip')
+    .forEach(
+      chip=>{
+
+        chip.classList.toggle(
+          'active',
+          chip.dataset.collection ===
+          selectedCollection
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+function clearFilters(){
+
+  $('#search').value = '';
+
+  $('#sort').value =
+    'featured';
+
+  $('#minPrice').value = '';
+  $('#maxPrice').value = '';
+
+  activeCategory =
+    'all';
+
+  onlyAvailable =
+    false;
+
+  selectedSize =
+    'all';
+
+  selectedColor =
+    'all';
+
+  selectedCollection =
+    'all';
+
+  $('#categoryFilter')
+    .value =
+    'all';
+
+  $('#sizeFilter')
+    .value =
+    'all';
+
+  $('#colorFilter')
+    .value =
+    'all';
+
+  $('#collectionFilter')
+    .value =
+    'all';
+
+  $('#availableOnly')
+    .classList
+    .remove('active');
+
+  $('#searchSuggestions')
+    .classList
+    .remove('open');
+
+  renderCategories();
+
+  renderProducts();
+
+  closeMobileFilters();
+
+}
+
+
+/* =========================================================
+   SEARCH SUGGESTIONS
+========================================================= */
+
+function renderSearchSuggestions(){
+
+  const q =
+    $('#search')
+      .value
+      .trim()
+      .toLowerCase();
+
+  const box =
+    $('#searchSuggestions');
+
+
+  if(
+    q.length < 2
+  ){
+
+    box.classList
+      .remove('open');
+
+    box.innerHTML = '';
+
+    return;
+
+  }
+
+
+  const matches =
+    products
+      .filter(
+        p=>
+          getSearchText(p)
+            .includes(q)
+      )
+      .slice(0,6);
+
+
+  if(!matches.length){
+
+    box.innerHTML = `
+
+      <div
+        style="
+          padding:14px;
+          color:#999;
+          font-size:9px;
+          text-align:center;
+        ">
+
+        مفيش نتائج مطابقة
+
+      </div>
+
+    `;
+
+    box.classList
+      .add('open');
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    matches
+      .map(p=>{
+
+        const img =
+          parseImages(p)[0] ||
+          'awm-logo.jpg';
+
+        return `
+
+          <button
+            class="suggestion"
+            type="button"
+            onclick="openProduct('${esc(p.id)}')">
+
+            <img
+              src="${esc(img)}"
+              alt=""
+              onerror="this.src='awm-logo.jpg'">
+
+            <div class="suggestion-main">
+
+              <strong>
+                ${esc(p.name||'قطعة AWM')}
+              </strong>
+
+              <span>
+                ${esc(p.category||'AWM')}
+              </span>
+
+            </div>
+
+            <div class="suggestion-price">
+              ${money(p.price)}
+            </div>
+
+          </button>
+
+        `;
+
+      })
+      .join('');
+
+
+  box.classList
+    .add('open');
+
+}
+
+
+/* =========================================================
+   MODAL OPEN
+========================================================= */
+
+function openProduct(id){
+
+  const product =
+    products.find(
+      p=>String(p.id)===String(id)
+    );
+
+
+  if(!product){
+    return;
+  }
+
+
+  currentProduct =
+    product;
+
+
+  modalImages =
+    parseImages(product);
+
+
+  if(!modalImages.length){
+
+    modalImages =
+      ['awm-logo.jpg'];
+
+  }
+
+
+  modalIndex = 0;
+
+
+  addRecent(
+    product.id
+  );
+
+
+  /* category */
+
+  $('#modalCategory')
+    .textContent =
+    product.category || 'AWM';
+
+
+  /* name */
+
+  $('#modalName')
+    .textContent =
+    product.name || '';
+
+
+  /* price */
+
+  $('#modalPrice')
+    .textContent =
+    money(product.price);
+
+
+  const old =
+    oldPrice(product);
+
+
+  $('#modalOldPrice')
+    .textContent =
+    old >
+    Number(product.price||0)
+      ? money(old)
+      : '';
+
+
+  const discount =
+    discountPercent(product);
+
+
+  $('#modalDiscount')
+    .textContent =
+    discount > 0
+      ? `-${discount}%`
+      : '';
+
+
+  $('#modalDiscount')
+    .hidden =
+    discount <= 0;
+
+
+  /* photos */
+
+  $('#modalPhotoCount')
+    .textContent =
     `${modalImages.length} ${
       modalImages.length===1
         ? 'صورة'
@@ -4002,68 +8864,141 @@ function openProduct(id){
     }`;
 
 
-  $('#galleryCaption').textContent=
-    modalImages.length>1
-      ?`1 / ${modalImages.length}`
-      :'';
+  /* status */
+
+  const stock =
+    stockValue(product);
 
 
-  $('#modalStatus').innerHTML=
-    p.is_available
-
-      ? '<span class="modal-status on">● متاح حالياً</span>'
-
-      : '<span class="modal-status off">● غير متاح حالياً</span>';
+  let statusHTML = '';
 
 
-  const meta=[];
+  if(
+    stock !== null &&
+    stock > 0 &&
+    stock <= 3
+  ){
+
+    statusHTML =
+      `
+        <span class="modal-status low">
+          ● متبقي ${stock} فقط
+        </span>
+      `;
+
+  }else if(
+    product.is_available
+  ){
+
+    statusHTML =
+      `
+        <span class="modal-status on">
+          ● متاح حالياً
+        </span>
+      `;
+
+  }else{
+
+    statusHTML =
+      `
+        <span class="modal-status off">
+          ● غير متاح حالياً
+        </span>
+      `;
+
+  }
 
 
-  if(p.is_featured){
+  $('#modalStatus')
+    .innerHTML =
+    statusHTML;
+
+
+  /* meta */
+
+  const meta = [];
+
+
+  if(product.is_featured){
 
     meta.push(
-      '<span class="badge dark">مميز</span>'
+      `<span class="badge dark">
+        مميز
+      </span>`
     );
 
   }
 
 
-  if(isNew(p)){
+  if(isNew(product)){
 
     meta.push(
-      '<span class="badge">جديد</span>'
+      `<span class="badge">
+        جديد
+      </span>`
     );
 
   }
 
 
-  if(p.condition){
+  if(discount>0){
 
     meta.push(
-      `<span class="badge">${esc(p.condition)}</span>`
+      `<span class="badge red">
+        عرض ${discount}%
+      </span>`
     );
 
   }
 
 
-  $('#modalMeta').innerHTML=
+  if(
+    getCollection(product)
+  ){
+
+    meta.push(
+      `<span class="badge">
+        ${esc(
+          getCollection(product)
+        )}
+      </span>`
+    );
+
+  }
+
+
+  if(product.condition){
+
+    meta.push(
+      `<span class="badge">
+        ${esc(product.condition)}
+      </span>`
+    );
+
+  }
+
+
+  $('#modalMeta')
+    .innerHTML =
     meta.join('');
 
 
-  /* details stats */
+  /* stats */
 
-  const stats=[];
+  const stats = [];
 
 
-  if(p.category){
+  if(product.category){
 
     stats.push(
       `<div class="detail-stat">
 
-        <small>التصنيف</small>
+        <small>
+          التصنيف
+        </small>
 
         <strong>
-          ${esc(p.category)}
+          ${esc(product.category)}
         </strong>
 
       </div>`
@@ -4072,15 +9007,17 @@ function openProduct(id){
   }
 
 
-  if(p.condition){
+  if(product.condition){
 
     stats.push(
       `<div class="detail-stat">
 
-        <small>الحالة</small>
+        <small>
+          الحالة
+        </small>
 
         <strong>
-          ${esc(p.condition)}
+          ${esc(product.condition)}
         </strong>
 
       </div>`
@@ -4092,11 +9029,13 @@ function openProduct(id){
   stats.push(
     `<div class="detail-stat">
 
-      <small>التوفر</small>
+      <small>
+        التوفر
+      </small>
 
       <strong>
         ${
-          p.is_available
+          product.is_available
             ? 'متاح الآن'
             : 'غير متاح حالياً'
         }
@@ -4106,15 +9045,19 @@ function openProduct(id){
   );
 
 
-  if(p.is_featured){
+  if(getFabric(product)){
 
     stats.push(
       `<div class="detail-stat">
 
-        <small>الظهور</small>
+        <small>
+          الخامة
+        </small>
 
         <strong>
-          ضمن القطع المميزة
+          ${esc(
+            getFabric(product)
+          )}
         </strong>
 
       </div>`
@@ -4123,26 +9066,69 @@ function openProduct(id){
   }
 
 
-  $('#detailStats').innerHTML=
+  if(getCollection(product)){
+
+    stats.push(
+      `<div class="detail-stat">
+
+        <small>
+          الكولكشن
+        </small>
+
+        <strong>
+          ${esc(
+            getCollection(product)
+          )}
+        </strong>
+
+      </div>`
+    );
+
+  }
+
+
+  if(getViews(product)>0){
+
+    stats.push(
+      `<div class="detail-stat">
+
+        <small>
+          المشاهدات
+        </small>
+
+        <strong>
+          ${getViews(product).toLocaleString('ar-EG')}
+        </strong>
+
+      </div>`
+    );
+
+  }
+
+
+  $('#detailStats')
+    .innerHTML =
     stats.join('');
 
 
   /* sizes */
 
-  const sizes=
-    splitValues(p.sizes);
+  const sizes =
+    splitValues(
+      product.sizes
+    );
 
 
-  $('#sizesSection').hidden=
+  $('#sizesSection').hidden =
     !sizes.length;
 
 
-  $('#modalSizes').innerHTML=
+  $('#modalSizes').innerHTML =
     sizes
       .map(
-        s=>
+        size=>
           `<span class="detail-chip">
-            ${esc(s)}
+            ${esc(size)}
           </span>`
       )
       .join('');
@@ -4150,26 +9136,30 @@ function openProduct(id){
 
   /* colors */
 
-  const colors=
-    splitValues(p.colors);
+  const colors =
+    splitValues(
+      product.colors
+    );
 
 
-  $('#colorsSection').hidden=
+  $('#colorsSection').hidden =
     !colors.length;
 
 
-  $('#modalColors').innerHTML=
+  $('#modalColors').innerHTML =
     colors
       .map(
-        c=>
+        color=>
           `<span class="detail-chip color">
 
             <span
               class="color-dot"
-              style="background:${colorCss(c)}">
+              style="
+                background:${colorCss(color)}
+              ">
             </span>
 
-            ${esc(c)}
+            ${esc(color)}
 
           </span>`
       )
@@ -4178,59 +9168,88 @@ function openProduct(id){
 
   /* description */
 
-  const desc=
-    (p.description||'').trim();
+  const desc =
+    String(
+      product.description ||
+      ''
+    ).trim();
 
 
-  $('#descSection').hidden=
+  $('#descSection').hidden =
     !desc;
 
 
-  $('#modalDesc').textContent=
+  $('#modalDesc')
+    .textContent =
     desc;
 
 
-  /* thumbs */
+  /* thumbnails */
 
-  $('#modalThumbs').innerHTML=
-    modalImages.length>1
+  $('#modalThumbs').innerHTML =
+    modalImages.length > 1
 
       ? modalImages
           .map(
-            (src,i)=>
-              `<button
-                class="thumb ${i===0?'active':''}"
-                onclick="setModalImage(${i})"
-                type="button">
+            (src,index)=>
+              `
+                <button
+                  class="thumb ${index===0?'active':''}"
+                  type="button"
+                  onclick="setModalImage(${index})">
 
-                <img
-                  src="${esc(src)}"
-                  alt="">
+                  <img
+                    src="${esc(src)}"
+                    alt=""
+                    onerror="this.src='awm-logo.jpg'">
 
-              </button>`
+                </button>
+              `
           )
           .join('')
 
-      :'';
+      : '';
 
 
-  $('#prevImage').style.display=
+  $('#prevImage')
+    .style
+    .display =
     modalImages.length>1
-      ?'grid'
-      :'none';
+      ? 'grid'
+      : 'none';
 
 
-  $('#nextImage').style.display=
+  $('#nextImage')
+    .style
+    .display =
     modalImages.length>1
-      ?'grid'
-      :'none';
+      ? 'grid'
+      : 'none';
 
 
-  $('#contactBtn').onclick=
-    ()=>contactProduct(id);
+  updateModalFavorite();
 
 
-  setModalImage(0,true);
+  /* related */
+
+  renderRelatedProducts(
+    product
+  );
+
+
+  /* contact */
+
+  $('#contactBtn').onclick =
+    ()=>
+      contactProduct(
+        product.id
+      );
+
+
+  setModalImage(
+    0,
+    true
+  );
 
 
   $('#productModal')
@@ -4242,99 +9261,159 @@ function openProduct(id){
     .classList
     .add('modal-open');
 
+
+  $('#searchSuggestions')
+    .classList
+    .remove('open');
+
 }
 
 
-/* =====================================================
+/* =========================================================
+   MODAL FAVORITE
+========================================================= */
+
+function updateModalFavorite(){
+
+  if(!currentProduct){
+    return;
+  }
+
+  const active =
+    isFavorite(
+      currentProduct.id
+    );
+
+  $('#modalFavorite')
+    .classList
+    .toggle(
+      'active',
+      active
+    );
+
+  $('#modalFavorite span')
+    .textContent =
+    active
+      ? 'محفوظة'
+      : 'المفضلة';
+
+  const svg =
+    $('#modalFavorite svg');
+
+  svg.setAttribute(
+    'fill',
+    active
+      ? 'currentColor'
+      : 'none'
+  );
+
+}
+
+
+/* =========================================================
    SET MODAL IMAGE
-===================================================== */
+========================================================= */
 
 function setModalImage(
-  i,
+  index,
   immediate=false
 ){
 
-  modalIndex=
-    (i+modalImages.length)
-    %modalImages.length;
+  if(!modalImages.length){
+    return;
+  }
 
 
-  const img=
+  modalIndex =
+    (
+      index +
+      modalImages.length
+    ) %
+    modalImages.length;
+
+
+  const image =
     $('#modalImage');
 
 
-  if(!immediate){
+  if(immediate){
 
-    img.style.opacity='.25';
+    image.src =
+      modalImages[modalIndex];
+
+    image.style.opacity =
+      '1';
+
+  }else{
+
+    image.style.opacity =
+      '.25';
 
     setTimeout(
       ()=>{
 
-        img.src=
+        image.src =
           modalImages[modalIndex];
 
-        img.style.opacity='1';
+        image.style.opacity =
+          '1';
 
       },
       90
     );
-
-  }else{
-
-    img.src=
-      modalImages[modalIndex];
-
-    img.style.opacity='1';
 
   }
 
 
   $$('.thumb')
     .forEach(
-      (b,n)=>
-        b.classList.toggle(
+      (button,n)=>{
+
+        button.classList.toggle(
           'active',
           n===modalIndex
-        )
+        );
+
+      }
     );
 
 
-  if($('#galleryCaption')){
-
-    $('#galleryCaption')
-      .textContent=
-
-      modalImages.length>1
-        ?`${modalIndex+1} / ${modalImages.length}`
-        :'';
-
-  }
+  $('#galleryCaption')
+    .textContent =
+    modalImages.length>1
+      ? `${modalIndex+1} / ${modalImages.length}`
+      : '';
 
 }
 
 
-/* =====================================================
+/* =========================================================
    NEXT / PREVIOUS
-===================================================== */
+========================================================= */
 
 function nextImage(){
 
-  if(modalImages.length>1){
+  if(
+    modalImages.length > 1
+  ){
 
     setModalImage(
-      modalIndex+1
+      modalIndex + 1
     );
 
   }
 
 }
+
 
 function prevImage(){
 
-  if(modalImages.length>1){
+  if(
+    modalImages.length > 1
+  ){
 
     setModalImage(
-      modalIndex-1
+      modalIndex - 1
     );
 
   }
@@ -4342,9 +9421,9 @@ function prevImage(){
 }
 
 
-/* =====================================================
+/* =========================================================
    CLOSE MODAL
-===================================================== */
+========================================================= */
 
 function closeModal(){
 
@@ -4356,68 +9435,507 @@ function closeModal(){
     .classList
     .remove('modal-open');
 
-  currentProduct=null;
+  currentProduct =
+    null;
 
 }
 
 
-/* =====================================================
-   EVENTS
-===================================================== */
+/* =========================================================
+   RELATED PRODUCTS
+========================================================= */
 
-$('#search')
-  .addEventListener(
-    'input',
-    renderProducts
-  );
+function renderRelatedProducts(
+  product
+){
+
+  const candidates =
+    products
+      .filter(
+        p=>
+          String(p.id)!==
+          String(product.id)
+      );
 
 
-$('#sort')
-  .addEventListener(
-    'change',
-    renderProducts
-  );
+  const sameCategory =
+    candidates
+      .filter(
+        p=>
+          p.category &&
+          p.category===
+          product.category
+      );
 
 
-$('#availableOnly')
-  .addEventListener(
-    'click',
-    ()=>{
+  const pool =
+    [
+      ...sameCategory,
+      ...candidates
+    ];
 
-      onlyAvailable=
-        !onlyAvailable;
 
-      $('#availableOnly')
-        .classList
-        .toggle(
-          'active',
-          onlyAvailable
-        );
+  const unique = [];
 
-      renderProducts();
+  pool.forEach(
+    p=>{
+
+      if(
+        !unique.some(
+          x=>
+            String(x.id)===
+            String(p.id)
+        )
+      ){
+
+        unique.push(p);
+
+      }
 
     }
   );
 
 
-$('#clearFilters')
-  .addEventListener(
-    'click',
-    clearFilters
+  const list =
+    unique.slice(0,3);
+
+
+  $('#relatedSection').hidden =
+    !list.length;
+
+
+  $('#relatedGrid').innerHTML =
+    list
+      .map(
+        p=>{
+
+          const img =
+            parseImages(p)[0] ||
+            'awm-logo.jpg';
+
+          return `
+
+            <article
+              class="related-card"
+              onclick="openProduct('${esc(p.id)}')">
+
+              <img
+                src="${esc(img)}"
+                alt="${esc(p.name||'AWM')}"
+                loading="lazy"
+                onerror="this.src='awm-logo.jpg'">
+
+              <div>
+
+                <strong>
+                  ${esc(p.name||'قطعة AWM')}
+                </strong>
+
+                <span>
+                  ${money(p.price)}
+                </span>
+
+              </div>
+
+            </article>
+
+          `;
+
+        }
+      )
+      .join('');
+
+}
+
+
+/* =========================================================
+   WHATSAPP URL
+========================================================= */
+
+function productLink(
+  p
+){
+
+  const url =
+    new URL(
+      window.location.href
+    );
+
+  url.search = '';
+
+  url.hash =
+    `product=${encodeURIComponent(p.id)}`;
+
+  return url.toString();
+
+}
+
+
+function buildWhatsappUrl(
+  p
+){
+
+  const url =
+    productLink(p);
+
+
+  const message =
+    [
+      `مرحباً AWM، أريد الاستفسار عن قطعة: ${p.name || 'قطعة AWM'}`,
+      `السعر: ${money(p.price)}`,
+      p.category
+        ? `القسم: ${p.category}`
+        : '',
+      getCollection(p)
+        ? `الكولكشن: ${getCollection(p)}`
+        : '',
+      `الرابط: ${url}`
+    ]
+    .filter(Boolean)
+    .join(' — ');
+
+
+  return (
+    `https://wa.me/${WHATSAPP}` +
+    `?text=${encodeURIComponent(message)}`
+  );
+
+}
+
+
+/* =========================================================
+   CONTACT PRODUCT
+========================================================= */
+
+function contactProduct(
+  id
+){
+
+  const product =
+    products.find(
+      p=>
+        String(p.id)===
+        String(id)
+    );
+
+
+  if(!product){
+    return;
+  }
+
+
+  window.open(
+    buildWhatsappUrl(product),
+    '_blank',
+    'noopener'
+  );
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareCurrentProduct(){
+
+  if(!currentProduct){
+    return;
+  }
+
+
+  const url =
+    productLink(
+      currentProduct
+    );
+
+
+  if(
+    navigator.share
+  ){
+
+    try{
+
+      await navigator.share({
+
+        title:
+          currentProduct.name ||
+          'AWM',
+
+        text:
+          `شوف قطعة ${currentProduct.name || 'AWM'} على AWM`,
+
+        url
+
+      });
+
+      return;
+
+    }catch(error){
+
+      if(
+        error?.name===
+        'AbortError'
+      ){
+
+        return;
+
+      }
+
+    }
+
+  }
+
+
+  await copyText(url);
+
+  showToast(
+    'تم نسخ رابط القطعة'
+  );
+
+}
+
+
+/* =========================================================
+   COPY
+========================================================= */
+
+async function copyText(
+  text
+){
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+    return true;
+
+  }catch{
+
+    const area =
+      document.createElement(
+        'textarea'
+      );
+
+    area.value =
+      text;
+
+    area.style.position =
+      'fixed';
+
+    area.style.opacity =
+      '0';
+
+    document.body.appendChild(
+      area
+    );
+
+    area.select();
+
+    const ok =
+      document.execCommand(
+        'copy'
+      );
+
+    area.remove();
+
+    return ok;
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE FILTERS
+========================================================= */
+
+function openMobileFilters(){
+
+  $('#filters')
+    .classList
+    .add('mobile-open');
+
+  $('#filterBackdrop')
+    .classList
+    .add('open');
+
+}
+
+function closeMobileFilters(){
+
+  $('#filters')
+    .classList
+    .remove('mobile-open');
+
+  $('#filterBackdrop')
+    .classList
+    .remove('open');
+
+}
+
+
+/* =========================================================
+   WISHLIST DRAWER
+========================================================= */
+
+function openWishlist(){
+
+  renderWishlist();
+
+  $('#wishlistDrawer')
+    .classList
+    .add('open');
+
+  $('#drawerBackdrop')
+    .classList
+    .add('open');
+
+  document.body
+    .classList
+    .add('drawer-open');
+
+}
+
+
+function closeWishlist(){
+
+  $('#wishlistDrawer')
+    .classList
+    .remove('open');
+
+  $('#drawerBackdrop')
+    .classList
+    .remove('open');
+
+  document.body
+    .classList
+    .remove('drawer-open');
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+  message
+){
+
+  const toast =
+    $('#toast');
+
+  toast.textContent =
+    message;
+
+  toast.classList
+    .add('show');
+
+
+  clearTimeout(
+    toastTimer
   );
 
 
-$('#prevImage')
+  toastTimer =
+    setTimeout(
+      ()=>{
+        toast.classList
+          .remove('show');
+      },
+      2200
+    );
+
+}
+
+
+/* =========================================================
+   OFFERS
+========================================================= */
+
+function showOffers(){
+
+  $('#search').value =
+    '';
+
+  selectedCollection =
+    'all';
+
+  $('#collectionFilter')
+    .value =
+    'all';
+
+  const offerItems =
+    products
+      .filter(
+        p=>
+          discountPercent(p)>0
+      )
+      .sort(
+        (a,b)=>
+          discountPercent(b)-
+          discountPercent(a)
+      );
+
+
+  if(!offerItems.length){
+
+    showToast(
+      'لا توجد عروض متاحة حاليًا'
+    );
+
+    return;
+
+  }
+
+
+  $('#sort').value =
+    'priceAsc';
+
+
+  renderProducts();
+
+
+  $('#gallery')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+$('#wishlistHeaderBtn')
   .addEventListener(
     'click',
-    prevImage
+    openWishlist
   );
 
 
-$('#nextImage')
+$('#drawerClose')
   .addEventListener(
     'click',
-    nextImage
+    closeWishlist
+  );
+
+
+$('#drawerBackdrop')
+  .addEventListener(
+    'click',
+    closeWishlist
+  );
+
+
+$('#modalClose')
+  .addEventListener(
+    'click',
+    closeModal
   );
 
 
@@ -4439,20 +9957,296 @@ $('#productModal')
   );
 
 
-/* keyboard */
+$('#prevImage')
+  .addEventListener(
+    'click',
+    prevImage
+  );
+
+
+$('#nextImage')
+  .addEventListener(
+    'click',
+    nextImage
+  );
+
+
+$('#modalFavorite')
+  .addEventListener(
+    'click',
+    ()=>{
+
+      if(currentProduct){
+
+        toggleFavorite(
+          currentProduct.id
+        );
+
+      }
+
+    }
+  );
+
+
+$('#shareProduct')
+  .addEventListener(
+    'click',
+    shareCurrentProduct
+  );
+
+
+$('#copyLink')
+  .addEventListener(
+    'click',
+    async ()=>{
+
+      if(!currentProduct){
+        return;
+      }
+
+      const ok =
+        await copyText(
+          productLink(
+            currentProduct
+          )
+        );
+
+      showToast(
+        ok
+          ? 'تم نسخ رابط القطعة'
+          : 'تعذر نسخ الرابط'
+      );
+
+    }
+  );
+
+
+$('#search')
+  .addEventListener(
+    'input',
+    ()=>{
+
+      renderSearchSuggestions();
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#search')
+  .addEventListener(
+    'focus',
+    renderSearchSuggestions
+  );
+
+
+$('#sort')
+  .addEventListener(
+    'change',
+    renderProducts
+  );
+
+
+$('#categoryFilter')
+  .addEventListener(
+    'change',
+    e=>{
+
+      activeCategory =
+        e.target.value;
+
+      renderCategories();
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#sizeFilter')
+  .addEventListener(
+    'change',
+    e=>{
+
+      selectedSize =
+        e.target.value;
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#colorFilter')
+  .addEventListener(
+    'change',
+    e=>{
+
+      selectedColor =
+        e.target.value;
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#collectionFilter')
+  .addEventListener(
+    'change',
+    e=>{
+
+      selectedCollection =
+        e.target.value;
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#minPrice')
+  .addEventListener(
+    'input',
+    renderProducts
+  );
+
+
+$('#maxPrice')
+  .addEventListener(
+    'input',
+    renderProducts
+  );
+
+
+$('#availableOnly')
+  .addEventListener(
+    'click',
+    ()=>{
+
+      onlyAvailable =
+        !onlyAvailable;
+
+      renderProducts();
+
+    }
+  );
+
+
+$('#clearFilters')
+  .addEventListener(
+    'click',
+    clearFilters
+  );
+
+
+$('#clearFiltersTop')
+  .addEventListener(
+    'click',
+    clearFilters
+  );
+
+
+$('#openFilters')
+  .addEventListener(
+    'click',
+    openMobileFilters
+  );
+
+
+$('#closeFilters')
+  .addEventListener(
+    'click',
+    closeMobileFilters
+  );
+
+
+$('#filterBackdrop')
+  .addEventListener(
+    'click',
+    closeMobileFilters
+  );
+
+
+$('#showOffers')
+  .addEventListener(
+    'click',
+    showOffers
+  );
+
+
+$('#headerSearchBtn')
+  .addEventListener(
+    'click',
+    ()=>{
+
+      $('#gallery')
+        .scrollIntoView({
+          behavior:'smooth'
+        });
+
+      setTimeout(
+        ()=>{
+          $('#search')
+            ?.focus();
+        },
+        400
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   CLICK OUTSIDE SEARCH
+========================================================= */
+
+document.addEventListener(
+  'click',
+  e=>{
+
+    if(
+      !e.target.closest(
+        '.search-wrap'
+      )
+    ){
+
+      $('#searchSuggestions')
+        .classList
+        .remove('open');
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
 document.addEventListener(
   'keydown',
   e=>{
 
     if(
-      e.key==='Escape' &&
-      $('#productModal')
-        .classList
-        .contains('open')
+      e.key==='Escape'
     ){
 
-      closeModal();
+      if(
+        $('#productModal')
+          .classList
+          .contains('open')
+      ){
+
+        closeModal();
+
+      }
+
+      closeWishlist();
+
+      closeMobileFilters();
 
     }
 
@@ -4468,29 +10262,44 @@ document.addEventListener(
     }
 
 
-    if(e.key==='ArrowLeft'){
+    if(
+      e.key==='ArrowLeft'
+    ){
+
       nextImage();
+
     }
 
 
-    if(e.key==='ArrowRight'){
+    if(
+      e.key==='ArrowRight'
+    ){
+
       prevImage();
+
     }
 
   }
 );
 
 
-/* touch */
+/* =========================================================
+   TOUCH GALLERY
+========================================================= */
 
 $('#mainImage')
   .addEventListener(
     'touchstart',
     e=>{
-      touchStartX=
-        e.changedTouches[0].screenX;
+
+      touchStartX =
+        e.changedTouches[0]
+          .screenX;
+
     },
-    {passive:true}
+    {
+      passive:true
+    }
   );
 
 
@@ -4499,37 +10308,51 @@ $('#mainImage')
     'touchend',
     e=>{
 
-      const dx=
-        e.changedTouches[0].screenX-
+      const endX =
+        e.changedTouches[0]
+          .screenX;
+
+      const dx =
+        endX -
         touchStartX;
 
 
-      if(Math.abs(dx)>45){
+      if(
+        Math.abs(dx)>45
+      ){
 
-        dx<0
+        dx < 0
           ? nextImage()
           : prevImage();
 
       }
 
     },
-    {passive:true}
+    {
+      passive:true
+    }
   );
 
 
-/* to top */
+/* =========================================================
+   TO TOP
+========================================================= */
 
 window.addEventListener(
   'scroll',
   ()=>{
+
     $('#toTop')
       .classList
       .toggle(
         'show',
         window.scrollY>500
       );
+
   },
-  {passive:true}
+  {
+    passive:true
+  }
 );
 
 
@@ -4539,23 +10362,162 @@ $('#toTop')
     ()=>{
 
       window.scrollTo({
+
         top:0,
+
         behavior:'smooth'
+
       });
 
     }
   );
 
 
-/* year */
+/* =========================================================
+   ACTIVE NAV ON SCROLL
+========================================================= */
 
-$('#year').textContent=
-  new Date().getFullYear();
+const navLinks =
+  $$('.navlinks a');
 
 
-/* init */
+window.addEventListener(
+  'scroll',
+  ()=>{
+
+    const sections = [
+
+      {
+        id:'hero',
+        link:navLinks[0]
+      },
+
+      {
+        id:'gallery',
+        link:navLinks[1]
+      },
+
+      {
+        id:'collections',
+        link:navLinks[2]
+      },
+
+      {
+        id:'footer',
+        link:navLinks[3]
+      }
+
+    ];
+
+
+    let current =
+      'hero';
+
+
+    sections.forEach(
+      section=>{
+
+        const el =
+          document.getElementById(
+            section.id
+          );
+
+        if(!el){
+          return;
+        }
+
+        const top =
+          el.getBoundingClientRect()
+            .top;
+
+        if(
+          top <= 120
+        ){
+
+          current =
+            section.id;
+
+        }
+
+      }
+    );
+
+
+    navLinks.forEach(
+      link=>
+        link.classList
+          .remove('active')
+    );
+
+
+    const currentSection =
+      sections.find(
+        s=>s.id===current
+      );
+
+
+    if(
+      currentSection?.link
+    ){
+
+      currentSection.link
+        .classList
+        .add('active');
+
+    }
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+/* =========================================================
+   URL PRODUCT
+========================================================= */
+
+function openProductFromUrl(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const id =
+    params.get('product');
+
+  if(id){
+
+    setTimeout(
+      ()=>{
+        openProduct(id);
+      },
+      500
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+$('#year')
+  .textContent =
+  new Date()
+    .getFullYear();
+
+
+/* =========================================================
+   INIT
+========================================================= */
 
 loadProducts();
+
+openProductFromUrl();
 
 </script>
 
