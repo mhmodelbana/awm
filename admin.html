@@ -88,6 +88,7 @@ const {createClient}=supabase; const db=createClient(SUPABASE_URL,SUPABASE_PUBLI
 let products=[]; let session=null;
 const $=s=>document.querySelector(s);
 const money=v=>Number(v||0).toLocaleString('ar-EG',{maximumFractionDigits:2})+' ج.م';
+const normalizeImageUrl=url=>{if(!url)return 'awm-logo.jpg';return String(url).replace('/storage/v1/object/products/','/storage/v1/object/public/products/')};
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
 async function init(){const r=await db.auth.getSession();session=r.data.session;if(session) showApp(); else showLogin();db.auth.onAuthStateChange((_e,s)=>{session=s;s?showApp():showLogin()})}
 function showLogin(){$('#loginView').classList.remove('hidden');$('#app').classList.add('hidden')}
@@ -101,13 +102,13 @@ async function loadProducts(){
  if(error){toast('تعذر تحميل المنتجات: '+error.message);return}
  products=data||[];renderTables();$('#sTotal').textContent=products.length;$('#sAvailable').textContent=products.filter(p=>p.is_available).length;$('#sUnavailable').textContent=products.filter(p=>!p.is_available).length;$('#sFeatured').textContent=products.filter(p=>p.is_featured).length;
 }
-function row(p,full=false){return `<tr><td><img class="thumb" src="${esc(p.image_url||'awm-logo.jpg')}"></td><td><b>${esc(p.name)}</b></td><td>${esc(p.category||'—')}</td><td>${money(p.price)}</td><td>${esc(p.condition||'—')}</td><td><span class="status ${p.is_available?'on':'off'}">${p.is_available?'متاح':'غير متاح'}</span></td>${full?`<td>${p.is_featured?'★':'—'}</td>`:''}<td><div class="actions"><button class="mini" onclick="editProduct('${p.id}')">تعديل</button><button class="mini red" onclick="deleteProduct('${p.id}')">حذف</button></div></td></tr>`}
+function row(p,full=false){return `<tr><td><img class="thumb" src="${esc(normalizeImageUrl(p.image_url))}"></td><td><b>${esc(p.name)}</b></td><td>${esc(p.category||'—')}</td><td>${money(p.price)}</td><td>${esc(p.condition||'—')}</td><td><span class="status ${p.is_available?'on':'off'}">${p.is_available?'متاح':'غير متاح'}</span></td>${full?`<td>${p.is_featured?'★':'—'}</td>`:''}<td><div class="actions"><button class="mini" onclick="editProduct('${p.id}')">تعديل</button><button class="mini red" onclick="deleteProduct('${p.id}')">حذف</button></div></td></tr>`}
 function renderTables(){$('#dashRows').innerHTML=products.slice(0,8).map(p=>row(p)).join('')||'<tr><td colspan="7">لا توجد منتجات.</td></tr>';$('#productRows').innerHTML=products.map(p=>row(p,true)).join('')||'<tr><td colspan="8">لا توجد منتجات.</td></tr>'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 
 function openProductModal(id=null){
  $('#productForm').reset();$('#pid').value='';$('#preview').src='awm-logo.jpg';$('#imageUrlHint').textContent='';$('#modalTitle').textContent=id?'تعديل قطعة':'إضافة قطعة';
- if(id){const p=products.find(x=>x.id===id);if(!p)return;$('#pid').value=p.id;$('#pname').value=p.name;$('#pcategory').value=p.category||'';$('#pprice').value=p.price;$('#pcondition').value=p.condition||'جديد';$('#psizes').value=p.sizes||'';$('#pcolors').value=p.colors||'';$('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#psort').value=p.sort_order||0;$('#preview').src=p.image_url||'awm-logo.jpg';$('#imageUrlHint').textContent=p.image_url?'الصورة الحالية محفوظة':''}
+ if(id){const p=products.find(x=>x.id===id);if(!p)return;$('#pid').value=p.id;$('#pname').value=p.name;$('#pcategory').value=p.category||'';$('#pprice').value=p.price;$('#pcondition').value=p.condition||'جديد';$('#psizes').value=p.sizes||'';$('#pcolors').value=p.colors||'';$('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#psort').value=p.sort_order||0;$('#preview').src=normalizeImageUrl(p.image_url);$('#imageUrlHint').textContent=p.image_url?'الصورة الحالية محفوظة':''}
  $('#productOverlay').classList.add('open')
 }
 function editProduct(id){openProductModal(id)} function closeProductModal(){$('#productOverlay').classList.remove('open')}
