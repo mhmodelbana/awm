@@ -1555,15 +1555,16 @@ img{display:block;max-width:100%}
 
 <header class="header">
   <div class="container nav">
-    <a href="#" class="brand" aria-label="AWM">
+    <a href="#hero" class="brand" aria-label="AWM">
       <img src="awm-logo.jpg" alt="AWM">
       <div><strong>AWM</strong><small>ALWAYS YOUR STORE</small></div>
     </a>
     <nav class="navlinks" aria-label="التنقل">
-      <a href="#gallery" class="active">المعرض</a>
-      <a href="#featured" id="featuredNav" hidden>المميز</a>
-      <a href="#footer">تواصل</a>
-    </nav>
+  <a href="#hero" class="active">الرئيسية</a>
+  <a href="#gallery">المعرض</a>
+  <a href="#featured" id="featuredNav" hidden>المميز</a>
+  <a href="#footer">تواصل</a>
+</nav>
     <div class="nav-actions">
       <button class="icon-btn" onclick="focusSearch()" aria-label="البحث">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
@@ -1938,9 +1939,11 @@ async function loadProducts(){
     return;
   }
   products=data||[];
-  renderCategories();
-  renderFeatured();
-  renderProducts();
+
+renderHero();
+renderCategories();
+renderFeatured();
+renderProducts();
 }
 
 function renderCategories(){
