@@ -1104,6 +1104,201 @@ body{background:var(--awm-paper)}
   }
 }
 
+
+/* ===== HERO V9 — ART-DIRECTED MINIMAL ===== */
+.hero{
+  width:min(100% - 32px,1400px)!important;
+  padding:10px 0 30px!important;
+}
+.hero-minimal{
+  position:relative!important;
+  min-height:250px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  overflow:visible!important;
+}
+.hero-minimal::before{
+  content:""!important;
+  position:absolute!important;
+  width:220px!important;
+  height:220px!important;
+  top:50%!important;
+  left:50%!important;
+  transform:translate(-50%,-56%)!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,rgba(225,13,24,.065) 0,rgba(225,13,24,.025) 34%,transparent 68%)!important;
+  pointer-events:none!important;
+}
+.hero-logo-wrap{
+  position:relative!important;
+  width:118px!important;
+  height:118px!important;
+  display:grid!important;
+  place-items:center!important;
+  margin-bottom:18px!important;
+  isolation:isolate!important;
+}
+.hero-logo{
+  position:relative!important;
+  z-index:3!important;
+  width:82px!important;
+  height:82px!important;
+  margin:0!important;
+  object-fit:cover!important;
+  border-radius:19px!important;
+  border:0!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.13)!important;
+  animation:heroLogoInV9 .72s cubic-bezier(.16,.8,.2,1) both!important;
+  transition:transform .35s ease,box-shadow .35s ease,filter .35s ease!important;
+}
+.hero-logo-wrap:hover .hero-logo{
+  transform:translateY(-3px) scale(1.02)!important;
+  box-shadow:0 17px 35px rgba(0,0,0,.16),0 0 22px rgba(225,13,24,.08)!important;
+}
+.hero-orbit{
+  position:absolute!important;
+  border-radius:50%!important;
+  pointer-events:none!important;
+  z-index:1!important;
+}
+.hero-orbit-a{
+  width:104px!important;height:104px!important;
+  border:1px solid rgba(0,0,0,.065)!important;
+  animation:orbitV9 7s linear infinite!important;
+}
+.hero-orbit-b{
+  width:118px!important;height:118px!important;
+  border:1px dashed rgba(225,13,24,.12)!important;
+  animation:orbitV9Reverse 9s linear infinite!important;
+}
+.hero-glint{
+  position:absolute!important;
+  z-index:4!important;
+  width:42px!important;height:7px!important;
+  top:17px!important;right:10px!important;
+  border-radius:99px!important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.86),transparent)!important;
+  filter:blur(.8px)!important;
+  transform:rotate(-38deg)!important;
+  opacity:0!important;
+  animation:logoGlintV9 4.8s 1.15s ease-in-out infinite!important;
+  pointer-events:none!important;
+}
+.hero-minimal h1{
+  position:relative!important;
+  z-index:2!important;
+  margin:0!important;
+  color:#111!important;
+  font-size:clamp(32px,4.3vw,52px)!important;
+  line-height:1.04!important;
+  letter-spacing:-.06em!important;
+  font-weight:950!important;
+  text-shadow:none!important;
+  animation:heroTitleInV9 .72s .08s cubic-bezier(.16,.8,.2,1) both!important;
+}
+.hero-minimal h1 span{
+  display:inline-block!important;
+  color:#111!important;
+  font-weight:950!important;
+}
+.hero-minimal h1::after{
+  content:""!important;
+  display:block!important;
+  width:26px!important;
+  height:2px!important;
+  margin:12px auto 0!important;
+  border-radius:99px!important;
+  background:#e10d18!important;
+  opacity:.8!important;
+  transform:scaleX(.65)!important;
+  animation:heroAccentV9 3.8s 1s ease-in-out infinite!important;
+}
+@keyframes heroLogoInV9{
+  from{opacity:0;transform:translateY(12px) scale(.93)}
+  to{opacity:1;transform:none}
+}
+@keyframes heroTitleInV9{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+@keyframes orbitV9{
+  to{transform:rotate(360deg)}
+}
+@keyframes orbitV9Reverse{
+  to{transform:rotate(-360deg)}
+}
+@keyframes logoGlintV9{
+  0%,66%,100%{opacity:0;transform:translate(0,0) rotate(-38deg)}
+  72%{opacity:.7}
+  82%{opacity:0;transform:translate(-65px,52px) rotate(-38deg)}
+}
+@keyframes heroAccentV9{
+  0%,100%{transform:scaleX(.65);opacity:.55;box-shadow:none}
+  50%{transform:scaleX(1);opacity:1;box-shadow:0 0 11px rgba(225,13,24,.18)}
+}
+@media(max-width:760px){
+  .hero{
+    width:100%!important;
+    padding:4px 0 15px!important;
+  }
+  .hero-minimal{
+    min-height:205px!important;
+  }
+  .hero-minimal::before{
+    width:170px!important;
+    height:170px!important;
+    transform:translate(-50%,-58%)!important;
+  }
+  .hero-logo-wrap{
+    width:94px!important;
+    height:94px!important;
+    margin-bottom:14px!important;
+  }
+  .hero-logo{
+    width:68px!important;
+    height:68px!important;
+    border-radius:15px!important;
+    box-shadow:0 9px 21px rgba(0,0,0,.12)!important;
+  }
+  .hero-orbit-a{
+    width:86px!important;height:86px!important;
+  }
+  .hero-orbit-b{
+    width:94px!important;height:94px!important;
+  }
+  .hero-minimal h1{
+    font-size:31px!important;
+    letter-spacing:-.064em!important;
+  }
+  .hero-minimal h1::after{
+    width:22px!important;
+    height:2px!important;
+    margin-top:9px!important;
+  }
+}
+@media(max-width:390px){
+  .hero-minimal{min-height:188px!important}
+  .hero-logo-wrap{
+    width:84px!important;height:84px!important;
+    margin-bottom:12px!important;
+  }
+  .hero-logo{
+    width:61px!important;height:61px!important;
+    border-radius:14px!important;
+  }
+  .hero-orbit-a{width:76px!important;height:76px!important}
+  .hero-orbit-b{width:84px!important;height:84px!important}
+  .hero-minimal h1{font-size:28px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-logo,.hero-orbit,.hero-glint,.hero-minimal h1,.hero-minimal h1::after{
+    animation:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1127,11 +1322,14 @@ body{background:var(--awm-paper)}
 
 <main id="home">
 <section class="hero container">
-  <div class="hero-box">
-    <div class="hero-content">
+  <div class="hero-minimal">
+    <div class="hero-logo-wrap">
+      <span class="hero-orbit hero-orbit-a"></span>
+      <span class="hero-orbit hero-orbit-b"></span>
+      <span class="hero-glint"></span>
       <img class="hero-logo" src="awm-logo.jpg" alt="AWM">
-      <h1>ستايلك يبدأ <em>من هنا.</em></h1>
     </div>
+    <h1>ستايلك يبدأ <span>من هنا.</span></h1>
   </div>
 </section>
 
