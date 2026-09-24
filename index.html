@@ -679,25 +679,570 @@ img{display:block;max-width:100%}
   <div class="hero-minimal-inner">
 
     <div class="hero-logo-animation">
-      <span class="logo-aura"></span>
-      <span class="logo-shine"></span>
+      /* =========================================================
+   AWM HERO — MINIMAL PREMIUM
+========================================================= */
 
-      <img src="awm-logo.jpg" alt="AWM">
-    </div>
+.hero-minimal{
+  position:relative;
+  width:min(1360px,calc(100% - 34px));
+  min-height:390px;
+  margin:18px auto 0;
 
-    <h1>ستايلك <span>يبدأ من هنا</span></h1>
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    <a href="#gallery" class="hero-explore">
-      استكشف
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14"/>
-        <path d="m6 13 6 6 6-6"/>
-      </svg>
-    </a>
+  overflow:hidden;
+  isolation:isolate;
 
-  </div>
-</section>
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(215,25,32,.075) 0%,
+      rgba(215,25,32,.025) 25%,
+      transparent 53%
+    ),
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #fafaf8 48%,
+      #f3f3f0 100%
+    );
+
+  border:1px solid rgba(0,0,0,.055);
+  border-radius:26px;
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.06),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* لمعة خلفية */
+.hero-glow{
+  position:absolute;
+  width:320px;
+  height:320px;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:radial-gradient(
+    circle,
+    rgba(215,25,32,.12) 0%,
+    rgba(215,25,32,.035) 38%,
+    transparent 72%
+  );
+
+  filter:blur(4px);
+
+  animation:heroGlow 5s ease-in-out infinite;
+  pointer-events:none;
+}
+
+/* دوائر دقيقة حول اللوجو */
+.hero-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+
+  border-radius:50%;
+  border:1px solid rgba(215,25,32,.07);
+
+  transform:translate(-50%,-50%);
+
+  pointer-events:none;
+}
+
+.ring-1{
+  width:250px;
+  height:250px;
+
+  animation:
+    ringPulse 4s ease-in-out infinite,
+    ringRotate 16s linear infinite;
+}
+
+.ring-2{
+  width:320px;
+  height:320px;
+
+  border-color:rgba(0,0,0,.035);
+
+  animation:
+    ringPulse2 5s ease-in-out infinite,
+    ringRotateReverse 22s linear infinite;
+}
+
+/* علامة صغيرة على المدار */
+.ring-1::after{
+  content:"";
+
+  position:absolute;
+
+  width:6px;
+  height:6px;
+
+  top:20px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  border-radius:50%;
+
+  background:var(--red);
+
+  box-shadow:
+    0 0 0 5px rgba(215,25,32,.08),
+    0 0 16px rgba(215,25,32,.28);
+}
+
+.hero-minimal-inner{
+  position:relative;
+  z-index:5;
+
+  width:100%;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:40px 20px;
+}
+
+/* =========================================================
+   LOGO ANIMATION
+========================================================= */
+
+.hero-logo-animation{
+  position:relative;
+
+  width:108px;
+  height:108px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  animation:
+    logoFloat 4.5s ease-in-out infinite;
+
+  filter:
+    drop-shadow(0 18px 25px rgba(0,0,0,.10));
+}
+
+.hero-logo-animation img{
+  position:relative;
+  z-index:3;
+
+  width:86px;
+  height:86px;
+
+  object-fit:cover;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.045),
+    0 12px 30px rgba(0,0,0,.09);
+
+  animation:
+    logoBreath 3.5s ease-in-out infinite;
+
+  transition:transform .35s ease;
+}
+
+/* هالة اللوجو */
+.logo-aura{
+  position:absolute;
+  inset:6px;
+
+  border-radius:26px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,25,32,.16),
+      transparent 65%
+    );
+
+  filter:blur(10px);
+
+  animation:logoAura 3.5s ease-in-out infinite;
+}
+
+/* Light Sweep */
+.logo-shine{
+  position:absolute;
+  z-index:5;
+
+  top:-15%;
+  left:-70%;
+
+  width:38%;
+  height:130%;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.80),
+    transparent
+  );
+
+  transform:rotate(18deg);
+
+  filter:blur(2px);
+
+  animation:logoShine 4.8s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.hero-minimal h1{
+  position:relative;
+
+  margin:25px 0 0;
+
+  font-size:clamp(38px,4.8vw,56px);
+
+  line-height:1.12;
+
+  letter-spacing:-2px;
+
+  font-weight:900;
+
+  color:#121212;
+}
+
+.hero-minimal h1 span{
+  position:relative;
+
+  color:var(--red);
+}
+
+.hero-minimal h1 span::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  left:0;
+
+  bottom:-6px;
+
+  height:3px;
+
+  border-radius:100px;
+
+  background:var(--red);
+
+  transform:scaleX(.25);
+  transform-origin:center;
+
+  animation:titleLine 2.8s ease-in-out infinite;
+}
+
+/* =========================================================
+   EXPLORE BUTTON
+========================================================= */
+
+.hero-explore{
+  position:relative;
+
+  margin-top:25px;
+
+  min-width:118px;
+  height:45px;
+
+  padding:0 18px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  color:#fff;
+  background:#111;
+
+  border-radius:12px;
+
+  font-size:10px;
+  font-weight:900;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.13);
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+
+.hero-explore:hover{
+  transform:translateY(-2px);
+
+  background:var(--red);
+
+  box-shadow:
+    0 13px 28px rgba(215,25,32,.18);
+}
+
+.hero-explore svg{
+  transition:transform .25s ease;
+}
+
+.hero-explore:hover svg{
+  transform:translateY(3px);
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes logoFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+@keyframes logoBreath{
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.025);
+  }
+}
+
+@keyframes logoAura{
+  0%,100%{
+    opacity:.35;
+    transform:scale(.94);
+  }
+
+  50%{
+    opacity:.75;
+    transform:scale(1.08);
+  }
+}
+
+@keyframes logoShine{
+  0%{
+    left:-75%;
+    opacity:0;
+  }
+
+  15%{
+    opacity:.9;
+  }
+
+  35%,100%{
+    left:135%;
+    opacity:0;
+  }
+}
+
+@keyframes heroGlow{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.92);
+    opacity:.65;
+  }
+
+  50%{
+    transform:translate(-50%,-50%) scale(1.08);
+    opacity:1;
+  }
+}
+
+@keyframes ringPulse{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.96);
+    opacity:.5;
+  }
+
+  50%{
+    transform:translate(-50%,-50%) scale(1.02);
+    opacity:1;
+  }
+}
+
+@keyframes ringPulse2{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.98);
+    opacity:.35;
+  }
+
+  50%{
+    transform:translate(-50%,-50%) scale(1.025);
+    opacity:.7;
+  }
+}
+
+@keyframes ringRotate{
+  from{
+    transform:translate(-50%,-50%) rotate(0deg);
+  }
+
+  to{
+    transform:translate(-50%,-50%) rotate(360deg);
+  }
+}
+
+@keyframes ringRotateReverse{
+  from{
+    transform:translate(-50%,-50%) rotate(360deg);
+  }
+
+  to{
+    transform:translate(-50%,-50%) rotate(0deg);
+  }
+}
+
+@keyframes titleLine{
+  0%,100%{
+    transform:scaleX(.25);
+    opacity:.45;
+  }
+
+  50%{
+    transform:scaleX(1);
+    opacity:1;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:760px){
+
+  .hero-minimal{
+    width:calc(100% - 18px);
+
+    min-height:300px;
+
+    margin-top:10px;
+
+    border-radius:20px;
+  }
+
+  .hero-glow{
+    width:240px;
+    height:240px;
+  }
+
+  .ring-1{
+    width:185px;
+    height:185px;
+  }
+
+  .ring-2{
+    width:245px;
+    height:245px;
+  }
+
+  .hero-minimal-inner{
+    padding:29px 14px;
+  }
+
+  .hero-logo-animation{
+    width:88px;
+    height:88px;
+  }
+
+  .hero-logo-animation img{
+    width:70px;
+    height:70px;
+
+    border-radius:16px;
+  }
+
+  .logo-aura{
+    inset:5px;
+  }
+
+  .hero-minimal h1{
+    margin-top:20px;
+
+    font-size:31px;
+
+    letter-spacing:-1.3px;
+  }
+
+  .hero-minimal h1 span::after{
+    bottom:-4px;
+    height:2px;
+  }
+
+  .hero-explore{
+    min-width:105px;
+    height:40px;
+
+    margin-top:20px;
+
+    border-radius:10px;
+
+    font-size:9px;
+  }
+}
+
+@media(max-width:390px){
+
+  .hero-minimal{
+    min-height:285px;
+  }
+
+  .hero-minimal-inner{
+    padding:25px 12px;
+  }
+
+  .hero-logo-animation{
+    width:80px;
+    height:80px;
+  }
+
+  .hero-logo-animation img{
+    width:64px;
+    height:64px;
+    border-radius:14px;
+  }
+
+  .hero-minimal h1{
+    font-size:28px;
+  }
+
+  .hero-explore{
+    margin-top:18px;
+    height:38px;
+    min-width:98px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-minimal *,
+  .hero-minimal::before,
+  .hero-minimal::after{
+    animation:none!important;
+  }
+}
 /* Responsive */
 @media(max-width:1080px){
   .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1029,24 +1574,23 @@ img{display:block;max-width:100%}
 </header>
 
   <section class="hero-minimal" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-ring ring-1"></div>
+  <div class="hero-ring ring-2"></div>
+
   <div class="hero-minimal-inner">
 
-    <div class="hero-logo-wrap">
+    <div class="hero-logo-animation">
+      <span class="logo-aura"></span>
+      <span class="logo-shine"></span>
+
       <img src="awm-logo.jpg" alt="AWM">
     </div>
 
-    <div class="hero-line"></div>
+    <h1>ستايلك <span>يبدأ من هنا</span></h1>
 
-    <div class="hero-label">ALWAYS YOUR STORE</div>
-
-    <h1>
-      ستايلك <span>يبدأ هنا</span>
-    </h1>
-
-    <p>اكتشف تشكيلتنا واختار القطعة اللي تناسبك.</p>
-
-    <a href="#gallery" class="hero-minimal-btn">
-      اكتشف المجموعة
+    <a href="#gallery" class="hero-explore">
+      استكشف
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
            stroke="currentColor" stroke-width="2">
         <path d="M12 5v14"/>
