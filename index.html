@@ -2,806 +2,893 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>AWM | Haute Couture Gallery</title>
-<meta name="description" content="AWM Store — High-End Fashion & Exclusive Gallery">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>AWM | Exclusive Fashion</title>
+<meta name="description" content="AWM Store — High-End Fashion Gallery">
 <meta name="theme-color" content="#ffffff">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Using Tajawal for elegant Arabic, and Playfair Display for luxury numbers/English -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<!-- Combining a modern Arabic font with a luxury Serif font for English/Numbers -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Tajawal', 'sans-serif'],
-          serif: ['Playfair Display', 'serif'],
-        },
-        colors: {
-          ink: '#0a0a0a',
-          paper: '#ffffff',
-          ash: '#f4f4f4',
-          stone: '#e5e5e5',
-          blood: '#8a0000'
-        },
-        transitionTimingFunction: {
-          'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
-        }
-      }
-    }
-  }
-</script>
 
 <style>
+/* =========================================================
+   1. CORE VARIABLES (PURE LUXURY LIGHT MODE)
+========================================================= */
 :root {
-  --nav-height: 80px;
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafaf9; /* Pearl white */
+  --bg-tertiary: #f5f5f4;
+  
+  --text-main: #0a0a0a;
+  --text-muted: #737373;
+  --text-light: #a3a3a3;
+  
+  --accent-gold: #c2a170;
+  --accent-gold-bg: #fdfaf6;
+  --accent-red: #c92a2a;
+  --accent-red-bg: #fff5f5;
+  --accent-green: #2b8a3e;
+  --accent-green-bg: #f4fbf5;
+  
+  --border-light: #f0f0f0;
+  --border-dark: #e5e5e5;
+  
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  
+  --shadow-float: 0 20px 40px -10px rgba(0,0,0,0.05);
+  --shadow-hover: 0 30px 60px -15px rgba(0,0,0,0.08);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+  
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* =========================================================
+   2. RESET & BASE
+========================================================= */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
-  background-color: #ffffff;
-  color: #0a0a0a;
-  font-family: 'Tajawal', sans-serif;
+  margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: 'Cairo', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+body.modal-open { overflow: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+button, input, select { font: inherit; outline: none; border: none; background: none; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+.hidden { display: none !important; }
+.container { width: min(1400px, 100% - 40px); margin-inline: auto; }
+@media(max-width: 768px) { .container { width: min(100%, 100% - 32px); } }
 
-body.modal-open, body.drawer-open {
-  overflow: hidden;
-}
+/* Typography Utility */
+.font-serif { font-family: 'Playfair Display', serif; }
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.875rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: clamp(1.875rem, 4vw, 2.25rem); }
+.text-4xl { font-size: clamp(2.25rem, 5vw, 3rem); }
+.font-black { font-weight: 900; }
+.font-bold { font-weight: 700; }
+.tracking-wide { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.2em; }
 
-/* Custom Scrollbar for Editorial Look */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #ffffff; }
-::-webkit-scrollbar-thumb { background: #0a0a0a; }
-
-/* Typography Elements */
-.font-serif-en { font-family: 'Playfair Display', serif; }
-.text-huge { font-size: clamp(3rem, 8vw, 7rem); line-height: 1; letter-spacing: -0.02em; }
-.text-kicker { font-family: 'Playfair Display', serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
-
-/* Radical Layout Utilities */
-.sharp-edges { border-radius: 0 !important; }
-.border-b-thin { border-bottom: 1px solid #e5e5e5; }
-.border-r-thin { border-right: 1px solid #e5e5e5; }
-.border-l-thin { border-left: 1px solid #e5e5e5; }
-.border-t-thin { border-top: 1px solid #e5e5e5; }
-
-/* Hover & Image Interactions (GSAP-like) */
-.img-wrap {
-  overflow: hidden;
-  position: relative;
-  background: #f4f4f4;
-}
-.img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.product-card:hover .img-wrap img {
-  transform: scale(1.08);
-}
-.product-card .hover-action {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.product-card:hover .hover-action {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Marquee Animation */
-.marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  background: #0a0a0a;
-  color: #ffffff;
-  padding: 12px 0;
-}
-.marquee-content {
-  display: inline-block;
-  animation: marquee 25s linear infinite;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-}
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(50%); } /* Moving right because RTL */
-}
-
-/* Reveal Animations (Intersection Observer) */
+/* =========================================================
+   3. ANIMATIONS (GLOBAL)
+========================================================= */
+/* Scroll Reveal Sequence */
 .reveal-up {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-smooth);
 }
-.reveal-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
 
-/* Skeleton Loading (Editorial Style) */
-.skel-block {
-  background: #f4f4f4;
-  position: relative;
-  overflow: hidden;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
-.skel-block::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  animation: skel-sweep 1.5s infinite;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
 }
-@keyframes skel-sweep {
+@keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
 
-/* Sticky Sidebar & Nav */
-.nav-glass {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e5e5e5;
+/* =========================================================
+   4. NAVIGATION (GLASSMORPHISM)
+========================================================= */
+.topbar {
+  background: var(--text-main); color: white; text-align: center;
+  font-size: 0.65rem; padding: 8px 0; font-weight: 700; letter-spacing: 0.1em;
+}
+.header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: transform 0.3s var(--ease-smooth);
+}
+.header.hide-nav { transform: translateY(-100%); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 80px;
+}
+.brand-logo {
+  font-size: 2rem; font-weight: 900; letter-spacing: 2px;
+  display: flex; align-items: center; gap: 12px;
+}
+.brand-logo img { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; box-shadow: var(--shadow-float); }
+.nav-links { display: none; gap: 32px; }
+@media(min-width: 900px) { .nav-links { display: flex; } }
+.nav-links a {
+  font-weight: 700; font-size: 0.9rem; position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -6px; left: 0; width: 0%; height: 2px;
+  background: var(--text-main); transition: width 0.3s var(--ease-smooth);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.nav-actions { display: flex; gap: 12px; }
+.action-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-tertiary); transition: all 0.3s ease; position: relative;
+}
+.action-btn:hover { background: var(--text-main); color: white; transform: scale(1.05); }
+.action-btn svg { width: 20px; height: 20px; }
+.badge-count {
+  position: absolute; top: -2px; right: -2px;
+  background: var(--accent-red); color: white;
+  width: 18px; height: 18px; border-radius: 50%;
+  font-size: 10px; font-weight: 900; display: flex; align-items: center; justify-content: center;
+  border: 2px solid white;
 }
 
-/* Custom UI Inputs */
-.editorial-select {
-  appearance: none;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #0a0a0a;
-  border-radius: 0;
-  padding: 8px 0;
-  font-weight: 700;
-  width: 100%;
-  outline: none;
-  cursor: pointer;
+/* =========================================================
+   5. HERO SECTION (ULTRA PREMIUM)
+========================================================= */
+.hero {
+  position: relative; min-height: 500px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  margin: 24px auto; border-radius: var(--radius-lg); overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border: 1px solid var(--border-light);
 }
-.editorial-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  border-radius: 0;
-  padding: 12px 0;
-  font-weight: 500;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.3s ease;
+.hero-glow-bg {
+  position: absolute; width: 60vw; height: 60vw; max-width: 600px; max-height: 600px;
+  background: radial-gradient(circle, rgba(194, 161, 112, 0.15) 0%, transparent 70%);
+  filter: blur(40px); animation: pulse-glow 6s ease-in-out infinite; z-index: 0;
 }
-.editorial-input:focus {
-  border-bottom-color: #0a0a0a;
+.hero-content { position: relative; z-index: 10; padding: 20px; }
+.hero-tag {
+  font-size: 0.75rem; font-weight: 800; letter-spacing: 0.3em;
+  color: var(--accent-gold); margin-bottom: 20px; display: block;
 }
-.chip-btn {
-  border: 1px solid #e5e5e5;
-  padding: 6px 16px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  cursor: pointer;
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 24px;
+  letter-spacing: -0.02em;
 }
-.chip-btn.active, .chip-btn:hover {
-  background: #0a0a0a;
-  color: #ffffff;
-  border-color: #0a0a0a;
+.hero-title span { font-family: 'Playfair Display', serif; font-style: italic; color: var(--text-muted); }
+.hero-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 16px 36px; background: var(--text-main); color: white;
+  font-weight: 700; font-size: 0.9rem; border-radius: var(--radius-full);
+  transition: all 0.3s var(--ease-spring); box-shadow: var(--shadow-float);
+}
+.hero-btn:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); background: #222; }
+
+/* =========================================================
+   6. FILTERS & CONTROLS (MINIMAL)
+========================================================= */
+.controls-bar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 16px; margin-top: 60px; margin-bottom: 30px;
+}
+.section-title-wrap h2 { font-size: 2rem; margin: 0 0 8px 0; }
+.section-title-wrap p { color: var(--text-muted); margin: 0; font-size: 0.9rem; }
+
+.search-input-wrap { position: relative; width: 100%; max-width: 400px; }
+.search-input-wrap svg { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+.search-input {
+  width: 100%; padding: 16px 48px 16px 16px; background: var(--bg-tertiary);
+  border-radius: var(--radius-full); font-size: 0.95rem; transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+.search-input:focus { background: white; border-color: var(--border-dark); box-shadow: var(--shadow-glass); }
+
+.filter-chips {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px;
+  scrollbar-width: none; /* Firefox */
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+.chip {
+  padding: 10px 20px; border-radius: var(--radius-full); background: white;
+  border: 1px solid var(--border-dark); font-size: 0.85rem; font-weight: 700;
+  white-space: nowrap; cursor: pointer; transition: all 0.2s ease;
+}
+.chip:hover { border-color: var(--text-main); }
+.chip.active { background: var(--text-main); color: white; border-color: var(--text-main); }
+
+.mobile-filter-btn {
+  display: none; width: 100%; padding: 16px; background: var(--bg-tertiary);
+  border-radius: var(--radius-md); font-weight: 700; align-items: center; justify-content: space-between;
+}
+@media(max-width: 900px) { 
+  .search-input-wrap { max-width: 100%; }
+  .mobile-filter-btn { display: flex; }
+  .desktop-filters { display: none; }
 }
 
-/* Split Modal (Fullscreen) */
-.full-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  transform: translateY(100%);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+/* =========================================================
+   7. PRODUCT GRID & CARDS (ELEVATED 3D FEEL)
+========================================================= */
+.product-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px; padding-bottom: 80px;
 }
-.full-modal.open {
-  transform: translateY(0);
+@media(max-width: 600px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+
+.product-card {
+  position: relative; display: flex; flex-direction: column;
+  background: white; border-radius: var(--radius-md);
+  transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
 }
-@media (min-width: 1024px) {
-  .full-modal { flex-direction: row; }
-  .modal-gallery { width: 55%; height: 100vh; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
-  .modal-info { width: 45%; height: 100vh; overflow-y: auto; padding: 4rem; }
+.product-card:hover {
+  transform: translateY(-8px); z-index: 10;
 }
-.modal-gallery-mobile-snap {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+.product-card:hover .card-img img { transform: scale(1.05); }
+
+.card-img-wrap {
+  position: relative; aspect-ratio: 3/4; overflow: hidden;
+  border-radius: var(--radius-md); background: var(--bg-secondary);
+  cursor: pointer;
 }
-.modal-gallery-mobile-snap > img {
-  scroll-snap-align: center;
-  flex: 0 0 100%;
+.card-img { width: 100%; height: 100%; }
+.card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s var(--ease-smooth);
 }
+
+/* Overlay Actions on Image */
+.card-actions {
+  position: absolute; top: 12px; right: 12px; left: 12px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  pointer-events: none; z-index: 5;
+}
+.card-badge {
+  background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+  padding: 6px 10px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 800;
+  pointer-events: auto; box-shadow: var(--shadow-glass);
+}
+.card-badge.new { color: var(--text-main); }
+.card-badge.sale { color: var(--accent-red); }
+
+.fav-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: auto; transition: all 0.3s var(--ease-spring);
+  box-shadow: var(--shadow-glass); color: var(--text-muted);
+}
+.fav-btn:hover { transform: scale(1.15); color: var(--accent-red); }
+.fav-btn.active { color: var(--accent-red); }
+.fav-btn svg { width: 18px; height: 18px; transition: fill 0.3s; }
+.fav-btn.active svg { fill: currentColor; }
+
+.card-info { padding: 16px 4px 0; }
+.card-cat { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.card-title { font-size: 1rem; font-weight: 800; line-height: 1.4; margin: 0 0 8px 0; color: var(--text-main); }
+.card-price-row { display: flex; align-items: baseline; gap: 8px; }
+.price-current { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; }
+.price-old { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--text-light); text-decoration: line-through; }
+
+/* Skeletons */
+.skel-card { background: transparent; }
+.skel-img { aspect-ratio: 3/4; border-radius: var(--radius-md); background: var(--bg-tertiary); position: relative; overflow: hidden; }
+.skel-line { height: 12px; border-radius: 4px; background: var(--bg-tertiary); margin-top: 12px; position: relative; overflow: hidden; }
+.skel-line.w-1/2 { width: 50%; }
+.skel-img::after, .skel-line::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* =========================================================
+   8. FULLSCREEN SPLIT MODAL (EDITORIAL STYLE)
+========================================================= */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(255,255,255,0.98);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s var(--ease-smooth);
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+.modal-close-btn {
+  position: absolute; top: 20px; left: 20px; z-index: 110;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;
+  font-size: 24px; transition: transform 0.3s ease;
+}
+.modal-close-btn:hover { background: var(--text-main); color: white; transform: rotate(90deg); }
+
+@media(min-width: 1024px) {
+  .modal-overlay { flex-direction: row; }
+  .modal-gallery { width: 55%; height: 100vh; overflow-y: auto; scroll-behavior: smooth; scrollbar-width: none; }
+  .modal-details { width: 45%; height: 100vh; overflow-y: auto; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+}
+@media(max-width: 1023px) {
+  .modal-gallery { 
+    height: 60vh; width: 100%; display: flex; overflow-x: auto; 
+    scroll-snap-type: x mandatory; scrollbar-width: none; 
+  }
+  .modal-gallery-img { scroll-snap-align: center; flex: 0 0 100%; }
+  .modal-details { height: 40vh; width: 100%; overflow-y: auto; padding: 24px; background: white; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.05); }
+}
+
+.modal-gallery-img { width: 100%; min-height: 50vh; object-fit: cover; background: var(--bg-tertiary); }
+
+.modal-brand { font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; }
+.modal-title { font-size: clamp(2rem, 3vw, 3rem); font-weight: 900; line-height: 1.1; margin: 0 0 16px 0; }
+.modal-price-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.modal-price { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; }
+.modal-old { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--text-light); text-decoration: line-through; }
+.modal-status { display: inline-block; padding: 6px 12px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; margin-bottom: 32px; }
+
+.modal-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border-light); }
+.meta-item { display: flex; flex-direction: column; }
+.meta-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.meta-value { font-size: 1rem; font-weight: 700; }
+
+.modal-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+
+.modal-actions-wrap { display: flex; gap: 16px; margin-top: auto; }
+.btn-primary { 
+  flex: 1; padding: 20px; background: var(--text-main); color: white; 
+  border-radius: var(--radius-md); font-weight: 800; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  transition: all 0.3s var(--ease-spring);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: #222; }
+.btn-secondary {
+  width: 64px; border-radius: var(--radius-md); border: 1px solid var(--border-dark);
+  display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--bg-tertiary); }
+.btn-secondary.active { border-color: var(--accent-red); color: var(--accent-red); background: var(--accent-red-bg); }
+.btn-secondary.active svg { fill: currentColor; }
+
+/* =========================================================
+   9. MOBILE BOTTOM SHEET (FILTERS/WISHLIST)
+========================================================= */
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 80;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+.bottom-sheet {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  background: white; border-top-left-radius: 30px; border-top-right-radius: 30px;
+  padding: 24px; max-height: 85vh; display: flex; flex-direction: column;
+  transform: translateY(100%); transition: transform 0.4s var(--ease-spring);
+}
+.bottom-sheet.open { transform: translateY(0); }
+.sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.sheet-title { font-size: 1.25rem; font-weight: 900; }
+.sheet-close { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.sheet-body { overflow-y: auto; padding-bottom: 24px; }
+
+/* Filter Specifics */
+.filter-group { margin-bottom: 24px; }
+.filter-label { display: block; font-size: 0.85rem; font-weight: 800; margin-bottom: 12px; color: var(--text-muted); }
+.select-styled { width: 100%; padding: 14px; background: var(--bg-tertiary); border-radius: var(--radius-sm); font-weight: 700; }
+
+/* Wishlist Item */
+.wishlist-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border-light); align-items: center; }
+.wishlist-img { width: 70px; height: 90px; border-radius: var(--radius-sm); object-fit: cover; }
+.wishlist-info { flex: 1; }
+.wishlist-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+.wishlist-price { font-family: 'Playfair Display', serif; font-weight: 700; }
+.wishlist-remove { color: var(--text-light); text-decoration: underline; font-size: 0.8rem; margin-top: 8px; display: inline-block; }
+
+/* =========================================================
+   10. TOAST NOTIFICATION
+========================================================= */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 20px);
+  background: var(--text-main); color: white; padding: 12px 24px;
+  border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+  box-shadow: var(--shadow-float); z-index: 200;
+  opacity: 0; pointer-events: none; transition: all 0.3s var(--ease-spring);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Floating To Top */
+.to-top {
+  position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
+  border-radius: 50%; background: white; box-shadow: var(--shadow-hover);
+  display: flex; align-items: center; justify-content: center; z-index: 70;
+  opacity: 0; transform: translateY(20px); pointer-events: none; transition: all 0.3s ease;
+}
+.to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
 </style>
 </head>
-<body class="antialiased selection:bg-ink selection:text-white">
 
-<div class="marquee-container flex items-center">
-  <div class="marquee-content">
-    AWM HAUTE COUTURE &nbsp; • &nbsp; REDEFINING ELEGANCE &nbsp; • &nbsp; EXCLUSIVE MENSWEAR GALLERY &nbsp; • &nbsp; WORLDWIDE INSPIRATION &nbsp; • &nbsp; AWM HAUTE COUTURE &nbsp; • &nbsp; REDEFINING ELEGANCE
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    AWM EXCLUSIVE | PREMIUM MENSWEAR COLLECTION
   </div>
 </div>
 
-<header class="fixed top-[45px] left-0 right-0 z-50 nav-glass transition-all duration-300">
-  <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between">
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container nav-inner">
+    <a href="#" class="brand-logo" onclick="window.scrollTo(0,0); return false;">
+      <img src="awm-logo.jpg" alt="AWM Logo" onerror="this.src='awm-logo.jpg'">
+      AWM
+    </a>
     
-    <!-- Left: Desktop Menu -->
-    <nav class="hidden md:flex items-center gap-8 font-bold text-sm">
-      <a href="#catalog" class="hover:opacity-60 transition">المجموعة</a>
-      <a href="#about" class="hover:opacity-60 transition">فلسفتنا</a>
-      <a href="https://wa.me/201020776397" target="_blank" class="hover:opacity-60 transition">تواصل معنا</a>
+    <nav class="nav-links">
+      <a href="#" class="active">Discover</a>
+      <a href="#collections">Collections</a>
+      <a href="#footer">Contact</a>
     </nav>
     
-    <!-- Mobile Menu Trigger -->
-    <button class="md:hidden p-2 -ml-2 font-serif-en text-sm tracking-widest">MENU</button>
-
-    <!-- Center: Bold Logo -->
-    <a href="#" class="absolute left-1/2 -translate-x-1/2 font-serif-en text-4xl font-black tracking-tighter">AWM</a>
-
-    <!-- Right: Actions -->
-    <div class="flex items-center gap-5">
-      <button id="searchTrigger" class="text-sm font-bold hover:opacity-60 transition flex items-center gap-2">
-        <span class="hidden sm:block">البحث</span>
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+    <div class="nav-actions">
+      <button class="action-btn" onclick="openWishlist()" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
+        <span class="badge-count hidden" id="favCountBadge">0</span>
       </button>
-      <button id="wishlistTrigger" class="text-sm font-bold hover:opacity-60 transition flex items-center gap-2 relative">
-        <span class="hidden sm:block">المفضلة</span>
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
-        <span id="favCount" class="absolute -top-2 -right-3 w-4 h-4 bg-ink text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+      <button class="action-btn" onclick="document.getElementById('searchInput').focus()" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
     </div>
   </div>
 </header>
 
-<section class="min-h-[90vh] pt-[125px] flex flex-col justify-center px-6 max-w-[1600px] mx-auto relative">
-  <div class="reveal-up relative z-10 text-center md:text-right w-full">
-    <div class="text-kicker mb-6 text-gray-500">Maison de Couture</div>
-    <h1 class="text-huge font-black text-ink mb-6">
-      إعادة صياغة <br>
-      <span class="font-serif-en text-gray-300 italic">Elegance.</span>
-    </h1>
-    <p class="max-w-xl text-lg md:text-xl text-gray-600 font-medium leading-relaxed mb-10 mx-auto md:mx-0">
-      تشكيلة مُختارة بعناية فائقة تدمج بين الأصالة والتصميم المعاصر. نُقدم لك قطعاً حصرية تعكس شخصيتك المتفردة.
-    </p>
-    <div class="flex flex-col sm:flex-row items-center gap-4">
-      <a href="#catalog" class="w-full sm:w-auto px-10 py-4 bg-ink text-white font-bold text-sm tracking-widest uppercase hover:bg-gray-800 transition sharp-edges text-center">استكشف التشكيلة</a>
-      <a href="#collections" class="w-full sm:w-auto px-10 py-4 border border-ink text-ink font-bold text-sm tracking-widest uppercase hover:bg-gray-50 transition sharp-edges text-center">أحدث الإصدارات</a>
+<!-- HERO -->
+<section class="container reveal-up">
+  <div class="hero">
+    <div class="hero-glow-bg"></div>
+    <div class="hero-content">
+      <span class="hero-tag">NEW SEASON</span>
+      <h1 class="hero-title">Elevate Your<br><span>Everyday Style.</span></h1>
+      <a href="#catalog" class="hero-btn">Explore Collection</a>
     </div>
-  </div>
-  
-  <!-- Abstract Decorative Element -->
-  <div class="absolute left-10 bottom-20 w-[40vw] max-w-[400px] h-[50vh] bg-ash hidden lg:block reveal-up" style="transition-delay: 0.3s; z-index: -1;">
-    <img src="awm-logo.jpg" alt="AWM Vibe" class="w-full h-full object-cover mix-blend-multiply opacity-20 grayscale" onerror="this.src='awm-logo.jpg'">
   </div>
 </section>
 
-<main id="catalog" class="border-t-thin pt-20 pb-32">
-  <div class="max-w-[1600px] mx-auto px-6">
-    
-    <div class="flex flex-col lg:flex-row gap-16">
-      
-      <!-- Left: Sticky Filters Sidebar (Desktop) -->
-      <aside class="w-full lg:w-1/4 lg:sticky lg:top-[125px] h-auto lg:h-[calc(100vh-140px)] overflow-y-auto pb-10 pr-0 lg:pl-10 border-l-thin border-transparent lg:border-stone hidden lg:block scrollbar-hide">
-        <h2 class="font-serif-en text-2xl font-bold mb-8 uppercase tracking-widest">Filters</h2>
-        
-        <!-- Search -->
-        <div class="mb-10 relative">
-          <input id="searchDesktop" type="text" class="editorial-input pr-10" placeholder="ابحث عن قطعة، كولكشن...">
-          <svg class="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
-        </div>
-
-        <!-- Sort -->
-        <div class="mb-10">
-          <label class="text-kicker text-gray-400 block mb-3">Sort By</label>
-          <select id="sortDesktop" class="editorial-select">
-            <option value="featured">المميز أولاً</option>
-            <option value="new">الأحدث وصولاً</option>
-            <option value="priceAsc">السعر: من الأقل</option>
-            <option value="priceDesc">السعر: من الأعلى</option>
-          </select>
-        </div>
-
-        <!-- Categories -->
-        <div class="mb-10">
-          <label class="text-kicker text-gray-400 block mb-4">Category</label>
-          <div id="categoryListDesktop" class="flex flex-col gap-3">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-
-        <!-- Advanced Options (Chips) -->
-        <div class="mb-10">
-          <label class="text-kicker text-gray-400 block mb-4">Size</label>
-          <div id="sizeListDesktop" class="flex flex-wrap gap-2"></div>
-        </div>
-
-        <!-- Availability Switch -->
-        <label class="flex items-center gap-4 cursor-pointer group mb-10">
-          <div class="relative">
-            <input type="checkbox" id="availDesktop" class="sr-only">
-            <div class="block w-12 h-6 border border-ink bg-white transition-colors duration-300"></div>
-            <div class="dot absolute left-1 top-1 bg-ink w-4 h-4 transition-transform duration-300"></div>
-          </div>
-          <span class="font-bold text-sm uppercase">المتاح فقط</span>
-        </label>
-
-        <button id="clearFiltersDesktop" class="text-xs font-bold underline underline-offset-4 hidden hover:text-blood">إعادة ضبط الفلاتر</button>
-      </aside>
-
-      <!-- Mobile Filter Trigger -->
-      <div class="lg:hidden mb-8 border-b-thin pb-4 flex items-center justify-between sticky top-[80px] bg-white z-40">
-        <button id="openMobileFilters" class="font-bold text-sm flex items-center gap-2">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-          تصفية المنتجات
-        </button>
-        <span id="resultsCountMobile" class="font-serif-en text-xs text-gray-500 tracking-widest"></span>
-      </div>
-
-      <!-- Right: Products Grid -->
-      <div class="w-full lg:w-3/4">
-        
-        <div class="hidden lg:flex items-center justify-between mb-8 pb-4 border-b-thin">
-          <h3 class="font-serif-en text-xl italic text-gray-400" id="collectionTitle">All Archive</h3>
-          <span id="resultsCountDesktop" class="font-serif-en text-sm tracking-widest"></span>
-        </div>
-
-        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12 sm:gap-x-8 sm:gap-y-16">
-          <!-- Skeletons -->
-          <div class="product-card"><div class="skel-block aspect-[3/4] mb-4"></div><div class="skel-block h-4 w-2/3 mb-2"></div><div class="skel-block h-4 w-1/3"></div></div>
-          <div class="product-card"><div class="skel-block aspect-[3/4] mb-4"></div><div class="skel-block h-4 w-2/3 mb-2"></div><div class="skel-block h-4 w-1/3"></div></div>
-          <div class="product-card"><div class="skel-block aspect-[3/4] mb-4"></div><div class="skel-block h-4 w-2/3 mb-2"></div><div class="skel-block h-4 w-1/3"></div></div>
-        </div>
-      </div>
-
+<!-- CATALOG & FILTERS -->
+<main class="container" id="catalog">
+  <div class="controls-bar reveal-up delay-100">
+    <div class="section-title-wrap">
+      <h2>The Gallery</h2>
+      <p id="resultsCount">Loading exclusive pieces...</p>
     </div>
+    
+    <!-- Desktop Search -->
+    <div class="search-input-wrap desktop-filters">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, color, style...">
+    </div>
+    
+    <!-- Mobile Filter Trigger -->
+    <button class="mobile-filter-btn" onclick="openMobileFilters()">
+      <span>Filters & Search</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+    </button>
+  </div>
+  
+  <!-- Desktop Quick Category Chips -->
+  <div class="filter-chips desktop-filters reveal-up delay-200" id="categoryChipsDesktop">
+    <!-- Populated via JS -->
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="product-grid reveal-up delay-300" id="productGrid">
+    <!-- Initial Skeletons -->
+    <div class="skel-card"><div class="skel-img"></div><div class="skel-line"></div><div class="skel-line w-1/2"></div></div>
+    <div class="skel-card"><div class="skel-img"></div><div class="skel-line"></div><div class="skel-line w-1/2"></div></div>
+    <div class="skel-card"><div class="skel-img"></div><div class="skel-line"></div><div class="skel-line w-1/2"></div></div>
+    <div class="skel-card"><div class="skel-img"></div><div class="skel-line"></div><div class="skel-line w-1/2"></div></div>
   </div>
 </main>
 
-<div id="mobileFilterOverlay" class="fixed inset-0 bg-ink/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
-<div id="mobileFilterSheet" class="fixed bottom-0 left-0 right-0 z-[70] bg-white h-[85vh] transform translate-y-full transition-transform duration-500 ease-out flex flex-col sharp-edges">
-  <div class="flex items-center justify-between p-6 border-b-thin">
-    <h3 class="font-serif-en text-xl font-bold uppercase">Filters</h3>
-    <button id="closeMobileFilters" class="p-2 text-2xl font-light">×</button>
+<!-- FOOTER -->
+<footer class="container reveal-up" id="footer" style="padding: 60px 0; border-top: 1px solid var(--border-light); margin-top: 60px; text-align: center;">
+  <h3 class="font-serif text-2xl mb-4">AWM Exclusive</h3>
+  <p class="text-muted mb-6 text-sm">Redefining modern menswear in Egypt.</p>
+  <div style="display: flex; justify-content: center; gap: 16px;">
+    <a href="https://wa.me/201020776397" target="_blank" class="chip">WhatsApp</a>
+    <a href="https://www.tiktok.com/@awm.store11" target="_blank" class="chip">TikTok</a>
   </div>
-  <div class="flex-1 overflow-y-auto p-6">
-    <div class="mb-8">
-      <input id="searchMobile" type="text" class="editorial-input" placeholder="بحث...">
-    </div>
-    <div class="mb-8">
-      <label class="text-kicker text-gray-400 block mb-3">Sort By</label>
-      <select id="sortMobile" class="editorial-select">
-        <option value="featured">المميز أولاً</option>
-        <option value="new">الأحدث وصولاً</option>
-        <option value="priceAsc">السعر: من الأقل</option>
-        <option value="priceDesc">السعر: من الأعلى</option>
-      </select>
-    </div>
-    <div class="mb-8">
-      <label class="text-kicker text-gray-400 block mb-4">Category</label>
-      <select id="categoryListMobile" class="editorial-select">
-        <option value="all">الكل</option>
-      </select>
-    </div>
-    <div class="mb-8">
-      <label class="text-kicker text-gray-400 block mb-4">Size</label>
-      <select id="sizeListMobile" class="editorial-select">
-        <option value="all">الكل</option>
-      </select>
-    </div>
-  </div>
-  <div class="p-6 border-t-thin bg-ash">
-    <button id="applyMobileFilters" class="w-full py-4 bg-ink text-white font-bold uppercase tracking-widest text-sm sharp-edges">عرض النتائج</button>
-  </div>
-</div>
+  <p class="text-xs text-light" style="margin-top: 40px;">&copy; <span id="year"></span> AWM Store. All rights reserved.</p>
+</footer>
 
-<div id="productModal" class="full-modal">
+<!-- FULLSCREEN MODAL (PRODUCT DETAILS) -->
+<div class="modal-overlay" id="productModal">
+  <button class="modal-close-btn" onclick="closeModal()">×</button>
   
-  <!-- Close Button -->
-  <button id="modalClose" class="absolute top-6 right-6 z-50 w-12 h-12 bg-white border border-stone rounded-full flex items-center justify-center hover:bg-ink hover:text-white transition-colors">
-    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-  </button>
-
-  <!-- Left/Top: Images Gallery -->
-  <div class="w-full lg:w-[55%] h-[55vh] lg:h-full bg-ash relative overflow-hidden flex flex-col lg:block">
-    <div id="modalImagesContainer" class="flex-1 overflow-y-auto overflow-x-hidden lg:snap-none snap-x snap-mandatory flex lg:block w-full h-full">
-      <!-- Generated via JS -->
-    </div>
-    <!-- Desktop Scroll Indicator -->
-    <div class="hidden lg:block absolute bottom-10 left-10 text-kicker bg-white px-4 py-2 border border-stone">SCROLL TO EXPLORE ↓</div>
+  <!-- Left/Top: Gallery -->
+  <div class="modal-gallery" id="modalGallery">
+    <!-- Generated via JS -->
   </div>
-
-  <!-- Right/Bottom: Product Info -->
-  <div class="w-full lg:w-[45%] h-[45vh] lg:h-full overflow-y-auto bg-white p-8 lg:p-16 flex flex-col justify-center">
-    <div class="max-w-md">
-      <span id="modalCategory" class="text-kicker text-gray-400 block mb-4"></span>
-      <h2 id="modalTitle" class="text-3xl lg:text-5xl font-black mb-6 leading-tight"></h2>
-      
-      <div class="flex items-baseline gap-4 mb-8">
-        <span id="modalPrice" class="font-serif-en text-2xl lg:text-3xl font-bold"></span>
-        <span id="modalOldPrice" class="font-serif-en text-gray-400 line-through text-sm"></span>
-      </div>
-
-      <div id="modalStatus" class="mb-8"></div>
-
-      <div class="border-t-thin border-b-thin py-6 mb-8">
-        <p id="modalDesc" class="text-gray-600 text-sm leading-relaxed"></p>
-        
-        <div id="modalMetaGrid" class="grid grid-cols-2 gap-4 mt-6">
-          <!-- Populated via JS -->
-        </div>
-      </div>
-
-      <div class="flex flex-col sm:flex-row gap-4">
-        <button id="modalOrderBtn" class="flex-1 py-4 bg-ink text-white font-bold uppercase tracking-widest text-xs sharp-edges hover:bg-gray-800 transition">
-          طلب عبر واتساب
-        </button>
-        <button id="modalFavBtn" class="w-full sm:w-16 h-14 sm:h-auto border border-stone flex items-center justify-center hover:bg-ash transition group">
-          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
-        </button>
-      </div>
-
+  
+  <!-- Right/Bottom: Details -->
+  <div class="modal-details">
+    <div class="modal-brand" id="modalCategory">AWM Collection</div>
+    <h2 class="modal-title" id="modalName">Product Name</h2>
+    
+    <div class="modal-price-wrap">
+      <span class="modal-price" id="modalPrice">0 EGP</span>
+      <span class="modal-old hidden" id="modalOldPrice">0 EGP</span>
+    </div>
+    
+    <div id="modalStatusContainer"></div>
+    
+    <div class="modal-meta-grid" id="modalMetaGrid">
+      <!-- Populated via JS -->
+    </div>
+    
+    <p class="modal-desc" id="modalDesc">Product description will appear here...</p>
+    
+    <div class="modal-actions-wrap">
+      <button class="btn-primary" id="btnWhatsapp">
+        Order via WhatsApp
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.84 11.84 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.59 5.96L.02 24l6.27-1.64a11.88 11.88 0 0 0 5.75 1.47h.01c6.56 0 11.91-5.35 11.91-11.91a11.86 11.86 0 0 0-3.46-8.42ZM12.05 21.83h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.72.98.99-3.63-.23-.37a9.87 9.87 0 0 1-1.51-5.32c0-5.46 4.45-9.91 9.92-9.91a9.86 9.86 0 0 1 7.01 2.9 9.86 9.86 0 0 1 2.9 7.02c0 5.47-4.45 9.91-9.92 9.91Z"/></svg>
+      </button>
+      <button class="btn-secondary" id="btnModalFav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
+      </button>
     </div>
   </div>
 </div>
 
-<div id="wishlistOverlay" class="fixed inset-0 bg-ink/50 backdrop-blur-sm z-[80] hidden opacity-0 transition-opacity duration-300"></div>
-<aside id="wishlistDrawer" class="fixed top-0 right-0 bottom-0 z-[90] w-full sm:w-[400px] bg-white border-l-thin transform translate-x-full transition-transform duration-500 ease-expo flex flex-col">
-  <div class="p-6 border-b-thin flex justify-between items-center bg-white z-10">
-    <h3 class="font-serif-en text-xl font-bold uppercase tracking-widest">Wishlist</h3>
-    <button id="closeWishlist" class="text-2xl font-light hover:rotate-90 transition-transform">×</button>
+<!-- MOBILE FILTERS BOTTOM SHEET -->
+<div class="drawer-overlay" id="mobileFilterOverlay" onclick="closeMobileFilters()"></div>
+<div class="bottom-sheet" id="mobileFilterSheet">
+  <div class="sheet-header">
+    <h3 class="sheet-title">Filters</h3>
+    <button class="sheet-close" onclick="closeMobileFilters()">×</button>
   </div>
-  <div id="wishlistBody" class="flex-1 overflow-y-auto p-6 space-y-6">
+  <div class="sheet-body">
+    <div class="filter-group">
+      <label class="filter-label">Search</label>
+      <input type="text" id="searchInputMobile" class="select-styled" placeholder="What are you looking for?" style="border: 1px solid var(--border-dark)">
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">Category</label>
+      <select id="mobileCategorySelect" class="select-styled border-dark">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">Sort By</label>
+      <select id="mobileSortSelect" class="select-styled border-dark">
+        <option value="new">Newest Arrivals</option>
+        <option value="priceAsc">Price: Low to High</option>
+        <option value="priceDesc">Price: High to Low</option>
+      </select>
+    </div>
+    <button class="hero-btn" style="width: 100%; margin-top: 16px;" onclick="closeMobileFilters()">Apply Filters</button>
+  </div>
+</div>
+
+<!-- WISHLIST BOTTOM SHEET -->
+<div class="drawer-overlay" id="wishlistOverlay" onclick="closeWishlist()"></div>
+<div class="bottom-sheet" id="wishlistSheet" style="max-height: 90vh; height: 80vh;">
+  <div class="sheet-header">
+    <h3 class="sheet-title">My Wishlist</h3>
+    <button class="sheet-close" onclick="closeWishlist()">×</button>
+  </div>
+  <div class="sheet-body" id="wishlistBody">
     <!-- Populated via JS -->
   </div>
-</aside>
+</div>
 
-<!-- Custom Toast -->
-<div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] bg-ink text-white px-8 py-4 font-bold text-sm tracking-wider uppercase opacity-0 transform translate-y-4 transition-all duration-300 pointer-events-none"></div>
+<!-- TOAST & UTILS -->
+<div class="toast" id="toast">Message</div>
+<button class="to-top" id="toTop" onclick="window.scrollTo(0,0)">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</button>
 
 <script>
-// Supabase Configuration (Kept identical as requested)
 const SUPABASE_URL = 'https://ftyvkwtbqpmehmzgsjnc.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_CTYRVQ_EN2xiW6wTk6TL2w_7mqTDtJi';
-const { createClient } = supabase;
+const {createClient} = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const WHATSAPP = '201020776397';
 
-// State
 let products = [];
 let activeCategory = 'all';
-let selectedSize = 'all';
-let onlyAvailable = false;
-let currentSearch = '';
-let currentSort = 'featured';
+let searchQuery = '';
+let currentSort = 'new';
 let currentProduct = null;
+const STORAGE_WISHLIST = 'awm_wishlist_lux';
+let toastTimer;
 
-const STORAGE_WISHLIST = 'awm_wishlist_radical';
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// Helpers
 const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#039;'}[c]));
-const money = n => `<span class="font-serif-en">${Number(n || 0).toLocaleString('ar-EG', { maximumFractionDigits: 2 })}</span> EGP`;
+const money = n => `<span class="font-serif">${Number(n || 0).toLocaleString('ar-EG', { maximumFractionDigits: 2 })}</span> EGP`;
 
-function normalizeImageUrl(url) {
-  if (!url) return 'awm-logo.jpg';
+function normalizeImageUrl(url){
+  if(!url) return 'awm-logo.jpg';
   const raw = String(url).trim();
-  if (!raw) return 'awm-logo.jpg';
-  if (/^https?:\/\//i.test(raw)) {
+  if(!raw) return 'awm-logo.jpg';
+  if(/^https?:\/\//i.test(raw)){
     return raw.replace('/storage/v1/object/products/', '/storage/v1/object/public/products/')
               .replace('/storage/v1/object/sign/products/', '/storage/v1/object/public/products/');
   }
-  return `${SUPABASE_URL}/storage/v1/object/public/products/` + raw.replace(/^\/+/, '').split('/').map(encodeURIComponent).join('/');
+  const clean = raw.replace(/^\/+/, '').replace(/^products\//, '');
+  return `${SUPABASE_URL}/storage/v1/object/public/products/` + clean.split('/').map(encodeURIComponent).join('/');
 }
 
-function parseImages(p) {
+function parseImages(p){
   let urls = p?.image_urls;
-  if (typeof urls === 'string') {
-    try { urls = JSON.parse(urls); } catch { urls = urls.split(',').map(x => x.trim()).filter(Boolean); }
-  }
-  if (!Array.isArray(urls)) urls = urls ? [urls] : [];
+  if(typeof urls === 'string'){ try{ urls = JSON.parse(urls); }catch{ urls = urls.split(',').map(x=>x.trim()).filter(Boolean); } }
+  if(!Array.isArray(urls)) urls = urls ? [urls] : [];
   const merged = [...(p?.image_url ? [p.image_url] : []), ...urls];
   return [...new Set(merged.filter(Boolean).map(normalizeImageUrl))];
 }
 
-function getWishlist() {
-  try { const d = JSON.parse(localStorage.getItem(STORAGE_WISHLIST) || '[]'); return Array.isArray(d) ? d : []; } catch { return []; }
+function showToast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+function getWishlist() { try { return JSON.parse(localStorage.getItem(STORAGE_WISHLIST) || '[]'); } catch { return []; } }
 function saveWishlist(list) { localStorage.setItem(STORAGE_WISHLIST, JSON.stringify(list)); }
 function isFavorite(id) { return getWishlist().includes(String(id)); }
 
-function showToast(msg) {
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.remove('opacity-0', 'translate-y-4');
-  t.classList.add('opacity-100', 'translate-y-0');
-  setTimeout(() => {
-    t.classList.add('opacity-0', 'translate-y-4');
-    t.classList.remove('opacity-100', 'translate-y-0');
-  }, 3000);
-}
-
 function toggleFavorite(id, e) {
   if(e) e.stopPropagation();
-  const key = String(id);
-  let list = getWishlist();
-  if (list.includes(key)) {
-    list = list.filter(x => x !== key);
-    showToast('Removed from Wishlist');
-  } else {
-    list.push(key);
-    showToast('Added to Wishlist');
-  }
-  saveWishlist(list);
-  updateWishlistUI();
-  renderProducts();
-  if (currentProduct && currentProduct.id == id) updateModalFavoriteBtn();
+  const key = String(id); let list = getWishlist();
+  if(list.includes(key)){ list = list.filter(x => x !== key); showToast('Removed from wishlist'); }
+  else { list.push(key); showToast('Added to wishlist'); }
+  saveWishlist(list); updateWishlistUI(); renderProducts();
+  if(currentProduct && currentProduct.id == id) checkModalFavState();
 }
 
 function updateWishlistUI() {
-  const list = getWishlist();
-  const badge = $('#favCount');
-  badge.textContent = list.length;
-  badge.classList.toggle('hidden', list.length === 0);
+  const count = getWishlist().length;
+  const badge = $('#favCountBadge');
+  badge.textContent = count;
+  if(count > 0) badge.classList.remove('hidden'); else badge.classList.add('hidden');
   renderWishlistDrawer();
 }
 
 function renderWishlistDrawer() {
-  const body = $('#wishlistBody');
   const ids = getWishlist();
   const list = ids.map(id => products.find(p => String(p.id) === String(id))).filter(Boolean);
-  
-  if (!list.length) {
-    body.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-400 font-serif-en"><span class="text-4xl mb-4">♡</span><p>Your wishlist is empty.</p></div>`;
-    return;
+  const body = $('#wishlistBody');
+  if(!list.length) {
+    body.innerHTML = `<div style="text-align:center; padding: 40px 0; color: var(--text-light);">Your wishlist is empty.</div>`; return;
   }
-  
   body.innerHTML = list.map(p => {
     const img = parseImages(p)[0];
     return `
-      <div class="flex gap-4 group cursor-pointer" onclick="openProduct('${p.id}')">
-        <div class="w-24 h-32 bg-ash overflow-hidden">
-          <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='awm-logo.jpg'">
-        </div>
-        <div class="flex-1 flex flex-col justify-center">
-          <span class="text-[10px] text-gray-400 uppercase tracking-widest">${p.category || 'AWM'}</span>
-          <h4 class="font-bold text-sm mt-1 mb-2 leading-tight">${p.name}</h4>
-          <span class="font-serif-en font-bold text-sm">${money(p.price)}</span>
-          <button class="text-xs text-blood mt-2 text-right underline underline-offset-4" onclick="toggleFavorite('${p.id}', event)">إزالة</button>
+      <div class="wishlist-item" onclick="openProduct('${p.id}'); closeWishlist();">
+        <img src="${img}" class="wishlist-img" onerror="this.src='awm-logo.jpg'">
+        <div class="wishlist-info">
+          <div class="wishlist-title">${esc(p.name)}</div>
+          <div class="wishlist-price">${money(p.price)}</div>
+          <span class="wishlist-remove" onclick="toggleFavorite('${p.id}', event)">Remove</span>
         </div>
       </div>
     `;
   }).join('');
 }
 
-// Fetch Data
-async function initData() {
-  const { data, error } = await db.from('products').select('*').eq('is_active', true).order('sort_order', { ascending: true }).order('created_at', { ascending: false });
-  if (!error && data) {
-    products = data;
-    buildFilters();
-    renderProducts();
-    updateWishlistUI();
-    initObserver();
-  }
+async function loadProducts() {
+  const { data, error } = await db.from('products').select('*').eq('is_active', true).order('created_at', {ascending: false});
+  if(data) { products = data; buildFilters(); renderProducts(); updateWishlistUI(); initScrollReveal(); }
 }
 
-// Filters logic
-function splitValues(val) { return String(val ?? '').split(/[,،|/]/).map(x => x.trim()).filter(Boolean); }
 function buildFilters() {
-  // Categories
-  const cats = [...new Set(products.map(p => String(p.category || '').trim()).filter(Boolean))];
-  const catHTML = `<button class="text-right font-bold text-sm w-full py-2 hover:pl-2 transition-all ${activeCategory === 'all' ? 'text-ink border-r-2 border-ink pr-3' : 'text-gray-400'}" onclick="setCategory('all')">All Collection</button>` + 
-    cats.map(c => `<button class="text-right font-bold text-sm w-full py-2 hover:pl-2 transition-all ${activeCategory === c ? 'text-ink border-r-2 border-ink pr-3' : 'text-gray-400'}" onclick="setCategory('${esc(c)}')">${esc(c)}</button>`).join('');
-  $('#categoryListDesktop').innerHTML = catHTML;
+  const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
   
-  $('#categoryListMobile').innerHTML = `<option value="all">All Categories</option>` + cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  // Desktop Chips
+  let chipsHtml = `<button class="chip active" onclick="setCategory('all', this)">All Pieces</button>`;
+  cats.forEach(c => chipsHtml += `<button class="chip" onclick="setCategory('${esc(c)}', this)">${esc(c)}</button>`);
+  $('#categoryChipsDesktop').innerHTML = chipsHtml;
 
-  // Sizes
-  const sizes = [...new Set(products.flatMap(p => splitValues(p.sizes)))].filter(Boolean);
-  const sizeHTML = sizes.map(s => `<button class="chip-btn ${selectedSize === s ? 'active' : ''}" onclick="setSize('${esc(s)}')">${esc(s)}</button>`).join('');
-  $('#sizeListDesktop').innerHTML = `<button class="chip-btn ${selectedSize === 'all' ? 'active' : ''}" onclick="setSize('all')">ALL</button>` + sizeHTML;
-  $('#sizeListMobile').innerHTML = `<option value="all">All Sizes</option>` + sizes.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  // Mobile Select
+  let selectHtml = `<option value="all">All Categories</option>`;
+  cats.forEach(c => selectHtml += `<option value="${esc(c)}">${esc(c)}</option>`);
+  $('#mobileCategorySelect').innerHTML = selectHtml;
 }
 
-function setCategory(cat) { activeCategory = cat; $('#categoryListMobile').value = cat; buildFilters(); renderProducts(); }
-function setSize(s) { selectedSize = s; $('#sizeListMobile').value = s; buildFilters(); renderProducts(); }
+function setCategory(cat, el) {
+  activeCategory = cat;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderProducts();
+}
 
-// Render Products Grid
+function getSearchText(p){ return [p.name, p.category, p.description].filter(Boolean).join(' ').toLowerCase(); }
+
 function filterAndSort() {
   let list = products.filter(p => activeCategory === 'all' || p.category === activeCategory);
-  if (onlyAvailable) list = list.filter(p => p.is_available);
-  if (selectedSize !== 'all') list = list.filter(p => splitValues(p.sizes).includes(selectedSize));
-  
-  if (currentSearch) {
-    const q = currentSearch.toLowerCase();
-    list = list.filter(p => (p.name + ' ' + p.category).toLowerCase().includes(q));
+  if(searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(p => getSearchText(p).includes(q));
   }
-
-  if (currentSort === 'new') list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-  if (currentSort === 'priceAsc') list.sort((a,b) => Number(a.price) - Number(b.price));
-  if (currentSort === 'priceDesc') list.sort((a,b) => Number(b.price) - Number(a.price));
-
+  if(currentSort === 'new') list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  if(currentSort === 'priceAsc') list.sort((a,b) => Number(a.price) - Number(b.price));
+  if(currentSort === 'priceDesc') list.sort((a,b) => Number(b.price) - Number(a.price));
   return list;
 }
 
 function renderProducts() {
   const list = filterAndSort();
-  $('#resultsCountDesktop').innerHTML = `${list.length} ITEMS`;
-  $('#resultsCountMobile').innerHTML = `${list.length} ITEMS`;
+  $('#resultsCount').textContent = `${list.length} exclusive pieces`;
+  const grid = $('#productGrid');
   
   if(!list.length) {
-    $('#productGrid').innerHTML = `<div class="col-span-full py-32 text-center text-gray-400 font-serif-en text-xl">No archive found matching your criteria.</div>`;
-    return;
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--text-light); font-size: 1.2rem;">No pieces match your criteria.</div>`; return;
   }
 
-  $('#productGrid').innerHTML = list.map(p => {
+  grid.innerHTML = list.map((p, i) => {
     const img = parseImages(p)[0];
-    const fav = isFavorite(p.id);
+    const old = Number(p.old_price || 0);
+    const hasDiscount = old > p.price;
+    const isFav = isFavorite(p.id);
+    
+    // Add staggered delay for animation
+    const delay = (i % 4) * 100;
+    
     return `
-      <div class="product-card group cursor-pointer reveal-up" onclick="openProduct('${p.id}')">
-        <div class="img-wrap aspect-[3/4] mb-5">
-          <img src="${img}" loading="lazy" onerror="this.src='awm-logo.jpg'">
-          ${p.is_available ? '' : `<div class="absolute top-4 left-4 bg-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase">Sold Out</div>`}
-          <div class="absolute top-4 right-4 z-10 hover-action">
-            <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-ink hover:text-white transition shadow-lg" onclick="toggleFavorite('${p.id}', event)">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
-            </button>
+      <article class="product-card reveal-up delay-${delay}">
+        <div class="card-img-wrap" onclick="openProduct('${p.id}')">
+          <div class="card-actions">
+             ${hasDiscount ? `<span class="card-badge sale">SALE</span>` : (p.is_available ? '' : `<span class="card-badge">SOLD OUT</span>`)}
+             <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite('${p.id}', event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/></svg>
+             </button>
+          </div>
+          <img src="${img}" class="card-img" loading="lazy" onerror="this.src='awm-logo.jpg'">
+        </div>
+        <div class="card-info">
+          <div class="card-cat">${esc(p.category || 'AWM')}</div>
+          <h3 class="card-title">${esc(p.name)}</h3>
+          <div class="card-price-row">
+            <span class="price-current">${money(p.price)}</span>
+            ${hasDiscount ? `<span class="price-old">${money(old)}</span>` : ''}
           </div>
         </div>
-        <div class="text-center">
-          <span class="block text-[9px] text-gray-400 uppercase tracking-widest mb-2">${p.category || 'AWM'}</span>
-          <h3 class="font-bold text-sm leading-snug mb-2">${p.name}</h3>
-          <div class="font-serif-en text-sm">${money(p.price)}</div>
-        </div>
-      </div>
+      </article>
     `;
   }).join('');
   
-  // Re-trigger observer for new elements
-  setTimeout(initObserver, 50);
+  // Re-init observer for new elements
+  setTimeout(initScrollReveal, 100);
 }
 
-// Intersection Observer for Reveal Animations
-function initObserver() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  $$('.reveal-up').forEach(el => observer.observe(el));
-}
+// Event Listeners for Search & Filter
+$('#searchInput').addEventListener('input', (e) => { searchQuery = e.target.value; $('#searchInputMobile').value = searchQuery; renderProducts(); });
+$('#searchInputMobile').addEventListener('input', (e) => { searchQuery = e.target.value; $('#searchInput').value = searchQuery; renderProducts(); });
+$('#mobileCategorySelect').addEventListener('change', (e) => { setCategory(e.target.value); });
+$('#mobileSortSelect').addEventListener('change', (e) => { currentSort = e.target.value; renderProducts(); });
 
-// Modal Logic
 function openProduct(id) {
-  currentProduct = products.find(p => p.id == id);
+  currentProduct = products.find(p => String(p.id) === String(id));
   if(!currentProduct) return;
   
   const imgs = parseImages(currentProduct);
-  $('#modalImagesContainer').innerHTML = imgs.map((src, i) => `
-    <div class="w-full h-full lg:h-auto min-h-[50vh] flex-shrink-0 flex items-center justify-center lg:mb-4 bg-ash">
-      <img src="${src}" class="w-full h-full object-cover lg:object-contain" onerror="this.src='awm-logo.jpg'">
-    </div>
-  `).join('');
-
-  $('#modalCategory').textContent = currentProduct.category || 'AWM Archive';
-  $('#modalTitle').textContent = currentProduct.name;
+  
+  // Gallery
+  $('#modalGallery').innerHTML = imgs.map(src => `<img src="${src}" class="modal-gallery-img" onerror="this.src='awm-logo.jpg'">`).join('');
+  
+  // Text Details
+  $('#modalCategory').textContent = currentProduct.category || 'AWM';
+  $('#modalName').textContent = currentProduct.name;
   $('#modalPrice').innerHTML = money(currentProduct.price);
+  const old = Number(currentProduct.old_price || 0);
+  if(old > currentProduct.price) { $('#modalOldPrice').innerHTML = money(old); $('#modalOldPrice').classList.remove('hidden'); } 
+  else { $('#modalOldPrice').classList.add('hidden'); }
   
-  const oldP = Number(currentProduct.old_price || 0);
-  $('#modalOldPrice').innerHTML = oldP > currentProduct.price ? money(oldP) : '';
+  // Status
+  let statusHtml = '';
+  if(!currentProduct.is_available) statusHtml = `<div class="modal-status" style="background: var(--accent-red-bg); color: var(--accent-red);">Out of Stock</div>`;
+  else if(currentProduct.stock > 0 && currentProduct.stock <= 3) statusHtml = `<div class="modal-status" style="background: var(--accent-gold-bg); color: var(--accent-gold);">Only ${currentProduct.stock} left</div>`;
+  else statusHtml = `<div class="modal-status" style="background: var(--accent-green-bg); color: var(--accent-green);">Available</div>`;
+  $('#modalStatusContainer').innerHTML = statusHtml;
   
-  $('#modalStatus').innerHTML = currentProduct.is_available 
-    ? `<span class="inline-block bg-ink text-white px-4 py-1 text-[10px] tracking-widest uppercase font-bold">In Stock</span>`
-    : `<span class="inline-block border border-ink text-ink px-4 py-1 text-[10px] tracking-widest uppercase font-bold">Out of Stock</span>`;
-
-  $('#modalDesc').textContent = currentProduct.description || 'تفاصيل حصرية مميزة صُممت خصيصاً لأصحاب الذوق الرفيع.';
+  // Meta Grid (Sizes, Colors, etc)
+  let metaHtml = '';
+  if(currentProduct.sizes) metaHtml += `<div class="meta-item"><span class="meta-label">Sizes</span><span class="meta-value">${esc(currentProduct.sizes)}</span></div>`;
+  if(currentProduct.colors) metaHtml += `<div class="meta-item"><span class="meta-label">Colors</span><span class="meta-value">${esc(currentProduct.colors)}</span></div>`;
+  if(currentProduct.fabric) metaHtml += `<div class="meta-item"><span class="meta-label">Fabric</span><span class="meta-value">${esc(currentProduct.fabric)}</span></div>`;
+  $('#modalMetaGrid').innerHTML = metaHtml;
   
-  let meta = '';
-  if(currentProduct.fabric) meta += `<div><span class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Fabric</span><strong class="text-sm">${currentProduct.fabric}</strong></div>`;
-  const sizes = splitValues(currentProduct.sizes);
-  if(sizes.length) meta += `<div><span class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Sizes</span><strong class="text-sm">${sizes.join(', ')}</strong></div>`;
-  const colors = splitValues(currentProduct.colors);
-  if(colors.length) meta += `<div><span class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Colors</span><strong class="text-sm">${colors.join(' / ')}</strong></div>`;
+  $('#modalDesc').textContent = currentProduct.description || 'Exclusive piece designed with the finest materials for a premium fit and feel.';
   
-  $('#modalMetaGrid').innerHTML = meta;
-  
-  updateModalFavoriteBtn();
+  checkModalFavState();
   
   $('#productModal').classList.add('open');
   document.body.classList.add('modal-open');
 }
 
-function updateModalFavoriteBtn() {
-  if(!currentProduct) return;
-  const fav = isFavorite(currentProduct.id);
-  const btn = $('#modalFavBtn');
-  btn.classList.toggle('bg-ink', fav);
-  btn.classList.toggle('text-white', fav);
-  btn.querySelector('svg').setAttribute('fill', fav ? 'currentColor' : 'none');
-}
-
-$('#modalClose').onclick = () => {
+function closeModal() {
   $('#productModal').classList.remove('open');
   document.body.classList.remove('modal-open');
-};
+  currentProduct = null;
+}
 
-$('#modalFavBtn').onclick = () => toggleFavorite(currentProduct.id);
-$('#modalOrderBtn').onclick = () => {
+function checkModalFavState() {
+  if(!currentProduct) return;
+  const isFav = isFavorite(currentProduct.id);
+  const btn = $('#btnModalFav');
+  btn.classList.toggle('active', isFav);
+}
+
+// Actions inside modal
+$('#btnModalFav').onclick = () => { if(currentProduct) toggleFavorite(currentProduct.id); };
+$('#btnWhatsapp').onclick = () => {
+  if(!currentProduct) return;
   const url = `${window.location.origin}${window.location.pathname}?product=${currentProduct.id}`;
-  const msg = `مرحباً AWM، أريد طلب هذه القطعة:\n${currentProduct.name}\nالسعر: ${currentProduct.price} ج.م\nالرابط: ${url}`;
+  const msg = `مرحباً AWM، أستفسر عن:\n${currentProduct.name}\nالسعر: ${currentProduct.price} ج.م\nالرابط: ${url}`;
   window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
 };
 
-// Event Listeners (Desktop)
-$('#searchDesktop').addEventListener('input', e => { currentSearch = e.target.value; renderProducts(); });
-$('#sortDesktop').addEventListener('change', e => { currentSort = e.target.value; renderProducts(); });
-$('#availDesktop').addEventListener('change', e => { 
-  onlyAvailable = e.target.checked; 
-  const dot = e.target.nextElementSibling.nextElementSibling;
-  dot.style.transform = onlyAvailable ? 'translateX(24px)' : 'translateX(0)';
-  renderProducts(); 
-});
+function openMobileFilters() { $('#mobileFilterOverlay').classList.add('open'); $('#mobileFilterSheet').classList.add('open'); document.body.classList.add('modal-open'); }
+function closeMobileFilters() { $('#mobileFilterOverlay').classList.remove('open'); $('#mobileFilterSheet').classList.remove('open'); document.body.classList.remove('modal-open'); }
+function openWishlist() { $('#wishlistOverlay').classList.add('open'); $('#wishlistSheet').classList.add('open'); document.body.classList.add('modal-open'); }
+function closeWishlist() { $('#wishlistOverlay').classList.remove('open'); $('#wishlistSheet').classList.remove('open'); document.body.classList.remove('modal-open'); }
 
-// Mobile Filters Logic
-$('#openMobileFilters').onclick = () => {
-  $('#mobileFilterOverlay').classList.remove('hidden');
-  setTimeout(() => $('#mobileFilterOverlay').classList.remove('opacity-0'), 10);
-  $('#mobileFilterSheet').classList.remove('translate-y-full');
-  document.body.classList.add('modal-open');
-};
-const closeMobFilters = () => {
-  $('#mobileFilterSheet').classList.add('translate-y-full');
-  $('#mobileFilterOverlay').classList.add('opacity-0');
-  setTimeout(() => $('#mobileFilterOverlay').classList.add('hidden'), 300);
-  document.body.classList.remove('modal-open');
-};
-$('#closeMobileFilters').onclick = closeMobFilters;
-$('#mobileFilterOverlay').onclick = closeMobFilters;
-$('#applyMobileFilters').onclick = closeMobFilters;
+// Scroll animations and Topbar hide
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  // Header hide/show on scroll down/up
+  if (currentScroll > 100 && currentScroll > lastScroll) { $('#header').classList.add('hide-nav'); } 
+  else { $('#header').classList.remove('hide-nav'); }
+  lastScroll = currentScroll;
+  // To top button
+  if(currentScroll > 500) $('#toTop').classList.add('show'); else $('#toTop').classList.remove('show');
+}, { passive: true });
 
-$('#searchMobile').addEventListener('input', e => { currentSearch = e.target.value; $('#searchDesktop').value = currentSearch; renderProducts(); });
-$('#sortMobile').addEventListener('change', e => { currentSort = e.target.value; $('#sortDesktop').value = currentSort; renderProducts(); });
-$('#categoryListMobile').addEventListener('change', e => { setCategory(e.target.value); });
-$('#sizeListMobile').addEventListener('change', e => { setSize(e.target.value); });
-
-// Wishlist Logic
-$('#wishlistTrigger').onclick = () => {
-  $('#wishlistOverlay').classList.remove('hidden');
-  setTimeout(() => $('#wishlistOverlay').classList.remove('opacity-0'), 10);
-  $('#wishlistDrawer').classList.remove('translate-x-full');
-  document.body.classList.add('drawer-open');
-};
-const closeWishDrawer = () => {
-  $('#wishlistDrawer').classList.add('translate-x-full');
-  $('#wishlistOverlay').classList.add('opacity-0');
-  setTimeout(() => $('#wishlistOverlay').classList.add('hidden'), 300);
-  document.body.classList.remove('drawer-open');
-};
-$('#closeWishlist').onclick = closeWishDrawer;
-$('#wishlistOverlay').onclick = closeWishDrawer;
-
-// Init
-initData();
-
-// Check URL for product
-const urlParams = new URLSearchParams(window.location.search);
-if(urlParams.get('product')) {
-  setTimeout(() => openProduct(urlParams.get('product')), 800);
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+  document.querySelectorAll('.reveal-up:not(.is-visible)').forEach(el => observer.observe(el));
 }
+
+// Initial Boot
+loadProducts();
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('product')) setTimeout(() => openProduct(urlParams.get('product')), 800);
+
 </script>
 </body>
 </html>
