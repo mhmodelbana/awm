@@ -1,15 +1,15 @@
-AWM V2 PRO PACKAGE
-==================
-Files:
-- index.html       storefront
-- admin.html       admin dashboard
-- AWM_Supabase_V2_Migration.sql   database setup
-- awm-manifest.webmanifest         PWA manifest
-- awm-sw.js                        service worker
+AWM Digital Showroom V4 FINAL
 
-IMPORTANT:
-1) Keep your existing awm-logo.jpg in the same folder as index.html and admin.html.
-2) Run AWM_Supabase_V2_Migration.sql in Supabase SQL Editor.
-3) Make sure your existing products table contains the columns used by the original project.
-4) Supabase Realtime must be enabled for products/homepage_sections/offers (the migration attempts to add them).
-5) The frontend uses the publishable/anon key only; keep database RLS enabled.
+- index.html: public Digital Showroom (no cart, checkout, payment or shipping workflow)
+- admin.html: showroom control center
+- AWM_Showroom_V4_Migration.sql: safe database migration
+- awm-manifest.webmanifest / awm-sw.js: PWA shell
+
+Database:
+Run AWM_Showroom_V4_Migration.sql once after the existing AWM V2 SAFE migration.
+It adds showroom-only product flags plus showroom_settings, lookbooks and qr_codes.
+
+Keep awm-logo.jpg beside index.html and admin.html.
+
+New showroom features:
+Store Info, Lookbook, QR codes, Media Library, Display/Kiosk Mode, search analytics, dynamic showroom badges, Coming Soon, Last Piece, fast cache, visual pagination, optimized public storage image URLs, realtime catalog refresh, favorites, recent views, recommendations, homepage sections and WhatsApp contact.

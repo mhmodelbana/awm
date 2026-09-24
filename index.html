@@ -18,6 +18,7 @@
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     :root {
@@ -485,11 +486,69 @@
     }
   
 /* ========================= AWM V3 STOREFRONT ========================= */
-/* لا توجد خدمة شحن داخل المتجر؛ الطلب والاستفسار يتمان مباشرة عبر واتساب. */
+/* AWM Digital Showroom — التواصل والاستفسار عبر واتساب. */
 .home-builder{padding:16px 0 6px}.home-stack{display:grid;gap:14px}.home-hero{position:relative;overflow:hidden;min-height:260px;border-radius:26px;background:#111;color:#fff;padding:28px 24px;display:flex;align-items:flex-end}.home-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.58}.home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.78))}.home-hero-content{position:relative;z-index:2;max-width:720px}.home-kicker{font-size:9px;font-weight:900;letter-spacing:.18em;color:#ddd}.home-hero h2{margin:5px 0 7px;font-size:clamp(28px,5vw,54px);line-height:1.1}.home-hero p{margin:0 0 16px;color:#e8e8e8;font-size:12px;line-height:1.9}.home-cta{min-height:44px;padding:0 18px;border-radius:999px;background:#fff;color:#111;font-weight:900;font-size:11px;display:inline-flex;align-items:center}.home-section{padding:10px 0 12px}.home-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 12px}.home-section-head h3{margin:0;font-size:20px}.home-section-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.home-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.home-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.home-category{position:relative;min-height:120px;overflow:hidden;border-radius:18px;background:var(--surface);border:1px solid var(--line);display:flex;align-items:flex-end;padding:14px}.home-category img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.home-category::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7))}.home-category span{position:relative;z-index:2;color:#fff;font-weight:900;font-size:13px}.home-banner{border-radius:22px;min-height:150px;padding:22px;display:flex;align-items:end;position:relative;overflow:hidden;background:#f4f4f2}.home-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.home-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72))}.home-banner-content{position:relative;z-index:2;color:#fff}.home-banner-content h3{margin:0 0 4px;font-size:22px}.home-banner-content p{margin:0;font-size:11px}.offer-strip{display:none;margin:10px 0 4px;border-radius:16px;padding:12px 14px;background:#111;color:#fff;align-items:center;justify-content:space-between;gap:10px}.offer-strip.show{display:flex}.offer-copy strong{display:block;font-size:12px}.offer-copy span{display:block;margin-top:2px;color:#ccc;font-size:9px}.offer-countdown{font:900 13px Montserrat;white-space:nowrap}.search-suggest{position:absolute;left:0;right:0;top:56px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:7px;z-index:50;display:none}.search-suggest.open{display:block}.suggest-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:11px;text-align:right}.suggest-item:hover{background:var(--surface)}.suggest-item img{width:34px;height:43px;object-fit:cover;border-radius:8px}.suggest-name{font-size:10px;font-weight:900}.suggest-meta{font-size:9px;color:var(--muted)}.rec-title{font-size:9px;color:var(--soft);padding:5px 8px 3px;font-weight:900}.product-extra{margin-top:18px}.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.policy-card{padding:12px;border:1px solid var(--line);background:var(--surface);border-radius:13px}.policy-card strong{display:block;font-size:10px}.policy-card span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.7}.seo-share{color:var(--soft);font-size:9px;margin-top:7px}.install-prompt{position:fixed;left:14px;right:14px;bottom:90px;z-index:175;background:#111;color:#fff;border-radius:18px;padding:12px 14px;display:none;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow-lg)}.install-prompt.show{display:flex}.install-copy strong{font-size:11px}.install-copy span{display:block;color:#bbb;font-size:9px;margin-top:2px}.install-actions{display:flex;gap:6px}.install-actions button{min-height:36px;padding:0 11px;border-radius:10px;font-size:10px;font-weight:900}.install-primary{background:#fff;color:#111}.install-secondary{background:#262626;color:#fff}
 @media(min-width:600px){.home-products,.recommend-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.home-categories{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:900px){.home-products,.recommend-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.home-categories{grid-template-columns:repeat(5,minmax(0,1fr))}.home-hero{min-height:360px}.search-suggest{top:56px}}
 @media(max-width:620px){.policy-grid{grid-template-columns:1fr}.offer-strip{align-items:flex-start;flex-direction:column}.offer-countdown{width:100%;text-align:right}}
+
+
+/* ========================= AWM DIGITAL SHOWROOM V4 ========================= */
+.showroom-section{padding:12px 0 34px}
+.showroom-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.showroom-head h3{margin:0;font-size:21px;font-weight:900}
+.showroom-head p{margin:4px 0 0;color:var(--muted);font-size:11px;line-height:1.8}
+.lookbook-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lookbook-card{position:relative;min-height:230px;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line);cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .22s ease,box-shadow .22s ease}
+.lookbook-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.lookbook-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lookbook-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.78))}
+.lookbook-copy{position:absolute;inset:auto 14px 14px;z-index:2;color:#fff}
+.lookbook-copy strong{display:block;font-size:18px}
+.lookbook-copy span{display:block;margin-top:4px;color:#eee;font-size:10px;line-height:1.7}
+.store-showcase{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:14px}
+.store-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);padding:20px;box-shadow:var(--shadow-sm)}
+.store-brand{display:flex;align-items:center;gap:11px}
+.store-brand img{width:54px;height:54px;border-radius:15px;object-fit:cover;background:#eee}
+.store-brand h3{margin:0;font-size:20px}
+.store-brand p{margin:3px 0 0;color:var(--muted);font-size:10px}
+.store-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}
+.store-detail{padding:11px;border:1px solid var(--line);background:#fff;border-radius:13px}
+.store-detail strong{display:block;font-size:10px}
+.store-detail span{display:block;margin-top:4px;color:var(--muted);font-size:9px;line-height:1.8;word-break:break-word}
+.store-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.store-action{min-height:42px;padding:0 14px;border-radius:12px;background:#111;color:#fff;font-size:11px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.store-action.light{background:#fff;color:#111;border:1px solid var(--line-strong)}
+#loadMoreProductsBtn.hidden{display:none!important}
+.social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.social-card{min-height:88px;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between}
+.social-card strong{font-size:11px}.social-card span{font-size:9px;color:var(--muted)}
+.qr-modal{position:fixed;inset:0;z-index:220;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:20px}
+.qr-modal.open{display:flex}
+.qr-box{width:min(360px,100%);background:#fff;border-radius:24px;padding:20px;text-align:center;box-shadow:var(--shadow-lg)}
+.qr-box h3{margin:0 0 7px;font-size:18px}.qr-box p{margin:0;color:var(--muted);font-size:10px}
+#qrCanvas{display:grid;place-items:center;margin:16px auto;min-height:220px}
+#qrCanvas img{margin:auto;max-width:220px}
+.qr-link{font-size:9px;color:var(--muted);word-break:break-all}
+.display-mode{display:none;position:fixed;inset:0;z-index:500;background:#0a0a0a;color:#fff}
+body.showroom-display-mode{overflow:hidden}
+body.showroom-display-mode .display-mode{display:flex}
+body.showroom-display-mode>*:not(.display-mode){display:none!important}
+.display-inner{width:100%;height:100%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:30px;padding:36px 5vw}
+.display-media{height:80vh;border-radius:28px;overflow:hidden;background:#151515;display:grid;place-items:center}
+.display-media img{width:100%;height:100%;object-fit:cover}
+.display-copy h2{margin:8px 0;font-size:clamp(34px,5vw,78px);line-height:1.05}
+.display-copy .display-kicker{color:#aaa;font-size:11px;font-weight:900;letter-spacing:.2em}
+.display-copy .display-price{font-size:24px;font-weight:900;margin-top:18px}
+.display-copy .display-meta{margin-top:10px;color:#bbb;font-size:12px;line-height:2}
+.display-dots{display:flex;gap:6px;margin-top:18px}.display-dot{width:7px;height:7px;border-radius:50%;background:#444}.display-dot.active{width:24px;border-radius:9px;background:#fff}
+.display-close{position:fixed;top:18px;left:18px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:22px}
+@media(max-width:760px){
+  .lookbook-grid{grid-template-columns:1fr}
+  .store-showcase{grid-template-columns:1fr}
+  .store-details{grid-template-columns:1fr}
+  .display-inner{grid-template-columns:1fr;padding:18px}.display-media{height:58vh}.display-copy h2{font-size:38px}
+}
 
 </style>
 </head>
@@ -570,6 +629,7 @@
         <div class="skeleton"><div class="sk-img"></div><div class="sk-line"></div><div class="sk-line short"></div></div>
         <div class="skeleton"><div class="sk-img"></div><div class="sk-line"></div><div class="sk-line short"></div></div>
       </div>
+      <button id="loadMoreProductsBtn" class="state-btn hidden" type="button" style="display:block;margin:8px auto 34px">عرض المزيد من القطع</button>
     </section>
 
     <section class="container section-block hidden" id="recentSection" aria-labelledby="recentTitle">
@@ -582,7 +642,44 @@
       </div>
       <div class="recent-wrap" id="recentGrid"></div>
     </section>
-  </main>
+  
+<section class="container showroom-section" id="lookbookSection">
+  <div class="showroom-head">
+    <div><h3>Lookbook</h3><p>تنسيقات ومشاهد مختارة من AWM.</p></div>
+  </div>
+  <div class="lookbook-grid" id="lookbookGrid"></div>
+</section>
+
+<section class="container showroom-section" id="storeInfoSection">
+  <div class="showroom-head">
+    <div><h3 id="storeInfoTitle">AWM Store</h3><p id="storeInfoTagline">المعرض الرسمي لـ AWM.</p></div>
+  </div>
+  <div class="store-showcase">
+    <div class="store-card">
+      <div class="store-brand">
+        <img src="awm-logo.jpg" alt="AWM">
+        <div><h3 id="storeAboutName">AWM</h3><p id="storeAboutText">معرض AWM الرقمي.</p></div>
+      </div>
+      <div class="store-details">
+        <div class="store-detail"><strong>العنوان</strong><span id="storeAddress">—</span></div>
+        <div class="store-detail"><strong>مواعيد العمل</strong><span id="storeHours">—</span></div>
+        <div class="store-detail"><strong>التواصل</strong><span id="storePhone">—</span></div>
+        <div class="store-detail"><strong>واتساب</strong><span id="storeWhatsapp">—</span></div>
+      </div>
+      <div class="store-actions">
+        <a id="storeMapBtn" class="store-action" href="#" target="_blank" rel="noopener noreferrer">الموقع</a>
+        <a id="storeWhatsappBtn" class="store-action light" href="#" target="_blank" rel="noopener noreferrer">واتساب</a>
+        <button id="storeDisplayBtn" class="store-action light" type="button">وضع العرض</button>
+      </div>
+    </div>
+    <div class="store-card">
+      <div class="showroom-head" style="margin-bottom:10px"><div><h3 style="font-size:17px">تابع AWM</h3><p>آخر الصور والموديلات من حسابات المعرض.</p></div></div>
+      <div class="social-grid" id="socialGrid"></div>
+    </div>
+  </div>
+</section>
+
+</main>
 
   <footer class="container" id="footer">
     <h2 class="footer-brand serif">AWM Exclusive</h2>
@@ -688,6 +785,37 @@
       </button>
     </div>
   </section>
+
+  
+<div class="qr-modal" id="qrModal" aria-hidden="true">
+  <div class="qr-box">
+    <button class="sheet-close" id="qrClose" type="button" aria-label="إغلاق" style="float:left">×</button>
+    <h3 id="qrTitle">AWM</h3>
+    <p>امسح الكود لفتح القطعة مباشرة.</p>
+    <div id="qrCanvas"></div>
+    <div class="qr-link" id="qrLink"></div>
+  </div>
+</div>
+
+<div class="bottom-sheet" id="lookbookModal" aria-hidden="true" style="z-index:215">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><h3 id="lookbookModalTitle">Lookbook</h3><button class="sheet-close" id="lookbookModalClose" type="button">×</button></div>
+  <div class="sheet-body"><div id="lookbookModalBody"></div></div>
+</div>
+
+<div class="display-mode" id="displayMode">
+  <button class="display-close" id="displayClose" type="button" aria-label="إغلاق">×</button>
+  <div class="display-inner">
+    <div class="display-media"><img id="displayImage" src="awm-logo.jpg" alt="AWM"></div>
+    <div class="display-copy">
+      <div class="display-kicker">AWM DIGITAL SHOWROOM</div>
+      <h2 id="displayName">AWM</h2>
+      <div class="display-price" id="displayPrice"></div>
+      <div class="display-meta" id="displayMeta"></div>
+      <div class="display-dots" id="displayDots"></div>
+    </div>
+  </div>
+</div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <button class="to-top" id="toTop" type="button" aria-label="الرجوع لأعلى">
@@ -809,6 +937,13 @@
       const merged = [product?.image_url, ...urls].filter(Boolean).map(normalizeImageUrl);
       return [...new Set(merged)];
     }
+
+    function optimizedImageUrl(url,width=900){
+  const src=normalizeImageUrl(url);
+  if(!/^https?:\/\//i.test(src) || !src.includes('/storage/v1/object/public/products/')) return src;
+  const sep=src.includes('?')?'&':'?';
+  return `${src}${sep}width=${width}&quality=78`;
+}
 
     function productCode(product) {
       return product?.product_code || product?.sku || product?.code || (product?.id != null ? `AWM-${product.id}` : '');
@@ -971,15 +1106,24 @@
       return list;
     }
 
+    function showroomBadge(product){
+  if(product?.is_coming_soon)return '<span class="badge-pill new">قريبًا</span>';
+  if(product?.is_last_piece)return '<span class="badge-pill sold">آخر قطعة</span>';
+  const b=String(product?.showroom_badge||'').toLowerCase();
+  const map={new:'جديد',featured:'مميز',trending:'Trending',limited:'Limited',exclusive:'Exclusive',coming_soon:'قريبًا',last_piece:'آخر قطعة'};
+  return map[b]?`<span class="badge-pill ${b==='limited'||b==='exclusive'?'sale':'new'}">${map[b]}</span>`:'';
+}
+
     function cardHtml(product, index = 0) {
       const images = parseImages(product);
-      const image = images[0] || 'awm-logo.jpg';
+      const image = optimizedImageUrl(images[0] || 'awm-logo.jpg', 640);
       const oldPrice = Number(product?.old_price || 0);
       const currentPrice = Number(product?.price || 0);
       const hasSale = oldPrice > currentPrice;
       const availability = getAvailability(product);
       const isFav = isFavorite(product?.id);
       const badges = [
+        showroomBadge(product),
         hasSale ? `<span class="badge-pill sale">خصم ${discountPercent(product)}٪</span>` : '',
         !hasSale && isNewProduct(product) ? '<span class="badge-pill new">جديد</span>' : '',
         !availability.canOrder ? '<span class="badge-pill sold">خلصت</span>' : ''
@@ -1011,15 +1155,20 @@
 
     function renderProducts() {
       const grid = $('#productGrid');
-      const list = filteredProducts();
-      $('#resultsCount').textContent = `${list.length.toLocaleString('ar-EG')} ${list.length === 1 ? 'قطعة' : 'قطع'} متاحة للعرض`;
-
+      const allList = filteredProducts();
+      const list = allList.slice(0, state.visibleProductCount);
+      $('#resultsCount').textContent = `${allList.length.toLocaleString('ar-EG')} ${allList.length === 1 ? 'قطعة' : 'قطع'} متاحة للعرض`;
+      const moreBtn = $('#loadMoreProductsBtn');
+      if (moreBtn) {
+        moreBtn.classList.toggle('hidden', list.length >= allList.length);
+        moreBtn.textContent = allList.length > list.length ? `عرض المزيد (${Math.min(48, allList.length-list.length)})` : 'عرض المزيد من القطع';
+      }
       if (!list.length) {
         const hasFilters = state.searchQuery || state.activeCategory !== 'all' || state.minPrice !== '' || state.maxPrice !== '';
         grid.innerHTML = `
           <div class="state-box">
             <h3>${hasFilters ? 'مش لاقيين القطعة دي 😕' : 'لسه مفيش منتجات'}</h3>
-            <p>${hasFilters ? 'جرّب كلمة تانية أو الغي بعض الفلاتر وشوف كل المنتجات.' : 'المنتجات هتظهر هنا أول ما تكون متاحة في المتجر.'}</p>
+            <p>${hasFilters ? 'جرّب كلمة تانية أو الغي بعض الفلاتر وشوف كل المنتجات.' : 'المنتجات هتظهر هنا أول ما تكون متاحة في المعرض.'}</p>
             ${hasFilters ? '<button class="state-btn" type="button" data-action="reset-filters">عرض كل المنتجات</button>' : ''}
           </div>
         `;
@@ -1143,7 +1292,7 @@
       const availability = getAvailability(product);
       const imageSlides = images.map((src, index) => `
         <div class="gallery-slide" data-gallery-index="${index}">
-          <img src="${escAttr(src)}" alt="${escAttr(product?.name || 'منتج AWM')} - صورة ${index + 1}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" onerror="this.onerror=null;this.src='awm-logo.jpg'">
+          <img src="${escAttr(optimizedImageUrl(src, index===0?1200:900))}" alt="${escAttr(product?.name || 'منتج AWM')} - صورة ${index + 1}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" onerror="this.onerror=null;this.src='awm-logo.jpg'">
         </div>
       `).join('');
       const dots = images.length > 1 ? images.map((_,i) => `<span class="gallery-dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></span>`).join('') : '';
@@ -1185,7 +1334,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
                 مشاركة القطعة
               </button>
-            </div>
+            <button class="share-btn" id="productQRBtn" type="button">QR القطعة</button></div>
             <div class="seo-share">رابط مشاركة مباشر للقطعة + بيانات SEO تلقائية.</div>
             <div class="policy-grid">
               <div class="policy-card"><strong>الطلب</strong><span>للاستفسار وتأكيد الطلب تواصل معنا مباشرة على واتساب.</span></div>
@@ -1214,7 +1363,7 @@
 
       $('#productHeaderTitle').textContent = product.name || 'تفاصيل القطعة';
       $('#productContent').innerHTML = buildProductHtml(product);
-      $('#productWhatsappText').textContent = getAvailability(product).canOrder ? 'استفسر على واتساب' : 'اسأل عن التوفر';
+      $('#productWhatsappText').textContent = getAvailability(product).canOrder ? 'استفسر على واتساب' : 'اعرف التوفر';
       $('#productWhatsapp').disabled = false;
       updateProductFavoriteUI();
 
@@ -1225,6 +1374,7 @@
       document.body.classList.add('product-open');
       window.scrollTo({ top: 0, behavior: 'auto' });
       bindProductInteractions();
+      $('#productQRBtn')?.addEventListener('click',()=>openProductQR(product));
 
       if (!options.fromHistory) {
         const url = new URL(window.location.href);
@@ -1381,6 +1531,7 @@
       state.sort = 'new';
       state.minPrice = '';
       state.maxPrice = '';
+      state.visibleProductCount = 48;
       renderCategories();
       syncInputs();
       renderProducts();
@@ -1396,7 +1547,7 @@
         const currentId = state.currentProduct?.id;
         const { data, error } = await db
           .from('products')
-          .select('id,name,category,price,old_price,stock,condition,sizes,colors,collection,fabric,tags,description,image_url,image_urls,is_active,is_available,is_featured,is_bestseller,sort_order,created_at,updated_at')
+          .select('id,name,category,price,old_price,stock,condition,sizes,colors,collection,fabric,tags,description,image_url,image_urls,is_active,is_available,is_featured,is_bestseller,sort_order,showroom_badge,is_coming_soon,is_last_piece,display_note,created_at,updated_at')
           .or('is_active.eq.true,is_active.is.null')
           .order('sort_order', { ascending: true })
           .order('created_at', { ascending: false });
@@ -1414,7 +1565,7 @@
             state.currentProduct = updatedProduct;
             $('#productHeaderTitle').textContent = updatedProduct.name || 'تفاصيل القطعة';
             $('#productContent').innerHTML = buildProductHtml(updatedProduct);
-            $('#productWhatsappText').textContent = getAvailability(updatedProduct).canOrder ? 'استفسر على واتساب' : 'اسأل عن التوفر';
+            $('#productWhatsappText').textContent = getAvailability(updatedProduct).canOrder ? 'استفسر على واتساب' : 'اعرف التوفر';
             updateProductFavoriteUI();
             bindProductInteractions();
           } else if (!updatedProduct && $('#productView').classList.contains('open')) {
@@ -1498,6 +1649,7 @@
       state.sort = $('#mobileSort').value;
       state.minPrice = $('#minPrice').value.trim();
       state.maxPrice = $('#maxPrice').value.trim();
+      state.visibleProductCount = 48;
       if (state.minPrice !== '' && state.maxPrice !== '' && Number(state.minPrice) > Number(state.maxPrice)) {
         showToast('السعر الأول مينفعش يكون أكبر من السعر التاني');
         return;
@@ -1509,6 +1661,8 @@
 
     function syncSearch(value) {
       state.searchQuery = value;
+      state.visibleProductCount = 48;
+      recordSearchQuery(value);
       $('#desktopSearch').value = value;
       $('#mobileSearch').value = value;
       renderProducts();
@@ -1520,6 +1674,7 @@
       const chip = event.target.closest('[data-category]');
       if (!chip) return;
       state.activeCategory = chip.dataset.category || 'all';
+      state.visibleProductCount = 48;
       renderCategories();
       renderProducts();
     });
@@ -1544,6 +1699,8 @@
       const card = event.target.closest('[data-product-id]');
       if (card) openProduct(card.dataset.productId);
     });
+
+    $('#loadMoreProductsBtn')?.addEventListener('click',()=>{state.visibleProductCount+=48;renderProducts();});
 
     $('#recentGrid').addEventListener('click', event => {
       const action = event.target.closest('[data-action]');
@@ -1606,7 +1763,7 @@
       stopProductRealtime();
     });
 /* ======================== AWM V2 STOREFRONT ======================== */
-state.homeSections=[]; state.activeOffer=null; state.offerTimer=null; state.productMetaCache=new Map(); state.deferredInstallPrompt=null;
+state.homeSections=[]; state.activeOffer=null; state.offerTimer=null; state.productMetaCache=new Map(); state.deferredInstallPrompt=null; state.visibleProductCount=48; state.productsCacheKey='awm_showroom_products_cache_v4';
 async function optionalRows(table, columns='*', build=''){
   try{let q=db.from(table).select(columns); if(build)q=build(q); const r=await q;if(r.error)throw r.error;return r.data||[];}catch(e){console.warn('AWM optional table',table,e.message);return []}
 }
@@ -1614,6 +1771,15 @@ const analyticsQueue=[]; let analyticsFlushTimer=null;
 function queueEvent(event_type,product_id=null,metadata={}){if(!db)return;analyticsQueue.push({event_type,product_id:product_id?String(product_id):null,session_id:getSessionId(),metadata});if(analyticsQueue.length>=5)flushAnalytics();else if(!analyticsFlushTimer)analyticsFlushTimer=setTimeout(flushAnalytics,4000)}
 async function flushAnalytics(){if(analyticsFlushTimer){clearTimeout(analyticsFlushTimer);analyticsFlushTimer=null}if(!db||!analyticsQueue.length)return;const batch=analyticsQueue.splice(0,20);try{await db.from('analytics_events').insert(batch)}catch(e){}}
 function recordEvent(event_type,product_id=null,metadata={}){queueEvent(event_type,product_id,metadata)}
+
+let showroomSearchTimer=null;
+function recordSearchQuery(value){
+  const q=String(value||'').trim();
+  if(q.length<2)return;
+  clearTimeout(showroomSearchTimer);
+  showroomSearchTimer=setTimeout(()=>recordEvent('search',null,{query:q.slice(0,80)}),900);
+}
+
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushAnalytics()});
 function getSessionId(){let k=sessionStorage.getItem('awm_session_id');if(!k){k=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random());sessionStorage.setItem('awm_session_id',k);}return k}
 function effectivePrice(product){let p=Number(product?.price||0);const offer=state.activeOffer;if(!offer||!Array.isArray(offer.product_ids)||!offer.product_ids.length||!offer.product_ids.map(String).includes(String(product?.id)))return p;if(offer.type==='percent')return Math.max(0,p-(p*Number(offer.discount_value||0)/100));if(offer.type==='amount')return Math.max(0,p-Number(offer.discount_value||0));return p;}
@@ -1623,7 +1789,7 @@ function renderOfferStrip(){let x=state.activeOffer;const strip=$('#offerStrip')
 async function loadHomepage(){state.homeSections=await optionalRows('homepage_sections','*',q=>q.eq('is_active',true).order('sort_order',{ascending:true}));renderHomepage();}
 function sectionProducts(section){let arr=[];if(Array.isArray(section.product_ids)&&section.product_ids.length){arr=section.product_ids.map(id=>state.products.find(p=>String(p.id)===String(id))).filter(Boolean)}else if(section.collection){arr=state.products.filter(p=>normalizeArabic(p.collection)===normalizeArabic(section.collection)).slice(0,8)}return arr;}
 function renderHomepage(){const root=$('#homeSections');if(!root)return;const sections=state.homeSections||[];root.innerHTML=sections.map(s=>{const title=s.title||'';const sub=s.subtitle||'';if(s.type==='hero')return `<section class="home-hero"><div class="home-hero-bg" style="background-image:url('${escAttr(s.image_url||'')}')"></div><div class="home-hero-shade"></div><div class="home-hero-content"><div class="home-kicker">AWM STORE</div><h2>${esc(title||'اختار ستايلك')}</h2><p>${esc(sub||'قطع مختارة بعناية وتحديثات مستمرة.')}</p>${s.button_url?`<a class="home-cta" href="${escAttr(s.button_url)}">${esc(s.button_text||'اكتشف الآن')}</a>`:''}</div></section>`;if(s.type==='products'||s.type==='collection'){const ps=sectionProducts(s);return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'مختارات AWM')}</h3><p>${esc(sub||'اختيارات مميزة لك')}</p></div></div><div class="home-products">${ps.map((p,i)=>cardHtml(p,i)).join('')||'<div class="state-box"><h3>لسه بنجهز المجموعة</h3><p>أضف منتجات للـSection من لوحة الإدارة.</p></div>'}</div></section>`}if(s.type==='categories'){const cats=[...new Set(state.products.map(p=>p.category).filter(Boolean))].slice(0,10);return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title||'الأقسام')}</h3><p>${esc(sub||'اختار القسم اللي تحبه')}</p></div></div><div class="home-categories">${cats.map(c=>`<button class="home-category" data-home-category="${escAttr(c)}"><span>${esc(c)}</span></button>`).join('')}</div></section>`}if(s.type==='banner')return `<section class="home-banner"><img src="${escAttr(s.image_url||'awm-logo.jpg')}" alt="${escAttr(title)}" loading="lazy"><div class="home-banner-content"><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></section>`;return `<section class="home-section"><div class="home-section-head"><div><h3>${esc(title)}</h3><p>${esc(sub)}</p></div></div></section>`;}).join('');
-  root.querySelectorAll('[data-home-category]').forEach(btn=>btn.addEventListener('click',()=>{state.activeCategory=btn.dataset.homeCategory;document.querySelector('#catalog')?.scrollIntoView({behavior:'smooth'});renderCategories();renderProducts()}));
+  root.querySelectorAll('[data-home-category]').forEach(btn=>btn.addEventListener('click',()=>{state.activeCategory=btn.dataset.homeCategory;state.visibleProductCount=48;document.querySelector('#catalog')?.scrollIntoView({behavior:'smooth'});renderCategories();renderProducts()}));
   root.querySelectorAll('[data-action="favorite"]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();toggleFavorite(btn.dataset.id);}));
   root.querySelectorAll('.product-card[data-product-id]').forEach(card=>card.addEventListener('click',e=>{if(e.target.closest('[data-action="favorite"]'))return;openProduct(card.dataset.productId)}));
 }
@@ -1632,9 +1798,9 @@ function renderSearchSuggestions(value,targetId){const target=$(targetId);if(!ta
 async function loadProductMetaClient(id){if(state.productMetaCache.has(String(id)))return state.productMetaCache.get(String(id));try{const {data}=await db.from('product_meta').select('*').eq('product_id',id).maybeSingle();state.productMetaCache.set(String(id),data||{});return data||{}}catch(_){return {}}}
 function recommendationProducts(product){return state.products.filter(p=>String(p.id)!==String(product.id)).map(p=>({p,score:(normalizeArabic(p.category)===normalizeArabic(product.category)?5:0)+(normalizeArabic(p.collection)===normalizeArabic(product.collection)?4:0)+(discountPercent(p)>0?1:0)})).sort((a,b)=>b.score-a.score||Number(b.p.sort_order||0)-Number(a.p.sort_order||0)).slice(0,4).map(x=>x.p)}
 function renderRecommendations(product){const root=$('#recommendGrid');if(!root)return;root.innerHTML=recommendationProducts(product).map((p,i)=>cardHtml(p,i)).join('')||'<div class="pro-empty">مفيش اقتراحات كفاية دلوقتي.</div>';root.querySelectorAll('[data-product-id]').forEach(card=>card.addEventListener('click',()=>openProduct(card.dataset.productId)))}
-function injectProductStructuredData(product){document.getElementById('awmProductJsonLd')?.remove();const data={"@context":"https://schema.org","@type":"Product","name":product.name||'AWM Product',"image":parseImages(product),"description":product.description||'',"sku":productCode(product),"brand":{"@type":"Brand","name":"AWM"},"offers":{"@type":"Offer","priceCurrency":"EGP","price":effectivePrice(product),"availability":getAvailability(product).canOrder?'https://schema.org/InStock':'https://schema.org/OutOfStock','url':location.href}};const script=document.createElement('script');script.type='application/ld+json';script.id='awmProductJsonLd';script.textContent=JSON.stringify(data);document.head.appendChild(script);}
+function injectProductStructuredData(product){document.getElementById('awmProductJsonLd')?.remove();const data={"@context":"https://schema.org","@type":"Product","name":product.name||'AWM Product',"image":parseImages(product),"description":product.description||'',"sku":productCode(product),"brand":{"@type":"Brand","name":"AWM"}};const script=document.createElement('script');script.type='application/ld+json';script.id='awmProductJsonLd';script.textContent=JSON.stringify(data);document.head.appendChild(script);}
 function setSocialMeta(product){const title=product?.name?`${product.name} | AWM`: 'AWM Store';const desc=product?.description||'اختيارات رجالي مميزة من AWM.';document.title=title;for(const [name,content] of [['description',desc],['og:title',title],['og:description',desc]]){let meta=document.querySelector(`meta[name="${name}"]`)||document.querySelector(`meta[property="${name}"]`);if(!meta){meta=document.createElement('meta');if(name.startsWith('og:'))meta.setAttribute('property',name);else meta.setAttribute('name',name);document.head.appendChild(meta)}meta.setAttribute('content',content)}}
-async function hydrateProductExtras(product){const m=await loadProductMetaClient(product.id);$('#productSizeGuideText')?.replaceChildren(document.createTextNode(m.size_guide||'اسألنا على واتساب عن المقاس المناسب.'));renderRecommendations(product)}
+async function hydrateProductExtras(product){const m=await loadProductMetaClient(product.id);$('#productSizeGuideText')?.replaceChildren(document.createTextNode(m.size_guide||'اسألنا على واتساب عن تفاصيل المقاس.'));renderRecommendations(product)}
 function setupInstallPrompt(){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.deferredInstallPrompt=e;$('#installPrompt')?.classList.add('show')});$('#installNow')?.addEventListener('click',async()=>{if(!state.deferredInstallPrompt)return;await state.deferredInstallPrompt.prompt();state.deferredInstallPrompt=null;$('#installPrompt')?.classList.remove('show')});$('#installLater')?.addEventListener('click',()=>$('#installPrompt')?.classList.remove('show'));window.addEventListener('appinstalled',()=>$('#installPrompt')?.classList.remove('show'));}
 
 // Track existing favorite action.
@@ -1656,7 +1822,133 @@ function bindV2Events(){
   document.addEventListener('click',e=>{['desktopSuggest','mobileSuggest'].forEach(id=>{const box=$(`#${id}`);if(!box)return;const input=id==='desktopSuggest'?$('#desktopSearch'):$('#mobileSearch');if(!box.contains(e.target)&&e.target!==input)box.classList.remove('open')});});
 }
 
+
+/* ======================== AWM DIGITAL SHOWROOM V4 ======================== */
+state.showroomSettings = null;
+state.lookbooks = [];
+state.displayIndex = 0;
+state.displayTimer = null;
+
+function showroomUrlProduct(id){const u=new URL(window.location.href);u.searchParams.set('product',String(id));u.searchParams.delete('display');u.searchParams.delete('qr');return u.toString();}
+function normalizeWhatsapp(v){const raw=String(v||'').replace(/[^\d]/g,''); if(!raw) return ''; return raw.startsWith('20')?raw:`20${raw.replace(/^0/,'')}`;}
+function showroomSettingsFallback(){
+  return {store_name:'AWM Store',tagline:'المعرض الرقمي لـ AWM',about_text:'قطع مختارة وتشكيلات متجددة من AWM.',address:'',hours:'',phone:'',whatsapp:'201020776397',map_url:'',instagram_url:'',tiktok_url:'https://www.tiktok.com/@awm.store11',facebook_url:'',display_message:'AWM Digital Showroom'};
+}
+async function loadShowroomSettings(){
+  const rows=await optionalRows('showroom_settings','*',q=>q.limit(1));
+  state.showroomSettings=rows[0]||showroomSettingsFallback();
+  renderStoreInfo();
+}
+async function loadLookbooks(){
+  const rows=await optionalRows('lookbooks','*',q=>q.eq('is_active',true).order('sort_order',{ascending:true}));
+  state.lookbooks=rows;
+  renderLookbooks();
+}
+function renderStoreInfo(){
+  const s={...showroomSettingsFallback(),...(state.showroomSettings||{})};
+  $('#storeInfoTitle').textContent=s.store_name||'AWM Store';
+  $('#footerBrand').textContent=s.store_name||'AWM Exclusive';
+  $('#footerDesc').textContent=s.about_text||'اختيارات AWM المتجددة.';
+  $('#storeInfoTagline').textContent=s.tagline||'المعرض الرقمي لـ AWM';
+  $('#storeAboutName').textContent=s.store_name||'AWM';
+  $('#storeAboutText').textContent=s.about_text||'معرض AWM الرقمي.';
+  $('#storeAddress').textContent=s.address||'العنوان غير مضاف بعد';
+  $('#storeHours').textContent=s.hours||'مواعيد العمل غير مضافة بعد';
+  $('#storePhone').textContent=s.phone||'—';
+  $('#storeWhatsapp').textContent=s.whatsapp||'—';
+  const wb=normalizeWhatsapp(s.whatsapp);
+  const wbUrl=wb?`https://wa.me/${wb}`:'#';
+  $('#storeWhatsappBtn').href=wbUrl;
+  $('#storeWhatsappBtn').target=wb?'_blank':'_self';
+  $('#storeMapBtn').href=s.map_url||'#';
+  $('#storeMapBtn').style.pointerEvents=s.map_url?'auto':'none';
+  const social=[];
+  if(s.instagram_url)social.push(['Instagram',s.instagram_url,'صور وإطلالات AWM']);
+  if(s.tiktok_url)social.push(['TikTok',s.tiktok_url,'فيديوهات وتنسيقات']);
+  if(s.facebook_url)social.push(['Facebook',s.facebook_url,'آخر أخبار المعرض']);
+  if(wb)social.push(['WhatsApp',wbUrl,'تواصل مباشر']);
+  $('#socialGrid').innerHTML=social.length?social.map(([name,url,desc])=>`<a class="social-card" href="${escAttr(url)}" target="_blank" rel="noopener noreferrer"><strong>${esc(name)}</strong><span>${esc(desc)}</span></a>`).join(''):'<div class="pro-empty">أضف روابط السوشيال من لوحة الإدارة.</div>';
+}
+function renderLookbooks(){
+  const root=$('#lookbookGrid'); if(!root)return;
+  if(!state.lookbooks.length){$('#lookbookSection').classList.add('hidden');return}
+  $('#lookbookSection').classList.remove('hidden');
+  root.innerHTML=state.lookbooks.map(lb=>`<button class="lookbook-card" type="button" data-lookbook-id="${escAttr(lb.id)}"><img src="${escAttr(lb.cover_image_url||'awm-logo.jpg')}" alt="${escAttr(lb.title||'Lookbook')}" loading="lazy"><div class="lookbook-copy"><strong>${esc(lb.title||'Lookbook')}</strong><span>${esc(lb.subtitle||lb.description||'تشكيلة AWM')}</span></div></button>`).join('');
+  root.querySelectorAll('[data-lookbook-id]').forEach(btn=>btn.addEventListener('click',()=>openLookbook(btn.dataset.lookbookId)));
+}
+function openLookbook(id){
+  const lb=state.lookbooks.find(x=>String(x.id)===String(id)); if(!lb)return;
+  const ids=Array.isArray(lb.product_ids)?lb.product_ids.map(String):[];
+  const ps=ids.map(id=>state.products.find(p=>String(p.id)===id)).filter(Boolean);
+  $('#lookbookModalTitle').textContent=lb.title||'Lookbook';
+  $('#lookbookModalBody').innerHTML=`<p style="margin:0 0 12px;color:var(--muted);font-size:11px;line-height:1.8">${esc(lb.description||lb.subtitle||'')}</p><div class="recommend-grid">${ps.map((p,i)=>cardHtml(p,i)).join('')||'<div class="state-box"><h3>التشكيلة بتتجهز</h3><p>لسه مفيش قطع مرتبطة بالـLookbook.</p></div>'}</div>`;
+  $('#lookbookModal').classList.add('open'); $('#lookbookModal').setAttribute('aria-hidden','false'); document.body.classList.add('locked');
+  $('#lookbookModalBody').querySelectorAll('[data-product-id]').forEach(card=>card.addEventListener('click',()=>{closeLookbook();openProduct(card.dataset.productId)}));
+  recordEvent('lookbook_view',null,{lookbook_id:id,title:lb.title||''});
+}
+function closeLookbook(){$('#lookbookModal').classList.remove('open');$('#lookbookModal').setAttribute('aria-hidden','true');if(!$('#productView').classList.contains('open'))document.body.classList.remove('locked')}
+function openProductQR(product){
+  const url=showroomUrlProduct(product.id);
+  $('#qrTitle').textContent=product.name||'AWM';
+  $('#qrLink').textContent=url;
+  $('#qrCanvas').innerHTML='';
+  try{new QRCode(document.getElementById('qrCanvas'),{text:url,width:220,height:220,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(_){const img=document.createElement('img');img.src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(url)}`;img.alt='QR';$('#qrCanvas').appendChild(img)}
+  $('#qrModal').classList.add('open');$('#qrModal').setAttribute('aria-hidden','false');document.body.classList.add('locked');
+  recordEvent('qr_open',product.id,{url});
+}
+function closeQR(){$('#qrModal').classList.remove('open');$('#qrModal').setAttribute('aria-hidden','true');if(!$('#productView').classList.contains('open')&&!$('#lookbookModal').classList.contains('open'))document.body.classList.remove('locked')}
+function startDisplayMode(){
+  if(!state.products.length)return;
+  document.body.classList.add('showroom-display-mode');
+  state.displayIndex=0; renderDisplaySlide();
+  clearInterval(state.displayTimer); state.displayTimer=setInterval(()=>{state.displayIndex=(state.displayIndex+1)%state.products.length;renderDisplaySlide()},7000);
+}
+function stopDisplayMode(){clearInterval(state.displayTimer);state.displayTimer=null;document.body.classList.remove('showroom-display-mode')}
+function renderDisplaySlide(){
+  const p=state.products[state.displayIndex]; if(!p)return;
+  $('#displayImage').src=parseImages(p)[0]||'awm-logo.jpg';
+  $('#displayName').textContent=p.name||'AWM';
+  $('#displayPrice').textContent=`${formatMoney(effectivePrice(p))} جنيه`;
+  $('#displayMeta').textContent=[p.category,p.collection,p.fabric,p.sizes].filter(Boolean).join(' • ');
+  $('#displayDots').innerHTML=state.products.slice(0,20).map((_,i)=>`<span class="display-dot ${i===state.displayIndex%20?'active':''}"></span>`).join('');
+}
+function maybeStartDisplayFromUrl(){
+  const params=new URLSearchParams(location.search);
+  if(params.get('display')==='1'){setTimeout(startDisplayMode,1200)}
+  const qr=params.get('qr');
+  if(qr)recordEvent('qr_scan',qr,{source:'url'});
+}
+
+const _loadShowroomOriginal = typeof loadProducts==='function' ? loadProducts : null;
+
+async function loadShowroomData(){
+  await Promise.allSettled([loadShowroomSettings(),loadLookbooks()]);
+  maybeStartDisplayFromUrl();
+}
+$('#storeDisplayBtn')?.addEventListener('click',startDisplayMode);
+$('#displayClose')?.addEventListener('click',stopDisplayMode);
+$('#qrClose')?.addEventListener('click',closeQR);
+$('#qrModal')?.addEventListener('click',e=>{if(e.target.id==='qrModal')closeQR()});
+$('#lookbookModalClose')?.addEventListener('click',closeLookbook);
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.body.classList.contains('showroom-display-mode'))stopDisplayMode();if($('#qrModal')?.classList.contains('open'))closeQR();if($('#lookbookModal')?.classList.contains('open'))closeLookbook();}});
+
+
+/* Fast showroom cache: render recent catalog instantly, then refresh from Supabase. */
+const _loadProductsBeforeCache = loadProducts;
+loadProducts = async function(opts={}) {
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(state.productsCacheKey)||'null');
+    if (cached && Array.isArray(cached.products) && (Date.now()-Number(cached.at||0)) < 120000) {
+      state.products=cached.products;
+      renderCategories(); renderProducts(); renderRecent(); updateWishlistUI();
+    }
+  } catch(_){}
+  await _loadProductsBeforeCache(opts);
+  try { sessionStorage.setItem(state.productsCacheKey, JSON.stringify({at:Date.now(),products:state.products})); } catch(_){}
+};
+
 setupInstallPrompt();bindV2Events();
+loadShowroomData();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('awm-sw.js').catch(()=>{}));}
 
   </script>
