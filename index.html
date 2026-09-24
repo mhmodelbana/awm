@@ -45,10 +45,6 @@ url('awm-logo.jpg') center/cover;display:flex;align-items:center}
 .hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.02;margin:0 0 18px;font-weight:800;letter-spacing:-1.5px}
 .hero h1 em{color:#e31c24;font-style:normal}
 .hero p{font-size:17px;line-height:1.95;color:rgba(255,255,255,.78);margin:0 0 30px;max-width:620px}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{border:0;border-radius:14px;padding:13px 23px;font-weight:800;transition:.25s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red2);transform:translateY(-2px)}
-.btn-white{background:#fff;color:#111}.btn-white:hover{transform:translateY(-2px)}
 .toolbar{padding:35px 0 16px;display:flex;justify-content:space-between;gap:16px;align-items:end}
 .section-title h2{margin:0;font-size:32px}.section-title p{margin:3px 0 0;color:#777}
 .filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
@@ -78,6 +74,93 @@ url('awm-logo.jpg') center/cover;display:flex;align-items:center}
 @media(max-width:1050px){.grid{grid-template-columns:repeat(3,1fr)}.navlinks{display:none}}
 @media(max-width:760px){.container{width:min(100% - 24px,1400px)}.nav{height:72px}.brand img{width:48px;height:48px}.brand strong{font-size:21px}.hero-box{min-height:430px}.hero-content{padding:34px 24px}.toolbar{align-items:stretch;flex-direction:column}.filters{justify-content:stretch}.search{flex:1;min-width:0}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card{border-radius:16px}.card-body{padding:11px}.name{font-size:15px}.price{font-size:16px}.modal-grid{grid-template-columns:1fr}.modal-media,.modal-media img{min-height:360px;height:360px}.modal-info{padding:25px}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px}}
 @media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:36px}}
+
+/* ===== AWM HERO REDESIGN ===== */
+.hero{padding:24px 0 48px}
+.hero-box{
+  min-height:560px;
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  isolation:isolate;
+  background:
+    linear-gradient(105deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.88) 43%,rgba(5,5,5,.28) 100%),
+    url('awm-logo.jpg') center/cover;
+  display:flex;
+  align-items:center;
+  box-shadow:0 28px 80px rgba(0,0,0,.14);
+}
+.hero-box:after{
+  content:"";
+  position:absolute;
+  width:430px;height:430px;
+  left:-120px;bottom:-220px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.018);
+  z-index:-1;
+}
+.hero-content{position:relative;z-index:2;color:#fff;max-width:760px;padding:clamp(40px,7vw,88px)}
+.hero-kicker{
+  display:flex;align-items:center;gap:11px;
+  color:rgba(255,255,255,.72);
+  font:700 12px Montserrat,Arial,sans-serif;
+  letter-spacing:2.2px;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-kicker .dot{width:8px;height:8px;flex:0 0 auto}
+.hero h1{
+  font-size:clamp(48px,7vw,88px);
+  line-height:.98;
+  margin:0 0 24px;
+  font-weight:800;
+  letter-spacing:-2.5px;
+}
+.hero h1 em{color:#e31c24;font-style:normal}
+.hero p{
+  font-size:18px;
+  line-height:1.95;
+  color:rgba(255,255,255,.74);
+  margin:0;
+  max-width:610px;
+}
+.hero-meta{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin-top:34px;
+  color:rgba(255,255,255,.86);
+  font-size:13px;font-weight:700;
+}
+.hero-meta i{width:4px;height:4px;border-radius:50%;background:#e31c24}
+.hero-mark{
+  position:absolute;
+  left:clamp(24px,6vw,90px);
+  bottom:25px;
+  color:rgba(255,255,255,.055);
+  font:800 clamp(90px,17vw,240px)/.8 Montserrat,Arial,sans-serif;
+  letter-spacing:-12px;
+  user-select:none;
+  z-index:1;
+  pointer-events:none;
+}
+.toolbar{
+  padding:22px 0 18px;
+  border-bottom:1px solid #eee;
+  margin-bottom:8px;
+}
+.section-title h2{font-size:36px;letter-spacing:-.8px}
+.section-title p{font-size:14px}
+.categories{padding:14px 0 18px}
+@media(max-width:760px){
+  .hero{padding:14px 0 32px}
+  .hero-box{min-height:470px;border-radius:25px}
+  .hero-content{padding:34px 24px}
+  .hero h1{font-size:49px;letter-spacing:-1.7px}
+  .hero p{font-size:15px;line-height:1.85}
+  .hero-meta{margin-top:25px;gap:9px;font-size:11px}
+  .hero-mark{left:18px;bottom:15px;letter-spacing:-7px}
+  .section-title h2{font-size:29px}
+}
+
 </style>
 </head>
 <body>
@@ -99,9 +182,8 @@ url('awm-logo.jpg') center/cover;display:flex;align-items:center}
 <section class="hero container">
   <div class="hero-box">
     <div class="hero-content">
-      <div class="eyebrow"><span class="dot"></span> AWM CLOTHING GALLERY</div>
-      <h1>اختار <em>ستايلك</em> من معرضنا.</h1>
-      <p>استعرض أحدث قطع AWM بتفاصيلها، أسعارها، حالتها وتوفرها. المعرض للعرض فقط — بدون سلة مشتريات وبدون طلبات.</p>
+      <img class="hero-logo" src="awm-logo.jpg" alt="AWM">
+      <h1>ستايلك يبدأ<br><em>من هنا.</em></h1>
     </div>
   </div>
 </section>
