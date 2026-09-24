@@ -95,7 +95,7 @@ img{max-width:100%}
 .selection-bar{display:flex;align-items:center;gap:8px}.selection-count{font-size:11px;font-weight:800;color:#666}
 .bulk{display:flex;gap:7px}.bulk .btn{padding:8px 10px;font-size:11px}
 .table-wrap{overflow:auto;border:1px solid #ececef;border-radius:15px}
-.table{width:100%;border-collapse:collapse;min-width:900px}
+.table{width:100%;border-collapse:collapse;min-width:1120px}
 .table th,.table td{text-align:right;padding:12px 10px;border-bottom:1px solid #eee;vertical-align:middle}
 .table th{font-size:10px;color:#777;background:#fafafa;position:sticky;top:0;z-index:2}.table td{font-size:12px}
 .table tr:last-child td{border-bottom:0}.table tbody tr{transition:.16s}.table tbody tr:hover{background:#fcfcfc}
@@ -185,7 +185,7 @@ img{max-width:100%}
       <div><strong>AWM</strong><small>ALWAYS YOUR STORE</small></div>
     </div>
     <h1>لوحة الإدارة Pro</h1>
-    <p>إدارة المنتجات والصور والظهور في معرض AWM.</p>
+    <p>إدارة المنتجات والصور والأسعار والعروض والمخزون والظهور في معرض AWM.</p>
     <form id="loginForm">
       <div class="field"><label>البريد الإلكتروني</label><input id="email" class="input" type="email" autocomplete="username" placeholder="admin@example.com" required></div>
       <div class="field"><label>كلمة المرور</label><input id="password" class="input" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
@@ -209,7 +209,7 @@ img{max-width:100%}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8.5 12 4l6 4.5v9L12 21l-6-3.5z"/><path d="M6 8.5 12 12l6-3.5M12 12v9"/></svg>المنتجات والمعرض
       </button>
     </nav>
-    <div class="side-foot">AWM ADMIN PRO<br>إدارة المعرض فقط — بدون طلبات أو سلة مشتريات</div>
+    <div class="side-foot">AWM ADMIN PRO<br>إدارة كاملة لبيانات المنتجات، العروض، المخزون، الكولكشن والصور</div>
   </aside>
 
   <main class="main">
@@ -298,7 +298,7 @@ img{max-width:100%}
             <thead>
               <tr>
                 <th class="check-cell"><input id="selectAll" type="checkbox" aria-label="تحديد الكل"></th>
-                <th>القطعة</th><th>القسم</th><th>السعر</th><th>الحالة</th><th>التوفر</th><th>المعرض</th><th>إجراء</th>
+                <th>القطعة</th><th>القسم</th><th>السعر</th><th>المخزون</th><th>الحالة</th><th>التوفر</th><th>المعرض</th><th>إجراء</th>
               </tr>
             </thead>
             <tbody id="productRows"></tbody>
@@ -319,10 +319,15 @@ img{max-width:100%}
       <div class="form-grid">
         <div class="field"><label>اسم القطعة *</label><input id="pname" class="input" required></div>
         <div class="field"><label>القسم</label><input id="pcategory" class="input" placeholder="تيشيرتات، قمصان، بناطيل..."></div>
-        <div class="field"><label>السعر بالجنيه *</label><input id="pprice" class="input" type="number" min="0" step="0.01" required></div>
+        <div class="field"><label>السعر الحالي بالجنيه *</label><input id="pprice" class="input" type="number" min="0" step="0.01" required></div>
+        <div class="field"><label>السعر القديم</label><input id="poldprice" class="input" type="number" min="0" step="0.01" placeholder="اختياري للعروض"></div>
+        <div class="field"><label>المخزون</label><input id="pstock" class="input" type="number" min="0" step="1" placeholder="مثال: 3"></div>
         <div class="field"><label>حالة القطعة</label><select id="pcondition" class="input"><option>جديد</option><option>ممتاز</option><option>جيد جداً</option><option>مستعمل</option></select></div>
         <div class="field"><label>المقاسات</label><input id="psizes" class="input" placeholder="S / M / L / XL / XXL"></div>
         <div class="field"><label>الألوان</label><input id="pcolors" class="input" placeholder="أسود، أبيض، كحلي..."></div>
+        <div class="field"><label>الكولكشن</label><input id="pcollection" class="input" placeholder="Summer 2026 / New Drop..."></div>
+        <div class="field"><label>الخامة / Fabric</label><input id="pfabric" class="input" placeholder="Cotton، Denim..."></div>
+        <div class="field"><label>Tags / كلمات البحث</label><input id="ptags" class="input" placeholder="قميص، كاجوال، صيفي..."></div>
         <div class="field full"><label>وصف القطعة</label><textarea id="pdesc" class="input" rows="4" placeholder="تفاصيل القماش، الموديل، الملاحظات..."></textarea></div>
 
         <div class="field full">
@@ -343,6 +348,7 @@ img{max-width:100%}
         <div class="checks full">
           <label class="check"><input id="pavailable" type="checkbox" checked> القطعة متاحة للعرض</label>
           <label class="check"><input id="pfeatured" type="checkbox"> قطعة مميزة — تظهر في Featured Collection</label>
+          <label class="check"><input id="pbest" type="checkbox"> Best Seller — تظهر في الأكثر طلباً</label>
         </div>
         <div class="field"><label>ترتيب العرض</label><input id="psort" class="input" type="number" value="0"></div>
       </div>
@@ -510,21 +516,31 @@ function filteredProducts(){
 }
 function productRow(p){
   const imgs=parseImages(p);
+  const stock=Number(p.stock??p.quantity??p.stock_quantity);
+  const hasStock=Number.isFinite(stock);
+  const old=Number(p.old_price??p.compare_at_price??p.previous_price);
+  const hasOld=Number.isFinite(old)&&old>Number(p.price||0);
+  const badges=[];
+  if(p.is_featured)badges.push('<span class="badge black">★ مميز</span>');
+  if(p.is_bestseller||p.best_seller||p.is_best_seller)badges.push('<span class="badge amber">★ Best Seller</span>');
+  if(p.collection||p.collection_name)badges.push(`<span class="badge">${esc(p.collection||p.collection_name)}</span>`);
+  if(imgs.length>1)badges.push(`<span class="badge amber">▧ ${imgs.length} صور</span>`);
   return `<tr>
     <td class="check-cell"><input type="checkbox" ${selectedIds.has(p.id)?'checked':''} onchange="toggleSelected('${p.id}',this.checked)"></td>
-    <td><div class="product-cell"><img src="${esc(imgs[0]||'awm-logo.jpg')}" alt="" onerror="this.src='awm-logo.jpg'"><div><div class="product-name">${esc(p.name)}</div><div class="product-meta">${imgs.length} صور${isRecent(p)?' • محدث حديثاً':''}</div></div></div></td>
+    <td><div class="product-cell"><img src="${esc(imgs[0]||'awm-logo.jpg')}" alt="" onerror="this.src='awm-logo.jpg'"><div><div class="product-name">${esc(p.name)}</div><div class="product-meta">${p.condition?esc(p.condition)+' • ':''}${isRecent(p)?'محدث حديثاً':''}</div></div></div></td>
     <td>${esc(p.category||'—')}</td>
-    <td><b class="mono">${money(p.price)}</b></td>
+    <td><b class="mono">${money(p.price)}</b>${hasOld?`<div style="font-size:9px;color:#999;text-decoration:line-through">${money(old)}</div>`:''}</td>
+    <td>${hasStock?`<span class="badge ${stock<=3?'amber':'green'}">${stock}</span>`:'<span class="muted">—</span>'}</td>
     <td>${esc(p.condition||'—')}</td>
     <td><span class="badge ${p.is_available?'green':'red'}">${p.is_available?'متاح':'غير متاح'}</span></td>
-    <td><div class="badges">${p.is_featured?'<span class="badge black">★ مميز</span>':''}${imgs.length>1?`<span class="badge amber">▧ ${imgs.length} صور</span>`:''}</div></td>
+    <td><div class="badges">${badges.join('')}</div></td>
     <td><div class="row-actions"><button class="mini" onclick="openProductModal('${p.id}')">تعديل</button><button class="mini red" onclick="deleteProduct('${p.id}')">حذف</button></div></td>
   </tr>`;
 }
 function renderTable(){
   const list=filteredProducts();
   $('#productSummary').textContent=`عرض ${list.length} من أصل ${products.length} منتج`;
-  $('#productRows').innerHTML=list.length?list.map(productRow).join(''):`<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">⌕</div><h3>لا توجد نتائج</h3><p>جرّب تعديل البحث أو الفلاتر.</p></div></td></tr>`;
+  $('#productRows').innerHTML=list.length?list.map(productRow).join(''):`<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">⌕</div><h3>لا توجد نتائج</h3><p>جرّب تعديل البحث أو الفلاتر.</p></div></td></tr>`;
   const allVisibleSelected=list.length&&list.every(p=>selectedIds.has(p.id));
   $('#selectAll').checked=!!allVisibleSelected;
 }
@@ -568,7 +584,7 @@ async function bulkDelete(){
 
 /* Product modal + multi-image manager */
 function resetProductForm(){
-  $('#productForm').reset();$('#pid').value='';$('#psort').value='0';$('#pavailable').checked=true;$('#pfeatured').checked=false;
+  $('#productForm').reset();$('#pid').value='';$('#psort').value='0';$('#pavailable').checked=true;$('#pfeatured').checked=false;$('#pbest').checked=false;
   editingImages=[];pendingFiles=[];renderImageManager();$('#modalTitle').textContent='إضافة قطعة';
 }
 function openProductModal(id=null){
@@ -577,8 +593,11 @@ function openProductModal(id=null){
     const p=products.find(x=>x.id===id);if(!p)return;
     $('#modalTitle').textContent='تعديل القطعة';
     $('#pid').value=p.id;$('#pname').value=p.name||'';$('#pcategory').value=p.category||'';$('#pprice').value=p.price??'';
+    $('#poldprice').value=p.old_price??p.compare_at_price??p.previous_price??'';$('#pstock').value=p.stock??p.quantity??p.stock_quantity??'';
     $('#pcondition').value=p.condition||'جديد';$('#psizes').value=p.sizes||'';$('#pcolors').value=p.colors||'';
-    $('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#psort').value=p.sort_order??0;
+    $('#pcollection').value=p.collection??p.collection_name??'';$('#pfabric').value=p.fabric??p.material??p.fabric_type??'';
+    $('#ptags').value=Array.isArray(p.tags)?p.tags.join(', '):(p.tags??p.keywords??'');
+    $('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#pbest').checked=!!(p.is_bestseller??p.best_seller??p.is_best_seller);$('#psort').value=p.sort_order??0;
     editingImages=parseImages(p);
     renderImageManager();
   }
@@ -647,14 +666,20 @@ async function saveProduct(e){
       name:$('#pname').value.trim(),
       category:$('#pcategory').value.trim()||null,
       price:Number($('#pprice').value),
+      old_price:$('#poldprice').value===''?null:Number($('#poldprice').value),
+      stock:$('#pstock').value===''?null:Number($('#pstock').value),
       condition:$('#pcondition').value||null,
       sizes:$('#psizes').value.trim()||null,
       colors:$('#pcolors').value.trim()||null,
+      collection:$('#pcollection').value.trim()||null,
+      fabric:$('#pfabric').value.trim()||null,
+      tags:$('#ptags').value.split(/[,،|]/).map(x=>x.trim()).filter(Boolean),
       description:$('#pdesc').value.trim()||null,
       image_url:cleanImages[0]||null,
       image_urls:cleanImages,
       is_available:$('#pavailable').checked,
       is_featured:$('#pfeatured').checked,
+      is_bestseller:$('#pbest').checked,
       is_active:true,
       sort_order:Number($('#psort').value)||0
     };
