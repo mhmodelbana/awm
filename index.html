@@ -1889,7 +1889,40 @@ function getSearchText(p){
     ...splitValues(p.colors),...splitValues(p.sizes)
   ].filter(Boolean).join(' ').toLowerCase();
 }
+function renderHero(){
+  const total=products.length;
 
+  const available=products.filter(p=>p.is_available).length;
+
+  const categories=new Set(
+    products
+      .map(p=>String(p.category||'').trim())
+      .filter(Boolean)
+  ).size;
+
+  $('#heroProducts').textContent=total;
+  $('#heroAvailable').textContent=available;
+  $('#heroCategories').textContent=categories;
+
+  const featured=products.filter(p=>p.is_featured);
+  const source=featured[0]||products.find(p=>p.is_available)||products[0];
+
+  if(!source)return;
+
+  const heroImg=parseImages(source)[0]||'awm-logo.jpg';
+
+  $('#heroProductImage').src=heroImg;
+  $('#heroProductImage').alt=source.name||'AWM';
+
+  $('#heroProductCategory').textContent=
+    source.category||'AWM COLLECTION';
+
+  $('#heroProductName').textContent=
+    source.name||'اختيارات AWM';
+
+  $('#heroProductPrice').textContent=
+    money(source.price);
+}
 async function loadProducts(){
   const {data,error}=await db
     .from('products')
