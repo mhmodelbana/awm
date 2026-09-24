@@ -702,6 +702,186 @@ body{background:var(--awm-paper)}
   .view-btn{font-size:9px!important;padding:7px 4px!important}
 }
 
+
+/* ===== AWM HERO V6 — REFINED / MOBILE FIRST ===== */
+.hero{
+  padding:14px 0 28px!important;
+}
+.hero-box{
+  position:relative!important;
+  min-height:510px!important;
+  height:510px!important;
+  border-radius:32px!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  background:#0a0a0a!important;
+  box-shadow:0 30px 85px rgba(0,0,0,.22)!important;
+}
+.hero-box::before{
+  content:""!important;
+  position:absolute!important;
+  inset:-28px!important;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.90)),
+    url('awm-logo.jpg') center/cover!important;
+  filter:blur(18px)!important;
+  transform:scale(1.08)!important;
+  opacity:.55!important;
+  z-index:-2!important;
+}
+.hero-box::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(255,255,255,.12),transparent 23%),
+    linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.28) 62%,rgba(0,0,0,.68) 100%)!important;
+}
+.hero-content{
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  padding:38px 24px 34px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#fff!important;
+}
+.hero-content::before{
+  content:""!important;
+  position:absolute!important;
+  width:280px!important;height:280px!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  border-radius:50%!important;
+  top:50%!important;left:50%!important;
+  transform:translate(-50%,-57%)!important;
+  box-shadow:
+    0 0 0 24px rgba(255,255,255,.018),
+    0 0 0 48px rgba(255,255,255,.012)!important;
+  pointer-events:none!important;
+}
+.hero-logo{
+  position:relative!important;
+  z-index:2!important;
+  width:156px!important;
+  height:156px!important;
+  margin:0 0 30px!important;
+  object-fit:cover!important;
+  border-radius:34px!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.55),
+    0 0 0 9px rgba(255,255,255,.035),
+    0 0 0 1px rgba(255,255,255,.08) inset!important;
+  animation:awmLogoReveal .75s cubic-bezier(.2,.75,.2,1) both!important;
+}
+.hero-logo::after{display:none!important}
+.hero h1{
+  position:relative!important;
+  z-index:2!important;
+  margin:0!important;
+  color:#fff!important;
+  font-size:clamp(40px,6vw,74px)!important;
+  line-height:1.04!important;
+  letter-spacing:-.055em!important;
+  font-weight:950!important;
+  text-align:center!important;
+  text-shadow:0 12px 34px rgba(0,0,0,.48)!important;
+  animation:awmTitleReveal .78s .08s cubic-bezier(.2,.75,.2,1) both!important;
+}
+.hero h1 em{
+  color:#fff!important;
+  font-style:normal!important;
+}
+.hero h1 em::after{
+  content:""!important;
+  width:58px!important;
+  height:3px!important;
+  margin:17px auto 0!important;
+  display:block!important;
+  border-radius:99px!important;
+  background:#e10d18!important;
+  box-shadow:0 0 18px rgba(225,13,24,.24)!important;
+}
+@keyframes awmLogoReveal{
+  from{opacity:0;transform:translateY(15px) scale(.94)}
+  to{opacity:1;transform:none}
+}
+@keyframes awmTitleReveal{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:none}
+}
+
+@media(max-width:760px){
+  .hero{
+    width:min(100% - 16px,1400px)!important;
+    padding:8px 0 18px!important;
+  }
+  .hero-box{
+    height:352px!important;
+    min-height:352px!important;
+    border-radius:24px!important;
+    box-shadow:0 20px 55px rgba(0,0,0,.18)!important;
+  }
+  .hero-box::before{
+    filter:blur(13px)!important;
+    opacity:.48!important;
+  }
+  .hero-content{
+    padding:24px 16px!important;
+  }
+  .hero-content::before{
+    width:205px!important;
+    height:205px!important;
+    transform:translate(-50%,-58%)!important;
+    box-shadow:
+      0 0 0 18px rgba(255,255,255,.016),
+      0 0 0 36px rgba(255,255,255,.009)!important;
+  }
+  .hero-logo{
+    width:102px!important;
+    height:102px!important;
+    border-radius:22px!important;
+    margin-bottom:22px!important;
+    box-shadow:
+      0 20px 46px rgba(0,0,0,.55),
+      0 0 0 7px rgba(255,255,255,.035),
+      0 0 0 1px rgba(255,255,255,.08) inset!important;
+  }
+  .hero h1{
+    font-size:40px!important;
+    line-height:1.02!important;
+    letter-spacing:-.06em!important;
+  }
+  .hero h1 em::after{
+    width:44px!important;
+    height:2.5px!important;
+    margin-top:12px!important;
+  }
+}
+@media(max-width:390px){
+  .hero{
+    width:min(100% - 12px,1400px)!important;
+    padding-top:6px!important;
+  }
+  .hero-box{
+    height:330px!important;
+    min-height:330px!important;
+    border-radius:22px!important;
+  }
+  .hero-content::before{width:184px!important;height:184px!important}
+  .hero-logo{
+    width:90px!important;height:90px!important;
+    border-radius:20px!important;
+    margin-bottom:19px!important;
+  }
+  .hero h1{font-size:36px!important}
+}
+
 </style>
 </head>
 <body>
@@ -728,7 +908,7 @@ body{background:var(--awm-paper)}
   <div class="hero-box">
     <div class="hero-content">
       <img class="hero-logo" src="awm-logo.jpg" alt="AWM">
-      <h1>ستايلك يبدأ<br><em>من هنا.</em></h1>
+      <h1>ستايلك يبدأ <em>من هنا.</em></h1>
     </div>
   </div>
 </section>
