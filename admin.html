@@ -329,6 +329,20 @@ body{
   .admin-hero-actions{width:100%}.admin-hero-actions .btn{width:100%}
 }
 
+
+/* ========================= AWM V2 PRO LAYER ========================= */
+.sync-pill{display:inline-flex;align-items:center;gap:5px;padding:8px 11px;border-radius:999px;background:#f7f7f5;border:1px solid #e4e4e1;color:#777;font-size:9px;font-weight:900}.sync-pill.live{color:#16834b;background:#eaf8f0;border-color:#ccebd9}.sync-pill.error{color:#c81924;background:#fff0f2;border-color:#ffd2d7}
+.pro-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.pro-kpi{background:#fff;border:1px solid rgba(0,0,0,.055);border-radius:18px;padding:15px;box-shadow:0 10px 28px rgba(0,0,0,.035)}.pro-kpi small{display:block;color:#888;font-size:10px}.pro-kpi strong{display:block;font:900 24px Montserrat;margin-top:5px}.pro-kpi span{display:block;font-size:9px;color:#aaa;margin-top:4px}
+.pro-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.pro-list{display:grid;gap:8px}.pro-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;border:1px solid #ececea;border-radius:13px;background:#fff}.pro-row-main{display:flex;align-items:center;gap:10px;min-width:0}.pro-row-thumb{width:44px;height:53px;object-fit:cover;border-radius:9px;background:#eee}.pro-row-title{font-size:11px;font-weight:900}.pro-row-meta{font-size:9px;color:#999;margin-top:2px}.pro-row-end{text-align:left;white-space:nowrap}.pro-row-end strong{font:900 12px Montserrat}
+.pro-table-wrap{overflow:auto;border:1px solid #ececea;border-radius:14px}.pro-mini-table{width:100%;border-collapse:collapse;min-width:720px}.pro-mini-table th,.pro-mini-table td{padding:10px;border-bottom:1px solid #eee;text-align:right;font-size:10px}.pro-mini-table th{background:#fafaf8;color:#777}.pro-mini-table tr:last-child td{border-bottom:0}.pro-actions{display:flex;gap:7px;flex-wrap:wrap}.pro-actions .btn{padding:8px 10px}
+.pro-empty{padding:28px 15px;text-align:center;color:#888;font-size:11px;border:1px dashed #ddd;border-radius:14px;background:#fafaf8}.pro-tag{display:inline-flex;align-items:center;min-height:23px;padding:3px 8px;border-radius:999px;background:#f4f5f7;font-size:8px;font-weight:900}.pro-tag.red{background:#fff0f2;color:#c81924}.pro-tag.green{background:#eaf8f0;color:#16834b}.pro-tag.gold{background:#fbf7f0;color:#a76b00}
+.pro-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pro-form-grid .full{grid-column:1/-1}.pro-modal .modal{width:min(920px,100%)}
+.pro-hero-card{position:relative;overflow:hidden;min-height:170px;border-radius:20px;padding:20px;color:#fff;background:linear-gradient(135deg,#0b0b0b,#2a0e10)}.pro-hero-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 72% 25%,rgba(215,25,32,.34),transparent 35%);pointer-events:none}.pro-hero-card>*{position:relative;z-index:2}.pro-hero-card h2{margin:0;font-size:22px}.pro-hero-card p{margin:6px 0 18px;color:#ddd;font-size:10px;max-width:600px;line-height:1.8}.pro-stat-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pro-stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);padding:10px;border-radius:12px}.pro-stat-box small{display:block;color:#aaa;font-size:8px}.pro-stat-box strong{font:900 16px Montserrat;display:block;margin-top:3px}
+.pro-switch{display:flex;align-items:center;gap:8px}.pro-switch input{display:none}.pro-switch span{width:42px;height:24px;border-radius:999px;background:#ddd;position:relative;transition:.2s}.pro-switch span::after{content:'';width:18px;height:18px;position:absolute;top:3px;right:3px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.16);transition:.2s}.pro-switch input:checked+span{background:#111}.pro-switch input:checked+span::after{right:21px}
+.analytics-bars{display:grid;gap:10px}.analytics-bar{display:grid;gap:4px}.analytics-bar-top{display:flex;justify-content:space-between;font-size:9px;font-weight:900}.analytics-track{height:8px;background:#f0f0ee;border-radius:999px;overflow:hidden}.analytics-fill{height:100%;background:#111;border-radius:999px}
+@media(max-width:1050px){.pro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pro-section-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.pro-grid{grid-template-columns:1fr 1fr}.pro-form-grid{grid-template-columns:1fr}.pro-form-grid .full{grid-column:auto}.pro-stat-bar{grid-template-columns:1fr}.top-actions{width:100%}.top-actions .sync-pill{flex:1;justify-content:center}}
+
 </style>
 </head>
 <body>
@@ -357,12 +371,13 @@ body{
       <div><strong>AWM</strong><small>ADMIN PRO</small></div>
     </div>
     <nav class="menu">
-      <button class="active" data-section="dashboard">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>لوحة التحكم
-      </button>
-      <button data-section="products">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8.5 12 4l6 4.5v9L12 21l-6-3.5z"/><path d="M6 8.5 12 12l6-3.5M12 12v9"/></svg>المنتجات والمعرض
-      </button>
+      <button class="active" data-section="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>لوحة التحكم</button>
+      <button data-section="products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8.5 12 4l6 4.5v9L12 21l-6-3.5z"/><path d="M6 8.5 12 12l6-3.5M12 12v9"/></svg>المنتجات</button>
+      <button data-section="taxonomy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>الأقسام والكولكشن</button>
+      <button data-section="homepage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 11 8-7 8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 20v-6h6v6"/></svg>الصفحة الرئيسية</button>
+      <button data-section="offers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/><path d="m8 15 8-6M9 9h.01M15 15h.01"/></svg>العروض</button>
+      <button data-section="analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16"/><path d="m7 16 4-5 3 3 5-7"/></svg>التحليلات</button>
+      <button data-section="activity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="8"/></svg>سجل النشاط</button>
     </nav>
     <div class="side-foot">AWM ADMIN PRO<br>إدارة كاملة لبيانات المنتجات، العروض، المخزون، الكولكشن والصور</div>
   </aside>
@@ -419,6 +434,24 @@ body{
             <div><h2>توزيع الأقسام</h2><p>نظرة على تشكيلتك الحالية.</p></div>
           </div>
           <div class="category-bars" id="categoryBars"></div>
+        </div>
+      </div>
+
+      <div class="pro-grid">
+        <div class="pro-kpi"><small>مشاهدات المنتجات</small><strong id="kViews">—</strong><span>من سجل التحليلات</span></div>
+        <div class="pro-kpi"><small>ضغطات واتساب</small><strong id="kWhatsapp">—</strong><span>طلبات استفسار</span></div>
+        <div class="pro-kpi"><small>المفضلة</small><strong id="kFavorites">—</strong><span>إضافات للمفضلة</span></div>
+        <div class="pro-kpi"><small>مخزون منخفض</small><strong id="kLowStock">0</strong><span>3 قطع أو أقل</span></div>
+      </div>
+
+      <div class="pro-section-grid" style="margin-top:13px">
+        <div class="panel">
+          <div class="panel-head"><div><h2>الأكثر اهتمامًا</h2><p>حسب المشاهدات والضغطات.</p></div></div>
+          <div id="dashboardTopProducts" class="pro-list"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>تنبيهات المتجر</h2><p>حاجات محتاجة مراجعة.</p></div></div>
+          <div id="dashboardAlerts" class="pro-list"></div>
         </div>
       </div>
     </section>
@@ -485,6 +518,63 @@ body{
   </main>
 </div>
 
+
+<section id="taxonomySection" class="section hidden">
+  <div class="pro-section-grid">
+    <div class="panel">
+      <div class="panel-head"><div><h2>الأقسام</h2><p>إدارة الأقسام التي تظهر في المتجر.</p></div><button class="btn btn-red" onclick="openTaxModal('category')">+ قسم</button></div>
+      <div id="categoriesManager" class="pro-list"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2>الكولكشن</h2><p>New Drop / Summer / Premium / Sale.</p></div><button class="btn btn-red" onclick="openTaxModal('collection')">+ كولكشن</button></div>
+      <div id="collectionsManager" class="pro-list"></div>
+    </div>
+  </div>
+</section>
+
+<section id="homepageSection" class="section hidden">
+  <div class="pro-hero-card">
+    <div class="admin-kicker">HOMEPAGE BUILDER</div>
+    <h2>ابنِ الصفحة الرئيسية من غير ما تلمس الكود</h2>
+    <p>رتّب الـHero والمنتجات المميزة والـCollections والبنرات. التغييرات تُحفظ في Supabase وتظهر للزوار لحظيًا.</p>
+    <button class="btn btn-red" onclick="openHomeModal()">+ إضافة Section</button>
+  </div>
+  <div class="panel" style="margin-top:13px"><div class="panel-head"><div><h2>Sections</h2><p>اسحب المنطق من خلال ترتيب العرض.</p></div><button class="btn btn-soft" onclick="loadHomepageSections()">تحديث</button></div><div id="homepageSectionsManager" class="pro-list"></div></div>
+</section>
+
+<section id="offersSection" class="section hidden">
+  <div class="panel">
+    <div class="panel-head"><div><h2>العروض</h2><p>عرض + Countdown + ربط بمنتجات محددة.</p></div><button class="btn btn-red" onclick="openOfferModal()">+ عرض جديد</button></div>
+    <div id="offersManager" class="pro-list"></div>
+  </div>
+</section>
+
+<section id="analyticsSection" class="section hidden">
+  <div class="pro-grid">
+    <div class="pro-kpi"><small>إجمالي الأحداث</small><strong id="aEvents">—</strong><span>آخر 30 يوم</span></div>
+    <div class="pro-kpi"><small>مشاهدات</small><strong id="aViews">—</strong><span>product_view</span></div>
+    <div class="pro-kpi"><small>واتساب</small><strong id="aWhats">—</strong><span>whatsapp_click</span></div>
+    <div class="pro-kpi"><small>مشاركة</small><strong id="aShares">—</strong><span>share</span></div>
+  </div>
+  <div class="pro-section-grid" style="margin-top:13px">
+    <div class="panel"><div class="panel-head"><div><h2>الأكثر مشاهدة</h2><p>آخر 30 يوم.</p></div></div><div id="analyticsTopViews" class="analytics-bars"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>أكثر ضغطات واتساب</h2><p>آخر 30 يوم.</p></div></div><div id="analyticsTopWhats" class="analytics-bars"></div></div>
+  </div>
+</section>
+
+<section id="activitySection" class="section hidden">
+  <div class="panel">
+    <div class="panel-head"><div><h2>سجل النشاط</h2><p>كل تغيير مهم على المنتجات والإعدادات.</p></div><button class="btn btn-soft" onclick="loadActivity()">تحديث</button></div>
+    <div class="pro-table-wrap"><table class="pro-mini-table"><thead><tr><th>الوقت</th><th>المستخدم</th><th>العملية</th><th>الكيان</th><th>التفاصيل</th></tr></thead><tbody id="activityRows"></tbody></table></div>
+  </div>
+</section>
+
+<div class="overlay pro-modal" id="taxOverlay"><div class="modal"><div class="modal-head"><h2 id="taxModalTitle">إضافة</h2><button class="x" onclick="closeTaxModal()">×</button></div><form class="form-wrap" id="taxForm"><input type="hidden" id="taxType"><input type="hidden" id="taxId"><div class="pro-form-grid"><div class="field"><label>الاسم *</label><input id="taxName" class="input" required></div><div class="field"><label>Slug</label><input id="taxSlug" class="input"></div><div class="field full"><label>الوصف</label><textarea id="taxDescription" class="input" rows="3"></textarea></div><div class="field"><label>الصورة</label><input id="taxImage" class="input" placeholder="رابط صورة اختياري"></div><div class="field"><label>الترتيب</label><input id="taxOrder" class="input" type="number" value="0"></div><div class="field full"><label class="pro-switch"><input id="taxActive" type="checkbox" checked><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ</button><button class="btn btn-light" type="button" onclick="closeTaxModal()">إلغاء</button></div></form></div></div>
+
+<div class="overlay pro-modal" id="homeOverlay"><div class="modal"><div class="modal-head"><h2>Section جديدة</h2><button class="x" onclick="closeHomeModal()">×</button></div><form class="form-wrap" id="homeForm"><input type="hidden" id="homeId"><div class="pro-form-grid"><div class="field"><label>النوع *</label><select id="homeType" class="input"><option value="hero">Hero Banner</option><option value="products">منتجات</option><option value="collection">Collection</option><option value="banner">Banner</option><option value="categories">الأقسام</option><option value="text">نص</option></select></div><div class="field"><label>الترتيب</label><input id="homeOrder" class="input" type="number" value="0"></div><div class="field"><label>العنوان</label><input id="homeTitle" class="input"></div><div class="field"><label>العنوان الفرعي</label><input id="homeSubtitle" class="input"></div><div class="field"><label>Collection</label><input id="homeCollection" class="input"></div><div class="field"><label>IDs منتجات</label><input id="homeProductIds" class="input" placeholder="1,2,3"></div><div class="field full"><label>الصورة</label><input id="homeImage" class="input" placeholder="رابط الصورة"></div><div class="field"><label>نص الزر</label><input id="homeButtonText" class="input" placeholder="اكتشف الآن"></div><div class="field"><label>رابط الزر</label><input id="homeButtonUrl" class="input" placeholder="#catalog"></div><div class="field full"><label class="pro-switch"><input id="homeActive" type="checkbox" checked><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ القسم</button><button class="btn btn-light" type="button" onclick="closeHomeModal()">إلغاء</button></div></form></div></div>
+
+<div class="overlay pro-modal" id="offerOverlay"><div class="modal"><div class="modal-head"><h2>عرض جديد</h2><button class="x" onclick="closeOfferModal()">×</button></div><form class="form-wrap" id="offerForm"><input type="hidden" id="offerId"><div class="pro-form-grid"><div class="field"><label>اسم العرض *</label><input id="offerTitle" class="input" required></div><div class="field"><label>نوع الخصم</label><select id="offerType" class="input"><option value="label">Banner فقط</option><option value="percent">نسبة %</option><option value="amount">قيمة</option></select></div><div class="field"><label>قيمة الخصم</label><input id="offerValue" class="input" type="number" min="0" step="0.01"></div><div class="field"><label>لون/شارة</label><input id="offerColor" class="input" placeholder="#111111"></div><div class="field"><label>بداية</label><input id="offerStart" class="input" type="datetime-local"></div><div class="field"><label>نهاية</label><input id="offerEnd" class="input" type="datetime-local"></div><div class="field full"><label>منتجات العرض</label><input id="offerProductIds" class="input" placeholder="IDs مفصولة بفواصل — اتركها فارغة لعرض عام"></div><div class="field full"><label class="pro-switch"><input id="offerActive" type="checkbox" checked><span></span> العرض نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ العرض</button><button class="btn btn-light" type="button" onclick="closeOfferModal()">إلغاء</button></div></form></div></div>
+
 <div class="overlay" id="productOverlay">
   <div class="modal">
     <div class="modal-head"><h2 id="modalTitle">إضافة قطعة</h2><button class="x" onclick="closeProductModal()">×</button></div>
@@ -505,6 +595,11 @@ body{
         <div class="field"><label>الخامة / Fabric</label><input id="pfabric" class="input" placeholder="Cotton، Denim..."></div>
         <div class="field"><label>Tags / كلمات البحث</label><input id="ptags" class="input" placeholder="قميص، كاجوال، صيفي..."></div>
         <div class="field full"><label>وصف القطعة</label><textarea id="pdesc" class="input" rows="4" placeholder="تفاصيل القماش، الموديل، الملاحظات..."></textarea></div>
+        <div class="field full"><label>SEO Title</label><input id="pseoTitle" class="input" placeholder="اختياري — عنوان محرك البحث"></div>
+        <div class="field full"><label>SEO Description</label><textarea id="pseoDescription" class="input" rows="3" placeholder="وصف مختصر للبحث والمشاركة"></textarea></div>
+        <div class="field"><label>دليل المقاسات</label><input id="psizeGuide" class="input" placeholder="رابط أو اسم دليل المقاسات"></div>
+        <div class="field"><label>سياسة الشحن</label><input id="pshipping" class="input" placeholder="مثال: شحن داخل الدلتا خلال 2-3 أيام"></div>
+
 
         <div class="field full">
           <label>صور القطعة</label>
@@ -658,13 +753,21 @@ async function logout(){await unsubscribeRealtime();await db.auth.signOut()}
 $('#loginForm').addEventListener('submit',e=>{e.preventDefault();login()});
 
 function switchSection(sec){
+  const map={dashboard:['لوحة التحكم','نظرة سريعة على المنتجات والظهور في المعرض.'],products:['المنتجات والمعرض','بحث، فلترة وتعديل كل القطع المعروضة في AWM.'],taxonomy:['الأقسام والكولكشن','تصنيف المتجر وإدارة مجموعاته.'],homepage:['الصفحة الرئيسية','ابنِ واجهة المتجر من لوحة الإدارة.'],offers:['العروض','العروض المؤقتة والـCountdown والمنتجات المرتبطة.'],analytics:['التحليلات','مشاهدات، مفضلة، مشاركة، وضغطات واتساب.'],activity:['سجل النشاط','تاريخ التغييرات المهمة على المشروع.']};
   $$('.menu button').forEach(x=>x.classList.toggle('active',x.dataset.section===sec));
-  $('#dashboardSection').classList.toggle('hidden',sec!=='dashboard');
-  $('#productsSection').classList.toggle('hidden',sec!=='products');
-  $('#pageTitle').textContent=sec==='dashboard'?'لوحة التحكم':'المنتجات والمعرض';
-  $('#pageSubtitle').textContent=sec==='dashboard'?'نظرة سريعة على المنتجات والظهور في المعرض.':'بحث، فلترة وتعديل كل القطع المعروضة في AWM.';
+  ['dashboard','products','taxonomy','homepage','offers','analytics','activity'].forEach(name=>{
+    const el=$(`#${name}Section`); if(el) el.classList.toggle('hidden',name!==sec);
+  });
+  $('#pageTitle').textContent=map[sec]?.[0]||'لوحة التحكم';
+  $('#pageSubtitle').textContent=map[sec]?.[1]||'';
+  if(sec==='taxonomy'){loadTaxonomy();}
+  if(sec==='homepage'){loadHomepageSections();}
+  if(sec==='offers'){loadOffers();}
+  if(sec==='analytics'){loadAnalytics();}
+  if(sec==='activity'){loadActivity();}
 }
 $$('.menu button').forEach(b=>b.addEventListener('click',()=>switchSection(b.dataset.section)));
+loadTaxonomy();loadHomepageSections();loadOffers();
 
 async function loadProducts({fromRealtime=false}={}){
   $('#productRows').innerHTML='<tr><td colspan="9" class="no-data">جاري تحميل المنتجات...</td></tr>';
@@ -915,6 +1018,9 @@ async function saveProduct(e){
       if(removed.length)await db.storage.from('products').remove(removed);
     }
 
+    const savedId = id || res.data?.[0]?.id || null;
+    if(savedId){ await upsertProductMeta(savedId,{seo_title:$('#pseoTitle').value.trim()||null,seo_description:$('#pseoDescription').value.trim()||null,size_guide:$('#psizeGuide').value.trim()||null,shipping_text:$('#pshipping').value.trim()||null}); }
+    await logActivity(id?'update':'create','product',savedId,{name:payload.name,price:payload.price,is_active:payload.is_active});
     toast(id?'تم تحديث القطعة بنجاح':'تمت إضافة القطعة بنجاح');
     closeProductModal();
     await loadProducts();
@@ -942,6 +1048,48 @@ $('#productOverlay').addEventListener('click',e=>{if(e.target.id==='productOverl
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&$('#productOverlay').classList.contains('open'))closeProductModal();
 });
+/* ======================== AWM V2 MANAGERS ======================== */
+const featureState={categories:[],collections:[],homepage:[],offers:[],analytics:{},metaCache:new Map()};
+function safeDateInput(v){if(!v)return '';const d=new Date(v); if(Number.isNaN(d.getTime()))return ''; const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;}
+function slugify(v){return normalizeAdminText(v).replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-+|-+$/g,'').toLowerCase()||`awm-${Date.now()}`;}
+function normalizeAdminText(v){return String(v??'').toLocaleLowerCase('ar-EG').normalize('NFKD').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').trim();}
+async function getProductMeta(id){
+  if(!id)return null; if(featureState.metaCache.has(String(id)))return featureState.metaCache.get(String(id));
+  const {data,error}=await db.from('product_meta').select('*').eq('product_id',id).maybeSingle(); if(error)return null; featureState.metaCache.set(String(id),data||null); return data||null;
+}
+async function upsertProductMeta(productId,payload){ if(!productId)return; try{const {error}=await db.from('product_meta').upsert({product_id:productId,...payload,updated_at:new Date().toISOString()},{onConflict:'product_id'}); if(!error)featureState.metaCache.set(String(productId),{product_id:productId,...payload});}catch(_){}}
+async function logActivity(action,entity,entityId,details={}){try{const email=session?.user?.email||'admin';await db.from('activity_logs').insert({actor_email:email,action,entity,entity_id:String(entityId||''),details});}catch(_){}}
+async function safeSelect(table,columns='*',opts={}){try{let q=db.from(table).select(columns); if(opts.order)q=q.order(opts.order,{ascending:opts.ascending!==false}); if(opts.eq)q=q.eq(opts.eq[0],opts.eq[1]); const r=await q; if(r.error)throw r.error;return r.data||[];}catch(e){console.warn('AWM optional table',table,e.message);return []}}
+async function loadTaxonomy(){
+  featureState.categories=await safeSelect('categories','*',{order:'sort_order'}); featureState.collections=await safeSelect('collections','*',{order:'sort_order'});
+  const cats=$('#categoriesManager'); const cols=$('#collectionsManager');
+  cats.innerHTML=featureState.categories.length?featureState.categories.map(x=>`<div class="pro-row"><div><div class="pro-row-title">${esc(x.name)}</div><div class="pro-row-meta">${esc(x.slug||'')} • ${x.is_active?'نشط':'مخفي'}</div></div><div class="pro-actions"><button class="btn btn-soft" onclick="editTax('category','${esc(x.id)}')">تعديل</button><button class="btn btn-danger" onclick="deleteTax('category','${esc(x.id)}')">حذف</button></div></div>`).join(''):'<div class="pro-empty">مفيش أقسام لسه — أضف أول قسم.</div>';
+  cols.innerHTML=featureState.collections.length?featureState.collections.map(x=>`<div class="pro-row"><div><div class="pro-row-title">${esc(x.name)}</div><div class="pro-row-meta">${esc(x.slug||'')} • ${x.is_active?'نشط':'مخفي'}</div></div><div class="pro-actions"><button class="btn btn-soft" onclick="editTax('collection','${esc(x.id)}')">تعديل</button><button class="btn btn-danger" onclick="deleteTax('collection','${esc(x.id)}')">حذف</button></div></div>`).join(''):'<div class="pro-empty">مفيش Collections لسه.</div>';
+}
+function openTaxModal(type,id=''){ $('#taxType').value=type;$('#taxId').value=id;$('#taxModalTitle').textContent=(id?'تعديل ':'إضافة ')+(type==='category'?'قسم':'كولكشن'); const obj=(type==='category'?featureState.categories:featureState.collections).find(x=>String(x.id)===String(id)); $('#taxName').value=obj?.name||'';$('#taxSlug').value=obj?.slug||'';$('#taxDescription').value=obj?.description||'';$('#taxImage').value=obj?.image_url||'';$('#taxOrder').value=obj?.sort_order??0;$('#taxActive').checked=obj?.is_active!==false;$('#taxOverlay').classList.add('open');}
+function editTax(type,id){openTaxModal(type,id)} function closeTaxModal(){$('#taxOverlay').classList.remove('open')}
+$('#taxForm').addEventListener('submit',async e=>{e.preventDefault();const type=$('#taxType').value,id=$('#taxId').value;const table=type==='category'?'categories':'collections';const payload={name:$('#taxName').value.trim(),slug:$('#taxSlug').value.trim()||slugify($('#taxName').value),description:$('#taxDescription').value.trim()||null,image_url:$('#taxImage').value.trim()||null,sort_order:Number($('#taxOrder').value)||0,is_active:$('#taxActive').checked,updated_at:new Date().toISOString()};const r=id?await db.from(table).update(payload).eq('id',id):await db.from(table).insert(payload);if(r.error){toast('تعذر الحفظ: '+r.error.message,'error');return}await logActivity(id?'update':'create',table,id||r.data?.[0]?.id||'',{name:payload.name});closeTaxModal();await loadTaxonomy();toast('تم حفظ البيانات');});
+async function deleteTax(type,id){const ok=confirm('تأكيد حذف العنصر؟');if(!ok)return;const table=type==='category'?'categories':'collections';const r=await db.from(table).delete().eq('id',id);if(r.error){toast('تعذر الحذف: '+r.error.message,'error');return}await logActivity('delete',table,id);await loadTaxonomy();toast('تم الحذف');}
+async function loadHomepageSections(){featureState.homepage=await safeSelect('homepage_sections','*',{order:'sort_order'});const root=$('#homepageSectionsManager');root.innerHTML=featureState.homepage.length?featureState.homepage.map(x=>`<div class="pro-row"><div><div class="pro-row-title">${esc(x.title||x.type)}</div><div class="pro-row-meta">${esc(x.type)} • ترتيب ${x.sort_order||0} • ${x.is_active?'نشط':'مخفي'}</div></div><div class="pro-actions"><button class="btn btn-soft" onclick="editHome('${esc(x.id)}')">تعديل</button><button class="btn btn-danger" onclick="deleteHome('${esc(x.id)}')">حذف</button></div></div>`).join(''):'<div class="pro-empty">أضف أول Section للصفحة الرئيسية.</div>';}
+function openHomeModal(id=''){const x=featureState.homepage.find(v=>String(v.id)===String(id));$('#homeId').value=id;$('#homeType').value=x?.type||'hero';$('#homeOrder').value=x?.sort_order??0;$('#homeTitle').value=x?.title||'';$('#homeSubtitle').value=x?.subtitle||'';$('#homeCollection').value=x?.collection||'';$('#homeProductIds').value=Array.isArray(x?.product_ids)?x.product_ids.join(','):'';$('#homeImage').value=x?.image_url||'';$('#homeButtonText').value=x?.button_text||'';$('#homeButtonUrl').value=x?.button_url||'';$('#homeActive').checked=x?.is_active!==false;$('#homeOverlay').classList.add('open')}
+function editHome(id){openHomeModal(id)} function closeHomeModal(){$('#homeOverlay').classList.remove('open')}
+$('#homeForm').addEventListener('submit',async e=>{e.preventDefault();const id=$('#homeId').value;const payload={type:$('#homeType').value,title:$('#homeTitle').value.trim()||null,subtitle:$('#homeSubtitle').value.trim()||null,collection:$('#homeCollection').value.trim()||null,product_ids:$('#homeProductIds').value.split(',').map(x=>x.trim()).filter(Boolean),image_url:$('#homeImage').value.trim()||null,button_text:$('#homeButtonText').value.trim()||null,button_url:$('#homeButtonUrl').value.trim()||null,sort_order:Number($('#homeOrder').value)||0,is_active:$('#homeActive').checked,updated_at:new Date().toISOString()};const r=id?await db.from('homepage_sections').update(payload).eq('id',id):await db.from('homepage_sections').insert(payload);if(r.error){toast('تعذر حفظ الـSection: '+r.error.message,'error');return}await logActivity(id?'update':'create','homepage_section',id||r.data?.[0]?.id||'',{type:payload.type,title:payload.title});closeHomeModal();await loadHomepageSections();toast('تم حفظ الـSection');});
+async function deleteHome(id){if(!confirm('حذف الـSection؟'))return;const r=await db.from('homepage_sections').delete().eq('id',id);if(r.error){toast('تعذر الحذف: '+r.error.message,'error');return}await logActivity('delete','homepage_section',id);await loadHomepageSections();toast('تم الحذف');}
+async function loadOffers(){featureState.offers=await safeSelect('offers','*',{order:'created_at',ascending:false});const root=$('#offersManager');root.innerHTML=featureState.offers.length?featureState.offers.map(x=>`<div class="pro-row"><div><div class="pro-row-title">${esc(x.title)}</div><div class="pro-row-meta">${esc(x.type||'label')} • ${x.start_at?formatDate(x.start_at):'بدون بداية'} → ${x.end_at?formatDate(x.end_at):'بدون نهاية'} • ${x.is_active?'نشط':'متوقف'}</div></div><div class="pro-actions"><button class="btn btn-soft" onclick="editOffer('${esc(x.id)}')">تعديل</button><button class="btn btn-danger" onclick="deleteOffer('${esc(x.id)}')">حذف</button></div></div>`).join(''):'<div class="pro-empty">مفيش عروض محفوظة.</div>';}
+function openOfferModal(id=''){const x=featureState.offers.find(v=>String(v.id)===String(id));$('#offerId').value=id;$('#offerTitle').value=x?.title||'';$('#offerType').value=x?.type||'label';$('#offerValue').value=x?.discount_value??'';$('#offerColor').value=x?.accent_color||'#111111';$('#offerStart').value=safeDateInput(x?.start_at);$('#offerEnd').value=safeDateInput(x?.end_at);$('#offerProductIds').value=Array.isArray(x?.product_ids)?x.product_ids.join(','):'';$('#offerActive').checked=x?.is_active!==false;$('#offerOverlay').classList.add('open')}
+function editOffer(id){openOfferModal(id)} function closeOfferModal(){$('#offerOverlay').classList.remove('open')}
+$('#offerForm').addEventListener('submit',async e=>{e.preventDefault();const id=$('#offerId').value;const payload={title:$('#offerTitle').value.trim(),type:$('#offerType').value,discount_value:$('#offerValue').value===''?null:Number($('#offerValue').value),accent_color:$('#offerColor').value.trim()||'#111111',start_at:$('#offerStart').value?new Date($('#offerStart').value).toISOString():null,end_at:$('#offerEnd').value?new Date($('#offerEnd').value).toISOString():null,product_ids:$('#offerProductIds').value.split(',').map(x=>x.trim()).filter(Boolean),is_active:$('#offerActive').checked,updated_at:new Date().toISOString()};const r=id?await db.from('offers').update(payload).eq('id',id):await db.from('offers').insert(payload);if(r.error){toast('تعذر حفظ العرض: '+r.error.message,'error');return}await logActivity(id?'update':'create','offer',id||r.data?.[0]?.id||'',{title:payload.title});closeOfferModal();await loadOffers();toast('تم حفظ العرض');});
+async function deleteOffer(id){if(!confirm('حذف العرض؟'))return;const r=await db.from('offers').delete().eq('id',id);if(r.error){toast('تعذر الحذف: '+r.error.message,'error');return}await logActivity('delete','offer',id);await loadOffers();toast('تم الحذف');}
+async function loadAnalytics(){const since=new Date(Date.now()-30*86400000).toISOString();try{const {data,error}=await db.from('analytics_events').select('event_type,product_id,created_at').gte('created_at',since);if(error)throw error;const rows=data||[];const count=t=>rows.filter(x=>x.event_type===t).length;$('#aEvents').textContent=rows.length.toLocaleString('ar-EG');$('#aViews').textContent=count('product_view').toLocaleString('ar-EG');$('#aWhats').textContent=count('whatsapp_click').toLocaleString('ar-EG');$('#aShares').textContent=count('share').toLocaleString('ar-EG');const names=new Map(products.map(p=>[String(p.id),p.name]));const top=(type)=>{const m={};rows.filter(x=>x.event_type===type).forEach(x=>{m[x.product_id]=(m[x.product_id]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,8)};renderAnalyticsBars('#analyticsTopViews',top('product_view'),names);renderAnalyticsBars('#analyticsTopWhats',top('whatsapp_click'),names);}catch(e){console.warn(e);['#aEvents','#aViews','#aWhats','#aShares'].forEach(s=>$(s).textContent='—');$('#analyticsTopViews').innerHTML='<div class="pro-empty">شغّل migration الـAnalytics من ملف SQL.</div>';$('#analyticsTopWhats').innerHTML='';}}
+function renderAnalyticsBars(sel,data,names){const max=data[0]?.[1]||1;$(sel).innerHTML=data.length?data.map(([id,n])=>`<div class="analytics-bar"><div class="analytics-bar-top"><span>${esc(names.get(String(id))||'منتج')}</span><strong>${n}</strong></div><div class="analytics-track"><div class="analytics-fill" style="width:${n/max*100}%"></div></div></div>`).join(''):'<div class="pro-empty">لا توجد أحداث بعد.</div>';}
+async function loadDashboardAnalytics(){try{const since=new Date(Date.now()-30*86400000).toISOString();const {data,error}=await db.from('analytics_events').select('event_type,product_id').gte('created_at',since);if(error)throw error;const rows=data||[];const cnt=t=>rows.filter(x=>x.event_type===t).length;$('#kViews').textContent=cnt('product_view').toLocaleString('ar-EG');$('#kWhatsapp').textContent=cnt('whatsapp_click').toLocaleString('ar-EG');$('#kFavorites').textContent=cnt('favorite_add').toLocaleString('ar-EG');}catch(_){$('#kViews').textContent='—';$('#kWhatsapp').textContent='—';$('#kFavorites').textContent='—';}}
+function renderDashboardInsights(){const low=products.filter(p=>{const s=Number(p.stock);return p.stock!==null&&p.stock!==''&&Number.isFinite(s)&&s<=3&&!isOrderable(p)});const low2=products.filter(p=>{const s=Number(p.stock);return p.stock!==null&&p.stock!==''&&Number.isFinite(s)&&s>0&&s<=3});$('#kLowStock').textContent=low2.length.toLocaleString('ar-EG');const alerts=[];if(low2.length)alerts.push(`<div class="pro-row"><div><div class="pro-row-title">${low2.length} منتجات مخزونها منخفض</div><div class="pro-row-meta">راجع الكميات قبل ما تنفد.</div></div><span class="pro-tag gold">مخزون</span></div>`);const hidden=products.filter(p=>!isPublished(p)).length;if(hidden)alerts.push(`<div class="pro-row"><div><div class="pro-row-title">${hidden} منتجات مخفية</div><div class="pro-row-meta">مراجعة سريعة للظهور في المتجر.</div></div><span class="pro-tag">ظهور</span></div>`);const noImage=products.filter(p=>parseImages(p).length===0).length;if(noImage)alerts.push(`<div class="pro-row"><div><div class="pro-row-title">${noImage} منتجات بدون صور</div><div class="pro-row-meta">الصورة الأولى مهمة للواجهة.</div></div><span class="pro-tag red">صور</span></div>`);$('#dashboardAlerts').innerHTML=alerts.length?alerts.join(''):'<div class="pro-empty">مفيش تنبيهات حالياً ✅</div>';const counts={};Object.keys({}).forEach(()=>{});$('#dashboardTopProducts').innerHTML=[...products].sort((a,b)=>Number(b.sort_order||0)-Number(a.sort_order||0)).slice(0,5).map(p=>`<div class="pro-row"><div class="pro-row-main"><img class="pro-row-thumb" src="${esc(parseImages(p)[0]||'awm-logo.jpg')}" onerror="this.src='awm-logo.jpg'"><div><div class="pro-row-title">${esc(p.name)}</div><div class="pro-row-meta">${esc(p.category||'بدون قسم')} • ${isPublished(p)?'منشور':'مخفي'}</div></div></div><div class="pro-row-end"><strong>${money(p.price)}</strong><div><span class="pro-tag ${p.is_featured?'gold':''}">${p.is_featured?'Featured':'منتج'}</span></div></div></div>`).join('')||'<div class="pro-empty">أضف منتجات لعرض التحليلات.</div>';}
+async function loadActivity(){try{const {data,error}=await db.from('activity_logs').select('*').order('created_at',{ascending:false}).limit(100);if(error)throw error;$('#activityRows').innerHTML=(data||[]).map(x=>`<tr><td>${formatDate(x.created_at)}</td><td>${esc(x.actor_email||'—')}</td><td><span class="pro-tag">${esc(x.action)}</span></td><td>${esc(x.entity||'')}</td><td>${esc(JSON.stringify(x.details||{}))}</td></tr>`).join('')||'<tr><td colspan="5" class="no-data">لا يوجد سجل.</td></tr>';}catch(e){$('#activityRows').innerHTML='<tr><td colspan="5" class="no-data">فعّل activity_logs من ملف SQL.</td></tr>';}}
+
+/* Patch renderAll so all new dashboard data is refreshed. */
+const _renderAllOriginal=renderAll;
+renderAll=function(){_renderAllOriginal();loadDashboardAnalytics();renderDashboardInsights();};
+
 init();
 </script>
 </body>
