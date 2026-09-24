@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>AWM | لوحة الإدارة Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&amp;family=Montserrat:wght@600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
@@ -354,382 +355,357 @@ body{
 .pro-empty{padding:28px 10px;text-align:center;color:#888;font-size:11px}
 @media(max-width:620px){.pro-form-grid{grid-template-columns:1fr}.pro-form-grid .full{grid-column:auto}.pro-row{align-items:flex-start;flex-direction:column}.pro-actions{width:100%}.pro-actions .btn{flex:1}}
 
+
+/* ======================== ORGANIZED ADMIN LAYOUT ======================== */
+.side{overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
+.side::-webkit-scrollbar{width:5px}.side::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:999px}
+.menu{gap:5px}.menu-label{padding:13px 11px 5px;color:#666;font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.menu button{min-height:45px}.menu button.active{font-weight:900}
+.main{max-width:none}
+.main>.section{animation:sectionIn .22s ease}
+@keyframes sectionIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+#dashboardSection>.admin-hero{margin-top:0}
+#dashboardSection .stats{margin-top:0}
+.section{width:100%}
+.section>.panel,.section>.pro-section-grid,.section>.pro-grid,.section>.products-toolbar{width:100%}
+.showroom-grid{align-items:start}
+@media(min-width:1200px){.main{padding-inline:30px}.dashboard-grid{grid-template-columns:minmax(0,1.75fr) minmax(320px,.7fr)}.pro-section-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){.side{overflow-x:auto}.menu{flex-wrap:nowrap}.menu-label{display:none}.menu button{min-height:42px}.main{padding-top:11px}}
+@media(max-width:620px){.main{padding:11px}.topbar{margin-bottom:11px}.admin-hero{margin-bottom:11px}.panel{padding:14px}.panel-head{align-items:flex-start}.top-copy h1{font-size:21px}}
 </style>
 </head>
 <body>
-
-<section id="loginView" class="login">
-  <div class="login-card">
-    <div class="login-brand">
-      <img src="awm-logo.jpg" alt="AWM">
-      <div><strong>AWM</strong><small>ALWAYS YOUR STORE</small></div>
-    </div>
-    <h1>لوحة الإدارة Pro</h1>
-    <p>إدارة القطع والصور والتشكيلات وواجهة Digital Showroom في AWM.</p>
-    <form id="loginForm">
-      <div class="field"><label>البريد الإلكتروني</label><input id="email" class="input" type="email" autocomplete="username" placeholder="admin@example.com" required></div>
-      <div class="field"><label>كلمة المرور</label><input id="password" class="input" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
-      <button class="btn btn-red" style="width:100%" id="loginBtn" type="submit">دخول لوحة الإدارة</button>
-    </form>
-    <div id="loginMsg"></div>
-  </div>
+<section class="login" id="loginView">
+<div class="login-card">
+<div class="login-brand">
+<img alt="AWM" src="awm-logo.jpg"/>
+<div><strong>AWM</strong><small>ALWAYS YOUR STORE</small></div>
+</div>
+<h1>لوحة الإدارة Pro</h1>
+<p>إدارة القطع والصور والتشكيلات وواجهة Digital Showroom في AWM.</p>
+<form id="loginForm">
+<div class="field"><label>البريد الإلكتروني</label><input autocomplete="username" class="input" id="email" placeholder="admin@example.com" required="" type="email"/></div>
+<div class="field"><label>كلمة المرور</label><input autocomplete="current-password" class="input" id="password" placeholder="••••••••" required="" type="password"/></div>
+<button class="btn btn-red" id="loginBtn" style="width:100%" type="submit">دخول لوحة الإدارة</button>
+</form>
+<div id="loginMsg"></div>
+</div>
 </section>
+<div class="app hidden" id="app">
+<aside class="side">
+<div class="side-brand">
+<img alt="AWM" src="awm-logo.jpg"/>
+<div><strong>AWM</strong><small>ADMIN PRO</small></div>
+</div>
+<nav class="menu"><div class="menu-label">نظرة عامة</div><button class="active" data-section="dashboard" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg>لوحة التحكم</button><button data-section="analytics" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"></path></svg>التحليلات</button><div class="menu-label">إدارة المحتوى</div><button data-section="products" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 8.5 12 4l6 4.5v9L12 21l-6-3.5z"></path></svg>المنتجات</button><button data-section="taxonomy" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>الأقسام والكولكشن</button><button data-section="homepage" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m4 11 8-7 8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"></path></svg>الصفحة الرئيسية</button><button data-section="offers" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"></path></svg>العروض</button><div class="menu-label">Digital Showroom</div><button data-section="showroom" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"></path></svg>إدارة المعرض</button><button data-section="activity" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 6v6l4 2"></path></svg>سجل النشاط</button></nav>
+<div class="side-foot">AWM ADMIN PRO<br/>إدارة كاملة للقطع، الصور، التشكيلات، الـLookbook، QR وواجهة المعرض</div>
+</aside>
+<main class="main">
+<div class="topbar">
+<div class="top-copy">
+<h1 id="pageTitle">لوحة التحكم</h1>
+<p id="pageSubtitle">نظرة سريعة على المنتجات والظهور في المعرض.</p>
+</div>
+<div class="top-actions">
+<span class="sync-pill" id="syncState" title="حالة المزامنة">● جاري الاتصال</span>
+<button class="btn btn-light" onclick="window.open('index.html','_blank')">فتح المعرض</button>
+<button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button>
+<button class="btn btn-dark" onclick="logout()">خروج</button>
+</div>
+</div>
 
-<div id="app" class="app hidden">
-  <aside class="side">
-    <div class="side-brand">
-      <img src="awm-logo.jpg" alt="AWM">
-      <div><strong>AWM</strong><small>ADMIN PRO</small></div>
-    </div>
-    <nav class="menu">
-      <button class="active" data-section="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>لوحة التحكم</button>
-      <button data-section="products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8.5 12 4l6 4.5v9L12 21l-6-3.5z"/><path d="M6 8.5 12 12l6-3.5M12 12v9"/></svg>المنتجات</button>
-      <button data-section="taxonomy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>الأقسام والكولكشن</button>
-      <button data-section="homepage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 11 8-7 8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 20v-6h6v6"/></svg>الصفحة الرئيسية</button>
-      <button data-section="offers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/><path d="m8 15 8-6M9 9h.01M15 15h.01"/></svg>العروض</button>
-      <button data-section="analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16"/><path d="m7 16 4-5 3 3 5-7"/></svg>التحليلات</button>
-      <button data-section="activity">
-      <button data-section="showroom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>المعرض</button>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="8"/></svg>سجل النشاط</button>
-    </nav>
-    <div class="side-foot">AWM ADMIN PRO<br>إدارة كاملة للقطع، الصور، التشكيلات، الـLookbook، QR وواجهة المعرض</div>
-  </aside>
-
-  <main class="main">
-    <div class="topbar">
-      <div class="top-copy">
-        <h1 id="pageTitle">لوحة التحكم</h1>
-        <p id="pageSubtitle">نظرة سريعة على المنتجات والظهور في المعرض.</p>
-      </div>
-      <div class="top-actions">
-        <span id="syncState" class="sync-pill" title="حالة المزامنة">● جاري الاتصال</span>
-        <button class="btn btn-light" onclick="window.open('index.html','_blank')">فتح المعرض</button>
-        <button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button>
-        <button class="btn btn-dark" onclick="logout()">خروج</button>
-      </div>
-    </div>
-
-    <section class="admin-hero" aria-label="AWM Admin identity">
-      <div class="admin-hero-glow"></div>
-      <div class="admin-hero-logo">
-        <span class="admin-logo-aura"></span>
-        <img src="awm-logo.jpg" alt="AWM">
-      </div>
-      <div class="admin-hero-copy">
-        <div class="admin-kicker">ALWAYS YOUR STORE · CONTROL CENTER</div>
-        <h2>إدارة <span>AWM</span> بالكامل من مكان واحد</h2>
-        <p>القطع · الصور · الأقسام · Lookbook · الصفحة الرئيسية · QR · التحليلات</p>
-      </div>
-      <div class="admin-hero-actions">
-        <button class="btn btn-dark" onclick="window.open('index.html','_blank')">معاينة المتجر</button>
-      </div>
-    </section>
-
-    <section id="dashboardSection" class="section">
-      <div class="stats">
-        <div class="stat"><span>إجمالي المنتجات</span><strong id="sTotal">0</strong><div class="stat-note" id="sTotalNote">كل القطع في قاعدة البيانات</div></div>
-        <div class="stat"><span>منشورة في المعرض</span><strong id="sAvailable">0</strong><div class="stat-note" id="sAvailNote">جاهزة للعرض</div></div>
-        <div class="stat"><span>متوقفة للطلب</span><strong id="sUnavailable">0</strong><div class="stat-note">يمكن إخفاؤها أو إعادة تفعيلها</div></div>
-        <div class="stat"><span>قطع مميزة</span><strong id="sFeatured">0</strong><div class="stat-note">تظهر في Featured Collection</div></div>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="panel">
-          <div class="panel-head">
-            <div><h2>آخر القطع</h2><p>أحدث المنتجات المضافة أو المعدلة.</p></div>
-            <button class="btn btn-soft" onclick="switchSection('products')">كل المنتجات</button>
-          </div>
-          <div class="quick-list" id="recentList"></div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <div><h2>توزيع الأقسام</h2><p>نظرة على تشكيلتك الحالية.</p></div>
-          </div>
-          <div class="category-bars" id="categoryBars"></div>
-        </div>
-      </div>
-
-      <div class="pro-grid">
-        <div class="pro-kpi"><small>مشاهدات المنتجات</small><strong id="kViews">—</strong><span>من سجل التحليلات</span></div>
-        <div class="pro-kpi"><small>ضغطات واتساب</small><strong id="kWhatsapp">—</strong><span>استفسارات واتساب</span></div>
-        <div class="pro-kpi"><small>المفضلة</small><strong id="kFavorites">—</strong><span>إضافات للمفضلة</span></div>
-        <div class="pro-kpi"><small>مخزون منخفض</small><strong id="kLowStock">0</strong><span>3 قطع أو أقل</span></div>
-      </div>
-
-      <div class="pro-section-grid" style="margin-top:13px">
-        <div class="panel">
-          <div class="panel-head"><div><h2>الأكثر اهتمامًا</h2><p>حسب المشاهدات والضغطات.</p></div></div>
-          <div id="dashboardTopProducts" class="pro-list"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div><h2>تنبيهات المتجر</h2><p>حاجات محتاجة مراجعة.</p></div></div>
-          <div id="dashboardAlerts" class="pro-list"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="productsSection" class="section hidden">
-      <div class="products-toolbar">
-        <div class="toolbar-row">
-          <div class="search-wrap">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
-            <input id="search" class="search" placeholder="ابحث بالاسم، القسم، اللون، المقاس..." autocomplete="off">
-          </div>
-          <select id="statusFilter" class="select">
-            <option value="all">كل الحالات</option>
-            <option value="published">منشورة</option>
-            <option value="hidden">مخفية</option>
-            <option value="available">متاحة في المعرض</option>
-            <option value="unavailable">متوقفة للطلب</option>
-            <option value="featured">مميزة</option>
-          </select>
-          <select id="sortFilter" class="select">
-            <option value="new">الأحدث أولاً</option>
-            <option value="old">الأقدم أولاً</option>
-            <option value="priceAsc">الأقل سعراً</option>
-            <option value="priceDesc">الأعلى سعراً</option>
-            <option value="name">الاسم</option>
-            <option value="order">ترتيب العرض</option>
-          </select>
-          <button id="resetFilters" class="filter-btn">إعادة ضبط</button>
-        </div>
-        <div class="toolbar-sub">
-          <div class="chips" id="categoryChips"></div>
-          <div class="selection-bar">
-            <span class="selection-count" id="selectionCount">0 محدد</span>
-            <div class="bulk" id="bulkBar">
-              <button class="btn btn-soft" onclick="bulkToggleActive(true)">نشر</button>
-              <button class="btn btn-soft" onclick="bulkToggleActive(false)">إخفاء من المتجر</button>
-              <button class="btn btn-soft" onclick="bulkToggleAvailability(true)">إتاحة القطع</button>
-              <button class="btn btn-soft" onclick="bulkToggleAvailability(false)">إيقاف القطع</button>
-              <button class="btn btn-soft" onclick="bulkToggleFeatured(true)">تمييز</button>
-              <button class="btn btn-danger" onclick="bulkDelete()">حذف</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head">
-          <div><h2>المنتجات والمعرض</h2><p id="productSummary">جاري التحميل...</p></div>
-          <button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button>
-        </div>
-        <div class="table-wrap">
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="check-cell"><input id="selectAll" type="checkbox" aria-label="تحديد الكل"></th>
-                <th>القطعة</th><th>القسم</th><th>السعر</th><th>المخزون</th><th>الحالة</th><th>التوفر</th><th>المعرض</th><th>إجراء</th>
-              </tr>
-            </thead>
-            <tbody id="productRows"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+<section class="section" id="dashboardSection"><section aria-label="AWM Admin identity" class="admin-hero">
+<div class="admin-hero-glow"></div>
+<div class="admin-hero-logo">
+<span class="admin-logo-aura"></span>
+<img alt="AWM" src="awm-logo.jpg"/>
+</div>
+<div class="admin-hero-copy">
+<div class="admin-kicker">ALWAYS YOUR STORE · CONTROL CENTER</div>
+<h2>إدارة <span>AWM</span> بالكامل من مكان واحد</h2>
+<p>المنتجات · الصور · الأقسام · الصفحة الرئيسية · Lookbook · QR · التحليلات</p>
+</div>
+<div class="admin-hero-actions">
+<button class="btn btn-dark" onclick="window.open('index.html','_blank')">معاينة المتجر</button>
+</div>
+</section>
+<div class="stats">
+<div class="stat"><span>إجمالي المنتجات</span><strong id="sTotal">0</strong><div class="stat-note" id="sTotalNote">كل القطع في قاعدة البيانات</div></div>
+<div class="stat"><span>منشورة في المعرض</span><strong id="sAvailable">0</strong><div class="stat-note" id="sAvailNote">جاهزة للعرض</div></div>
+<div class="stat"><span>متوقفة للطلب</span><strong id="sUnavailable">0</strong><div class="stat-note">يمكن إخفاؤها أو إعادة تفعيلها</div></div>
+<div class="stat"><span>قطع مميزة</span><strong id="sFeatured">0</strong><div class="stat-note">تظهر في Featured Collection</div></div>
+</div>
+<div class="dashboard-grid">
+<div class="panel">
+<div class="panel-head">
+<div><h2>آخر القطع</h2><p>أحدث المنتجات المضافة أو المعدلة.</p></div>
+<button class="btn btn-soft" onclick="switchSection('products')">كل المنتجات</button>
+</div>
+<div class="quick-list" id="recentList"></div>
+</div>
+<div class="panel">
+<div class="panel-head">
+<div><h2>توزيع الأقسام</h2><p>نظرة على تشكيلتك الحالية.</p></div>
+</div>
+<div class="category-bars" id="categoryBars"></div>
+</div>
+</div>
+<div class="pro-grid">
+<div class="pro-kpi"><small>مشاهدات المنتجات</small><strong id="kViews">—</strong><span>من سجل التحليلات</span></div>
+<div class="pro-kpi"><small>ضغطات واتساب</small><strong id="kWhatsapp">—</strong><span>استفسارات واتساب</span></div>
+<div class="pro-kpi"><small>المفضلة</small><strong id="kFavorites">—</strong><span>إضافات للمفضلة</span></div>
+<div class="pro-kpi"><small>مخزون منخفض</small><strong id="kLowStock">0</strong><span>3 قطع أو أقل</span></div>
+</div>
+<div class="pro-section-grid" style="margin-top:13px">
+<div class="panel">
+<div class="panel-head"><div><h2>الأكثر اهتمامًا</h2><p>حسب المشاهدات والضغطات.</p></div></div>
+<div class="pro-list" id="dashboardTopProducts"></div>
+</div>
+<div class="panel">
+<div class="panel-head"><div><h2>تنبيهات المتجر</h2><p>حاجات محتاجة مراجعة.</p></div></div>
+<div class="pro-list" id="dashboardAlerts"></div>
+</div>
+</div>
+</section>
+<section class="section hidden" id="productsSection">
+<div class="products-toolbar">
+<div class="toolbar-row">
+<div class="search-wrap">
+<svg fill="none" height="17" stroke="currentColor" stroke-width="1.9" viewbox="0 0 24 24" width="17"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+<input autocomplete="off" class="search" id="search" placeholder="ابحث بالاسم، القسم، اللون، المقاس..."/>
+</div>
+<select class="select" id="statusFilter">
+<option value="all">كل الحالات</option>
+<option value="published">منشورة</option>
+<option value="hidden">مخفية</option>
+<option value="available">متاحة في المعرض</option>
+<option value="unavailable">متوقفة للطلب</option>
+<option value="featured">مميزة</option>
+</select>
+<select class="select" id="sortFilter">
+<option value="new">الأحدث أولاً</option>
+<option value="old">الأقدم أولاً</option>
+<option value="priceAsc">الأقل سعراً</option>
+<option value="priceDesc">الأعلى سعراً</option>
+<option value="name">الاسم</option>
+<option value="order">ترتيب العرض</option>
+</select>
+<button class="filter-btn" id="resetFilters">إعادة ضبط</button>
+</div>
+<div class="toolbar-sub">
+<div class="chips" id="categoryChips"></div>
+<div class="selection-bar">
+<span class="selection-count" id="selectionCount">0 محدد</span>
+<div class="bulk" id="bulkBar">
+<button class="btn btn-soft" onclick="bulkToggleActive(true)">نشر</button>
+<button class="btn btn-soft" onclick="bulkToggleActive(false)">إخفاء من المتجر</button>
+<button class="btn btn-soft" onclick="bulkToggleAvailability(true)">إتاحة القطع</button>
+<button class="btn btn-soft" onclick="bulkToggleAvailability(false)">إيقاف القطع</button>
+<button class="btn btn-soft" onclick="bulkToggleFeatured(true)">تمييز</button>
+<button class="btn btn-danger" onclick="bulkDelete()">حذف</button>
+</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-head">
+<div><h2>المنتجات والمعرض</h2><p id="productSummary">جاري التحميل...</p></div>
+<button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th class="check-cell"><input aria-label="تحديد الكل" id="selectAll" type="checkbox"/></th>
+<th>القطعة</th><th>القسم</th><th>السعر</th><th>المخزون</th><th>الحالة</th><th>التوفر</th><th>المعرض</th><th>إجراء</th>
+</tr>
+</thead>
+<tbody id="productRows"></tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="section hidden" id="taxonomySection">
+<div class="pro-section-grid">
+<div class="panel">
+<div class="panel-head"><div><h2>الأقسام</h2><p>إدارة الأقسام التي تظهر في المتجر.</p></div><button class="btn btn-red" onclick="openTaxModal('category')">+ قسم</button></div>
+<div class="pro-list" id="categoriesManager"></div>
+</div>
+<div class="panel">
+<div class="panel-head"><div><h2>الكولكشن</h2><p>New Drop / Summer / Premium / Sale.</p></div><button class="btn btn-red" onclick="openTaxModal('collection')">+ كولكشن</button></div>
+<div class="pro-list" id="collectionsManager"></div>
+</div>
+</div>
+</section><section class="section hidden" id="homepageSection">
+<div class="pro-hero-card">
+<div class="admin-kicker">HOMEPAGE BUILDER</div>
+<h2>ابنِ الصفحة الرئيسية من غير ما تلمس الكود</h2>
+<p>رتّب الـHero والمنتجات المميزة والـCollections والبنرات. التغييرات تُحفظ في Supabase وتظهر للزوار لحظيًا.</p>
+<button class="btn btn-red" onclick="openHomeModal()">+ إضافة Section</button>
+</div>
+<div class="panel" style="margin-top:13px"><div class="panel-head"><div><h2>Sections</h2><p>اسحب المنطق من خلال ترتيب العرض.</p></div><button class="btn btn-soft" onclick="loadHomepageSections()">تحديث</button></div><div class="pro-list" id="homepageSectionsManager"></div></div>
+</section><section class="section hidden" id="offersSection">
+<div class="panel">
+<div class="panel-head"><div><h2>العروض</h2><p>عرض + Countdown + ربط بمنتجات محددة.</p></div><button class="btn btn-red" onclick="openOfferModal()">+ عرض جديد</button></div>
+<div class="pro-list" id="offersManager"></div>
+</div>
+</section><section class="section hidden" id="analyticsSection">
+<div class="pro-grid">
+<div class="pro-kpi"><small>إجمالي الأحداث</small><strong id="aEvents">—</strong><span>آخر 30 يوم</span></div>
+<div class="pro-kpi"><small>مشاهدات</small><strong id="aViews">—</strong><span>product_view</span></div>
+<div class="pro-kpi"><small>واتساب</small><strong id="aWhats">—</strong><span>whatsapp_click</span></div>
+<div class="pro-kpi"><small>مشاركة</small><strong id="aShares">—</strong><span>share</span></div>
+</div>
+<div class="pro-section-grid" style="margin-top:13px">
+<div class="panel"><div class="panel-head"><div><h2>الأكثر مشاهدة</h2><p>آخر 30 يوم.</p></div></div><div class="analytics-bars" id="analyticsTopViews"></div></div>
+<div class="panel"><div class="panel-head"><div><h2>أكثر ضغطات واتساب</h2><p>آخر 30 يوم.</p></div></div><div class="analytics-bars" id="analyticsTopWhats"></div></div>
+<div class="panel"><div class="panel-head"><div><h2>أكثر عمليات البحث</h2><p>ما الذي يبحث عنه زوار المعرض؟</p></div></div><div class="analytics-bars" id="analyticsTopSearches"></div></div>
+</div>
+</section><section class="section hidden" id="activitySection">
+<div class="panel">
+<div class="panel-head"><div><h2>سجل النشاط</h2><p>كل تغيير مهم على المنتجات والإعدادات.</p></div><button class="btn btn-soft" onclick="loadActivity()">تحديث</button></div>
+<div class="pro-table-wrap"><table class="pro-mini-table"><thead><tr><th>الوقت</th><th>المستخدم</th><th>العملية</th><th>الكيان</th><th>التفاصيل</th></tr></thead><tbody id="activityRows"></tbody></table></div>
+</div>
+</section><section class="section hidden" id="showroomSection">
+<div class="pro-section-grid">
+<div class="panel">
+<div class="panel-head"><div><h2>بيانات المعرض</h2><p>المعلومات التي تظهر للزوار في Digital Showroom.</p></div><button class="btn btn-red" onclick="saveShowroomSettings()">حفظ</button></div>
+<div class="pro-form-grid" id="showroomSettingsForm">
+<div class="field"><label>اسم المعرض</label><input class="input" id="storeNameAdmin"/></div>
+<div class="field"><label>الوصف المختصر</label><input class="input" id="storeTaglineAdmin"/></div>
+<div class="field full"><label>نبذة</label><textarea class="input" id="storeAboutAdmin" rows="3"></textarea></div>
+<div class="field"><label>العنوان</label><textarea class="input" id="storeAddressAdmin" rows="2"></textarea></div>
+<div class="field"><label>مواعيد العمل</label><textarea class="input" id="storeHoursAdmin" rows="2"></textarea></div>
+<div class="field"><label>رقم الهاتف</label><input class="input" id="storePhoneAdmin"/></div>
+<div class="field"><label>واتساب</label><input class="input" id="storeWhatsappAdmin" placeholder="2010..."/></div>
+<div class="field"><label>رابط Google Maps</label><input class="input" id="storeMapAdmin"/></div>
+<div class="field"><label>Instagram</label><input class="input" id="storeInstagramAdmin"/></div>
+<div class="field"><label>TikTok</label><input class="input" id="storeTiktokAdmin"/></div>
+<div class="field"><label>Facebook</label><input class="input" id="storeFacebookAdmin"/></div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-head"><div><h2>وضع العرض</h2><p>شاشة Fullscreen للمحل أو التلفزيون.</p></div></div>
+<div class="pro-empty">
+<strong style="display:block;color:#111;margin-bottom:7px">AWM Digital Display</strong>
+<span style="display:block;margin-bottom:14px">يعرض القطع تلقائيًا كل 7 ثوانٍ.</span>
+<button class="btn btn-dark" onclick="openDisplayMode()">فتح وضع العرض</button>
+</div>
+</div>
+</div>
+<div class="pro-section-grid" style="margin-top:13px">
+<div class="panel">
+<div class="panel-head"><div><h2>Lookbook</h2><p>مجموعات مرئية مرتبطة بقطع محددة.</p></div><button class="btn btn-red" onclick="openLookbookAdmin()">+ Lookbook</button></div>
+<div class="pro-list" id="adminLookbooks"></div>
+</div>
+<div class="panel">
+<div class="panel-head"><div><h2>QR Codes</h2><p>أكواد جاهزة للطباعة لكل قطعة أو رابط.</p></div><button class="btn btn-red" onclick="openQrAdmin()">+ QR</button></div>
+<div class="pro-list" id="adminQrCodes"></div>
+</div>
+</div>
+<div class="panel" style="margin-top:13px">
+<div class="panel-head"><div><h2>Media Library</h2><p>كل صور المنتجات الموجودة حاليًا — انسخ الرابط واستخدمه في الـHero أو الـLookbook.</p></div><button class="btn btn-soft" onclick="loadMediaLibrary()">تحديث</button></div>
+<div class="images-grid" id="mediaLibraryGrid"></div>
+</div>
+</section></main>
 </div>
 
 
-<section id="taxonomySection" class="section hidden">
-  <div class="pro-section-grid">
-    <div class="panel">
-      <div class="panel-head"><div><h2>الأقسام</h2><p>إدارة الأقسام التي تظهر في المتجر.</p></div><button class="btn btn-red" onclick="openTaxModal('category')">+ قسم</button></div>
-      <div id="categoriesManager" class="pro-list"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><div><h2>الكولكشن</h2><p>New Drop / Summer / Premium / Sale.</p></div><button class="btn btn-red" onclick="openTaxModal('collection')">+ كولكشن</button></div>
-      <div id="collectionsManager" class="pro-list"></div>
-    </div>
-  </div>
-</section>
-
-<section id="homepageSection" class="section hidden">
-  <div class="pro-hero-card">
-    <div class="admin-kicker">HOMEPAGE BUILDER</div>
-    <h2>ابنِ الصفحة الرئيسية من غير ما تلمس الكود</h2>
-    <p>رتّب الـHero والمنتجات المميزة والـCollections والبنرات. التغييرات تُحفظ في Supabase وتظهر للزوار لحظيًا.</p>
-    <button class="btn btn-red" onclick="openHomeModal()">+ إضافة Section</button>
-  </div>
-  <div class="panel" style="margin-top:13px"><div class="panel-head"><div><h2>Sections</h2><p>اسحب المنطق من خلال ترتيب العرض.</p></div><button class="btn btn-soft" onclick="loadHomepageSections()">تحديث</button></div><div id="homepageSectionsManager" class="pro-list"></div></div>
-</section>
-
-<section id="offersSection" class="section hidden">
-  <div class="panel">
-    <div class="panel-head"><div><h2>العروض</h2><p>عرض + Countdown + ربط بمنتجات محددة.</p></div><button class="btn btn-red" onclick="openOfferModal()">+ عرض جديد</button></div>
-    <div id="offersManager" class="pro-list"></div>
-  </div>
-</section>
-
-<section id="analyticsSection" class="section hidden">
-  <div class="pro-grid">
-    <div class="pro-kpi"><small>إجمالي الأحداث</small><strong id="aEvents">—</strong><span>آخر 30 يوم</span></div>
-    <div class="pro-kpi"><small>مشاهدات</small><strong id="aViews">—</strong><span>product_view</span></div>
-    <div class="pro-kpi"><small>واتساب</small><strong id="aWhats">—</strong><span>whatsapp_click</span></div>
-    <div class="pro-kpi"><small>مشاركة</small><strong id="aShares">—</strong><span>share</span></div>
-  </div>
-  <div class="pro-section-grid" style="margin-top:13px">
-    <div class="panel"><div class="panel-head"><div><h2>الأكثر مشاهدة</h2><p>آخر 30 يوم.</p></div></div><div id="analyticsTopViews" class="analytics-bars"></div></div>
-    <div class="panel"><div class="panel-head"><div><h2>أكثر ضغطات واتساب</h2><p>آخر 30 يوم.</p></div></div><div id="analyticsTopWhats" class="analytics-bars"></div></div>
-    <div class="panel"><div class="panel-head"><div><h2>أكثر عمليات البحث</h2><p>ما الذي يبحث عنه زوار المعرض؟</p></div></div><div id="analyticsTopSearches" class="analytics-bars"></div></div>
-  </div>
-</section>
-
-<section id="activitySection" class="section hidden">
-  <div class="panel">
-    <div class="panel-head"><div><h2>سجل النشاط</h2><p>كل تغيير مهم على المنتجات والإعدادات.</p></div><button class="btn btn-soft" onclick="loadActivity()">تحديث</button></div>
-    <div class="pro-table-wrap"><table class="pro-mini-table"><thead><tr><th>الوقت</th><th>المستخدم</th><th>العملية</th><th>الكيان</th><th>التفاصيل</th></tr></thead><tbody id="activityRows"></tbody></table></div>
-  </div>
-</section>
-
-<div class="overlay pro-modal" id="taxOverlay"><div class="modal"><div class="modal-head"><h2 id="taxModalTitle">إضافة</h2><button class="x" onclick="closeTaxModal()">×</button></div><form class="form-wrap" id="taxForm"><input type="hidden" id="taxType"><input type="hidden" id="taxId"><div class="pro-form-grid"><div class="field"><label>الاسم *</label><input id="taxName" class="input" required></div><div class="field"><label>Slug</label><input id="taxSlug" class="input"></div><div class="field full"><label>الوصف</label><textarea id="taxDescription" class="input" rows="3"></textarea></div><div class="field"><label>الصورة</label><input id="taxImage" class="input" placeholder="رابط صورة اختياري"></div><div class="field"><label>الترتيب</label><input id="taxOrder" class="input" type="number" value="0"></div><div class="field full"><label class="pro-switch"><input id="taxActive" type="checkbox" checked><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ</button><button class="btn btn-light" type="button" onclick="closeTaxModal()">إلغاء</button></div></form></div></div>
-
-<div class="overlay pro-modal" id="homeOverlay"><div class="modal"><div class="modal-head"><h2>Section جديدة</h2><button class="x" onclick="closeHomeModal()">×</button></div><form class="form-wrap" id="homeForm"><input type="hidden" id="homeId"><div class="pro-form-grid"><div class="field"><label>النوع *</label><select id="homeType" class="input"><option value="hero">Hero Banner</option><option value="products">منتجات</option><option value="collection">Collection</option><option value="banner">Banner</option><option value="categories">الأقسام</option><option value="text">نص</option></select></div><div class="field"><label>الترتيب</label><input id="homeOrder" class="input" type="number" value="0"></div><div class="field"><label>العنوان</label><input id="homeTitle" class="input"></div><div class="field"><label>العنوان الفرعي</label><input id="homeSubtitle" class="input"></div><div class="field"><label>Collection</label><input id="homeCollection" class="input"></div><div class="field"><label>IDs منتجات</label><input id="homeProductIds" class="input" placeholder="1,2,3"></div><div class="field full"><label>الصورة</label><input id="homeImage" class="input" placeholder="رابط الصورة"></div><div class="field"><label>نص الزر</label><input id="homeButtonText" class="input" placeholder="اكتشف الآن"></div><div class="field"><label>رابط الزر</label><input id="homeButtonUrl" class="input" placeholder="#catalog"></div><div class="field full"><label class="pro-switch"><input id="homeActive" type="checkbox" checked><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ القسم</button><button class="btn btn-light" type="button" onclick="closeHomeModal()">إلغاء</button></div></form></div></div>
-
-<div class="overlay pro-modal" id="offerOverlay"><div class="modal"><div class="modal-head"><h2>عرض جديد</h2><button class="x" onclick="closeOfferModal()">×</button></div><form class="form-wrap" id="offerForm"><input type="hidden" id="offerId"><div class="pro-form-grid"><div class="field"><label>اسم العرض *</label><input id="offerTitle" class="input" required></div><div class="field"><label>نوع الخصم</label><select id="offerType" class="input"><option value="label">Banner فقط</option><option value="percent">نسبة %</option><option value="amount">قيمة</option></select></div><div class="field"><label>قيمة الخصم</label><input id="offerValue" class="input" type="number" min="0" step="0.01"></div><div class="field"><label>لون/شارة</label><input id="offerColor" class="input" placeholder="#111111"></div><div class="field"><label>بداية</label><input id="offerStart" class="input" type="datetime-local"></div><div class="field"><label>نهاية</label><input id="offerEnd" class="input" type="datetime-local"></div><div class="field full"><label>منتجات العرض</label><input id="offerProductIds" class="input" placeholder="IDs مفصولة بفواصل — اتركها فارغة لعرض عام"></div><div class="field full"><label class="pro-switch"><input id="offerActive" type="checkbox" checked><span></span> العرض نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ العرض</button><button class="btn btn-light" type="button" onclick="closeOfferModal()">إلغاء</button></div></form></div></div>
 
 
-<section id="showroomSection" class="section hidden">
-  <div class="pro-section-grid">
-    <div class="panel">
-      <div class="panel-head"><div><h2>بيانات المعرض</h2><p>المعلومات التي تظهر للزوار في Digital Showroom.</p></div><button class="btn btn-red" onclick="saveShowroomSettings()">حفظ</button></div>
-      <div class="pro-form-grid" id="showroomSettingsForm">
-        <div class="field"><label>اسم المعرض</label><input id="storeNameAdmin" class="input"></div>
-        <div class="field"><label>الوصف المختصر</label><input id="storeTaglineAdmin" class="input"></div>
-        <div class="field full"><label>نبذة</label><textarea id="storeAboutAdmin" class="input" rows="3"></textarea></div>
-        <div class="field"><label>العنوان</label><textarea id="storeAddressAdmin" class="input" rows="2"></textarea></div>
-        <div class="field"><label>مواعيد العمل</label><textarea id="storeHoursAdmin" class="input" rows="2"></textarea></div>
-        <div class="field"><label>رقم الهاتف</label><input id="storePhoneAdmin" class="input"></div>
-        <div class="field"><label>واتساب</label><input id="storeWhatsappAdmin" class="input" placeholder="2010..."></div>
-        <div class="field"><label>رابط Google Maps</label><input id="storeMapAdmin" class="input"></div>
-        <div class="field"><label>Instagram</label><input id="storeInstagramAdmin" class="input"></div>
-        <div class="field"><label>TikTok</label><input id="storeTiktokAdmin" class="input"></div>
-        <div class="field"><label>Facebook</label><input id="storeFacebookAdmin" class="input"></div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><div><h2>وضع العرض</h2><p>شاشة Fullscreen للمحل أو التلفزيون.</p></div></div>
-      <div class="pro-empty">
-        <strong style="display:block;color:#111;margin-bottom:7px">AWM Digital Display</strong>
-        <span style="display:block;margin-bottom:14px">يعرض القطع تلقائيًا كل 7 ثوانٍ.</span>
-        <button class="btn btn-dark" onclick="openDisplayMode()">فتح وضع العرض</button>
-      </div>
-    </div>
-  </div>
 
-  <div class="pro-section-grid" style="margin-top:13px">
-    <div class="panel">
-      <div class="panel-head"><div><h2>Lookbook</h2><p>مجموعات مرئية مرتبطة بقطع محددة.</p></div><button class="btn btn-red" onclick="openLookbookAdmin()">+ Lookbook</button></div>
-      <div id="adminLookbooks" class="pro-list"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><div><h2>QR Codes</h2><p>أكواد جاهزة للطباعة لكل قطعة أو رابط.</p></div><button class="btn btn-red" onclick="openQrAdmin()">+ QR</button></div>
-      <div id="adminQrCodes" class="pro-list"></div>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-top:13px">
-    <div class="panel-head"><div><h2>Media Library</h2><p>كل صور المنتجات الموجودة حاليًا — انسخ الرابط واستخدمه في الـHero أو الـLookbook.</p></div><button class="btn btn-soft" onclick="loadMediaLibrary()">تحديث</button></div>
-    <div id="mediaLibraryGrid" class="images-grid"></div>
-  </div>
-</section>
+<div class="overlay pro-modal" id="taxOverlay"><div class="modal"><div class="modal-head"><h2 id="taxModalTitle">إضافة</h2><button class="x" onclick="closeTaxModal()">×</button></div><form class="form-wrap" id="taxForm"><input id="taxType" type="hidden"/><input id="taxId" type="hidden"/><div class="pro-form-grid"><div class="field"><label>الاسم *</label><input class="input" id="taxName" required=""/></div><div class="field"><label>Slug</label><input class="input" id="taxSlug"/></div><div class="field full"><label>الوصف</label><textarea class="input" id="taxDescription" rows="3"></textarea></div><div class="field"><label>الصورة</label><input class="input" id="taxImage" placeholder="رابط صورة اختياري"/></div><div class="field"><label>الترتيب</label><input class="input" id="taxOrder" type="number" value="0"/></div><div class="field full"><label class="pro-switch"><input checked="" id="taxActive" type="checkbox"/><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ</button><button class="btn btn-light" onclick="closeTaxModal()" type="button">إلغاء</button></div></form></div></div>
+<div class="overlay pro-modal" id="homeOverlay"><div class="modal"><div class="modal-head"><h2>Section جديدة</h2><button class="x" onclick="closeHomeModal()">×</button></div><form class="form-wrap" id="homeForm"><input id="homeId" type="hidden"/><div class="pro-form-grid"><div class="field"><label>النوع *</label><select class="input" id="homeType"><option value="hero">Hero Banner</option><option value="products">منتجات</option><option value="collection">Collection</option><option value="banner">Banner</option><option value="categories">الأقسام</option><option value="text">نص</option></select></div><div class="field"><label>الترتيب</label><input class="input" id="homeOrder" type="number" value="0"/></div><div class="field"><label>العنوان</label><input class="input" id="homeTitle"/></div><div class="field"><label>العنوان الفرعي</label><input class="input" id="homeSubtitle"/></div><div class="field"><label>Collection</label><input class="input" id="homeCollection"/></div><div class="field"><label>IDs منتجات</label><input class="input" id="homeProductIds" placeholder="1,2,3"/></div><div class="field full"><label>الصورة</label><input class="input" id="homeImage" placeholder="رابط الصورة"/></div><div class="field"><label>نص الزر</label><input class="input" id="homeButtonText" placeholder="اكتشف الآن"/></div><div class="field"><label>رابط الزر</label><input class="input" id="homeButtonUrl" placeholder="#catalog"/></div><div class="field full"><label class="pro-switch"><input checked="" id="homeActive" type="checkbox"/><span></span> نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ القسم</button><button class="btn btn-light" onclick="closeHomeModal()" type="button">إلغاء</button></div></form></div></div>
+<div class="overlay pro-modal" id="offerOverlay"><div class="modal"><div class="modal-head"><h2>عرض جديد</h2><button class="x" onclick="closeOfferModal()">×</button></div><form class="form-wrap" id="offerForm"><input id="offerId" type="hidden"/><div class="pro-form-grid"><div class="field"><label>اسم العرض *</label><input class="input" id="offerTitle" required=""/></div><div class="field"><label>نوع الخصم</label><select class="input" id="offerType"><option value="label">Banner فقط</option><option value="percent">نسبة %</option><option value="amount">قيمة</option></select></div><div class="field"><label>قيمة الخصم</label><input class="input" id="offerValue" min="0" step="0.01" type="number"/></div><div class="field"><label>لون/شارة</label><input class="input" id="offerColor" placeholder="#111111"/></div><div class="field"><label>بداية</label><input class="input" id="offerStart" type="datetime-local"/></div><div class="field"><label>نهاية</label><input class="input" id="offerEnd" type="datetime-local"/></div><div class="field full"><label>منتجات العرض</label><input class="input" id="offerProductIds" placeholder="IDs مفصولة بفواصل — اتركها فارغة لعرض عام"/></div><div class="field full"><label class="pro-switch"><input checked="" id="offerActive" type="checkbox"/><span></span> العرض نشط</label></div></div><div class="form-actions"><button class="btn btn-red" type="submit">حفظ العرض</button><button class="btn btn-light" onclick="closeOfferModal()" type="button">إلغاء</button></div></form></div></div>
 
 <div class="overlay pro-modal" id="lookbookAdminOverlay">
-  <div class="modal"><div class="modal-head"><h2>Lookbook</h2><button class="x" onclick="closeLookbookAdmin()">×</button></div>
-  <form class="form-wrap" id="lookbookAdminForm">
-    <input type="hidden" id="lbId">
-    <div class="pro-form-grid">
-      <div class="field"><label>الاسم *</label><input id="lbTitle" class="input" required></div>
-      <div class="field"><label>العنوان الفرعي</label><input id="lbSubtitle" class="input"></div>
-      <div class="field full"><label>الوصف</label><textarea id="lbDescription" class="input" rows="3"></textarea></div>
-      <div class="field full"><label>صورة الغلاف</label><input id="lbCover" class="input" placeholder="رابط الصورة"></div>
-      <div class="field full"><label>IDs القطع</label><input id="lbProducts" class="input" placeholder="1,2,3"></div>
-      <div class="field"><label>الترتيب</label><input id="lbOrder" class="input" type="number" value="0"></div>
-      <div class="field"><label class="pro-switch"><input id="lbActive" type="checkbox" checked><span></span> نشط</label></div>
-    </div>
-    <div class="form-actions"><button class="btn btn-red" type="submit">حفظ</button><button class="btn btn-light" type="button" onclick="closeLookbookAdmin()">إلغاء</button></div>
-  </form></div>
+<div class="modal"><div class="modal-head"><h2>Lookbook</h2><button class="x" onclick="closeLookbookAdmin()">×</button></div>
+<form class="form-wrap" id="lookbookAdminForm">
+<input id="lbId" type="hidden"/>
+<div class="pro-form-grid">
+<div class="field"><label>الاسم *</label><input class="input" id="lbTitle" required=""/></div>
+<div class="field"><label>العنوان الفرعي</label><input class="input" id="lbSubtitle"/></div>
+<div class="field full"><label>الوصف</label><textarea class="input" id="lbDescription" rows="3"></textarea></div>
+<div class="field full"><label>صورة الغلاف</label><input class="input" id="lbCover" placeholder="رابط الصورة"/></div>
+<div class="field full"><label>IDs القطع</label><input class="input" id="lbProducts" placeholder="1,2,3"/></div>
+<div class="field"><label>الترتيب</label><input class="input" id="lbOrder" type="number" value="0"/></div>
+<div class="field"><label class="pro-switch"><input checked="" id="lbActive" type="checkbox"/><span></span> نشط</label></div>
 </div>
-
+<div class="form-actions"><button class="btn btn-red" type="submit">حفظ</button><button class="btn btn-light" onclick="closeLookbookAdmin()" type="button">إلغاء</button></div>
+</form></div>
+</div>
 <div class="overlay pro-modal" id="qrAdminOverlay">
-  <div class="modal"><div class="modal-head"><h2>إنشاء QR</h2><button class="x" onclick="closeQrAdmin()">×</button></div>
-  <form class="form-wrap" id="qrAdminForm">
-    <input type="hidden" id="qrIdAdmin">
-    <div class="pro-form-grid">
-      <div class="field"><label>الاسم *</label><input id="qrLabelAdmin" class="input" required></div>
-      <div class="field"><label>النوع</label><select id="qrTypeAdmin" class="input"><option value="product">قطعة</option><option value="showroom">المعرض</option><option value="custom">رابط مخصص</option></select></div>
-      <div class="field full" id="qrProductWrap"><label>القطعة</label><select id="qrProductAdmin" class="input"></select></div>
-      <div class="field full"><label>الرابط المخصص</label><input id="qrTargetAdmin" class="input" placeholder="يُستخدم عند اختيار رابط مخصص"></div>
-      <div class="field"><label>الترتيب</label><input id="qrOrderAdmin" class="input" type="number" value="0"></div>
-      <div class="field"><label class="pro-switch"><input id="qrActiveAdmin" type="checkbox" checked><span></span> نشط</label></div>
-    </div>
-    <div id="qrPreviewAdmin" style="margin-top:15px;text-align:center"></div>
-    <div class="form-actions"><button class="btn btn-red" type="submit">حفظ QR</button><button class="btn btn-light" type="button" onclick="closeQrAdmin()">إلغاء</button></div>
-  </form></div>
+<div class="modal"><div class="modal-head"><h2>إنشاء QR</h2><button class="x" onclick="closeQrAdmin()">×</button></div>
+<form class="form-wrap" id="qrAdminForm">
+<input id="qrIdAdmin" type="hidden"/>
+<div class="pro-form-grid">
+<div class="field"><label>الاسم *</label><input class="input" id="qrLabelAdmin" required=""/></div>
+<div class="field"><label>النوع</label><select class="input" id="qrTypeAdmin"><option value="product">قطعة</option><option value="showroom">المعرض</option><option value="custom">رابط مخصص</option></select></div>
+<div class="field full" id="qrProductWrap"><label>القطعة</label><select class="input" id="qrProductAdmin"></select></div>
+<div class="field full"><label>الرابط المخصص</label><input class="input" id="qrTargetAdmin" placeholder="يُستخدم عند اختيار رابط مخصص"/></div>
+<div class="field"><label>الترتيب</label><input class="input" id="qrOrderAdmin" type="number" value="0"/></div>
+<div class="field"><label class="pro-switch"><input checked="" id="qrActiveAdmin" type="checkbox"/><span></span> نشط</label></div>
 </div>
-
+<div id="qrPreviewAdmin" style="margin-top:15px;text-align:center"></div>
+<div class="form-actions"><button class="btn btn-red" type="submit">حفظ QR</button><button class="btn btn-light" onclick="closeQrAdmin()" type="button">إلغاء</button></div>
+</form></div>
+</div>
 <div class="overlay" id="productOverlay">
-  <div class="modal">
-    <div class="modal-head"><h2 id="modalTitle">إضافة قطعة</h2><button class="x" onclick="closeProductModal()">×</button></div>
-    <div id="modalLoading" class="modal-loading hidden">جاري تجهيز البيانات...</div>
-    <form id="productForm" class="form-wrap">
-      <input type="hidden" id="pid">
-
-      <div class="form-grid">
-        <div class="field"><label>اسم القطعة *</label><input id="pname" class="input" required></div>
-        <div class="field"><label>القسم</label><input id="pcategory" class="input" placeholder="تيشيرتات، قمصان، بناطيل..."></div>
-        <div class="field"><label>السعر الحالي بالجنيه *</label><input id="pprice" class="input" type="number" min="0" step="0.01" required></div>
-        <div class="field"><label>السعر القديم</label><input id="poldprice" class="input" type="number" min="0" step="0.01" placeholder="اختياري للعروض"></div>
-        <div class="field"><label>المخزون</label><input id="pstock" class="input" type="number" min="0" step="1" placeholder="مثال: 3"></div>
-        <div class="field"><label>حالة القطعة</label><select id="pcondition" class="input"><option>جديد</option><option>ممتاز</option><option>جيد جداً</option><option>مستعمل</option></select></div>
-        <div class="field"><label>المقاسات</label><input id="psizes" class="input" placeholder="S / M / L / XL / XXL"></div>
-        <div class="field"><label>الألوان</label><input id="pcolors" class="input" placeholder="أسود، أبيض، كحلي..."></div>
-        <div class="field"><label>الكولكشن</label><input id="pcollection" class="input" placeholder="Summer 2026 / New Drop..."></div>
-        <div class="field"><label>الخامة / Fabric</label><input id="pfabric" class="input" placeholder="Cotton، Denim..."></div>
-        <div class="field"><label>Tags / كلمات البحث</label><input id="ptags" class="input" placeholder="قميص، كاجوال، صيفي..."></div>
-        <div class="field full"><label>وصف القطعة</label><textarea id="pdesc" class="input" rows="4" placeholder="تفاصيل القماش، الموديل، الملاحظات..."></textarea></div>
-        <div class="field full"><label>SEO Title</label><input id="pseoTitle" class="input" placeholder="اختياري — عنوان محرك البحث"></div>
-        <div class="field full"><label>SEO Description</label><textarea id="pseoDescription" class="input" rows="3" placeholder="وصف مختصر للبحث والمشاركة"></textarea></div>
-        <div class="field"><label>دليل المقاسات</label><input id="psizeGuide" class="input" placeholder="رابط أو اسم دليل المقاسات"></div>
-        <div class="field"><label>شارة العرض</label><select id="pbadge" class="input"><option value="">بدون شارة</option><option value="new">جديد</option><option value="featured">مميز</option><option value="trending">Trending</option><option value="limited">Limited</option><option value="exclusive">Exclusive</option><option value="coming_soon">Coming Soon</option><option value="last_piece">آخر قطعة</option></select></div>
-<div class="field"><label>ملاحظة للمعرض</label><input id="pdisplayNote" class="input" placeholder="مثال: خامة مميزة / إصدار محدود"></div>
+<div class="modal">
+<div class="modal-head"><h2 id="modalTitle">إضافة قطعة</h2><button class="x" onclick="closeProductModal()">×</button></div>
+<div class="modal-loading hidden" id="modalLoading">جاري تجهيز البيانات...</div>
+<form class="form-wrap" id="productForm">
+<input id="pid" type="hidden"/>
+<div class="form-grid">
+<div class="field"><label>اسم القطعة *</label><input class="input" id="pname" required=""/></div>
+<div class="field"><label>القسم</label><input class="input" id="pcategory" placeholder="تيشيرتات، قمصان، بناطيل..."/></div>
+<div class="field"><label>السعر الحالي بالجنيه *</label><input class="input" id="pprice" min="0" required="" step="0.01" type="number"/></div>
+<div class="field"><label>السعر القديم</label><input class="input" id="poldprice" min="0" placeholder="اختياري للعروض" step="0.01" type="number"/></div>
+<div class="field"><label>المخزون</label><input class="input" id="pstock" min="0" placeholder="مثال: 3" step="1" type="number"/></div>
+<div class="field"><label>حالة القطعة</label><select class="input" id="pcondition"><option>جديد</option><option>ممتاز</option><option>جيد جداً</option><option>مستعمل</option></select></div>
+<div class="field"><label>المقاسات</label><input class="input" id="psizes" placeholder="S / M / L / XL / XXL"/></div>
+<div class="field"><label>الألوان</label><input class="input" id="pcolors" placeholder="أسود، أبيض، كحلي..."/></div>
+<div class="field"><label>الكولكشن</label><input class="input" id="pcollection" placeholder="Summer 2026 / New Drop..."/></div>
+<div class="field"><label>الخامة / Fabric</label><input class="input" id="pfabric" placeholder="Cotton، Denim..."/></div>
+<div class="field"><label>Tags / كلمات البحث</label><input class="input" id="ptags" placeholder="قميص، كاجوال، صيفي..."/></div>
+<div class="field full"><label>وصف القطعة</label><textarea class="input" id="pdesc" placeholder="تفاصيل القماش، الموديل، الملاحظات..." rows="4"></textarea></div>
+<div class="field full"><label>SEO Title</label><input class="input" id="pseoTitle" placeholder="اختياري — عنوان محرك البحث"/></div>
+<div class="field full"><label>SEO Description</label><textarea class="input" id="pseoDescription" placeholder="وصف مختصر للبحث والمشاركة" rows="3"></textarea></div>
+<div class="field"><label>دليل المقاسات</label><input class="input" id="psizeGuide" placeholder="رابط أو اسم دليل المقاسات"/></div>
+<div class="field"><label>شارة العرض</label><select class="input" id="pbadge"><option value="">بدون شارة</option><option value="new">جديد</option><option value="featured">مميز</option><option value="trending">Trending</option><option value="limited">Limited</option><option value="exclusive">Exclusive</option><option value="coming_soon">Coming Soon</option><option value="last_piece">آخر قطعة</option></select></div>
+<div class="field"><label>ملاحظة للمعرض</label><input class="input" id="pdisplayNote" placeholder="مثال: خامة مميزة / إصدار محدود"/></div>
 <div class="field full">
-          <label>صور القطعة</label>
-          <div class="upload-zone" id="uploadZone">
-            <strong>اسحب الصور هنا أو اختر من الجهاز</strong>
-            <span>يمكنك رفع أكثر من صورة — أول صورة ستكون صورة الغلاف.</span>
-            <div class="upload-actions">
-              <label class="btn btn-dark" for="pfiles">اختيار الصور</label>
-              <button class="btn btn-light" type="button" onclick="document.getElementById('pfiles').click()">إضافة صور</button>
-            </div>
-            <input id="pfiles" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple>
-          </div>
-          <div class="images-grid" id="imagesGrid"></div>
-          <div class="image-hint">رتّب الصور بالسحب على البطاقات، واضغط × لحذف صورة. الصورة الأولى هي الغلاف.</div>
-        </div>
-
-        <div class="checks full">
-          <label class="check"><input id="pactive" type="checkbox" checked> منشورة في المتجر — تظهر للزوار</label>
-          <label class="check"><input id="pavailable" type="checkbox" checked> متاحة في المعرض — يمكن الاستفسار عنها</label>
-          <label class="check"><input id="pcoming" type="checkbox"> Coming Soon — تظهر كقطعة قادمة</label>
-          <label class="check"><input id="plastPiece" type="checkbox"> Last Piece — آخر قطعة</label>
-          <label class="check"><input id="pfeatured" type="checkbox"> قطعة مميزة — تظهر في Featured Collection</label>
-          <label class="check"><input id="pbest" type="checkbox"> Best Seller — تظهر في الأكثر اهتمامًا</label>
-        </div>
-        <div class="field"><label>ترتيب العرض</label><input id="psort" class="input" type="number" value="0"></div>
-      </div>
-
-      <div class="form-actions">
-        <button class="btn btn-red" type="submit" id="saveBtn">حفظ القطعة</button>
-        <button class="btn btn-light" type="button" onclick="closeProductModal()">إلغاء</button>
-      </div>
-    </form>
-  </div>
+<label>صور القطعة</label>
+<div class="upload-zone" id="uploadZone">
+<strong>اسحب الصور هنا أو اختر من الجهاز</strong>
+<span>يمكنك رفع أكثر من صورة — أول صورة ستكون صورة الغلاف.</span>
+<div class="upload-actions">
+<label class="btn btn-dark" for="pfiles">اختيار الصور</label>
+<button class="btn btn-light" onclick="document.getElementById('pfiles').click()" type="button">إضافة صور</button>
 </div>
-
+<input accept="image/jpeg,image/png,image/webp,image/avif" id="pfiles" multiple="" type="file"/>
+</div>
+<div class="images-grid" id="imagesGrid"></div>
+<div class="image-hint">رتّب الصور بالسحب على البطاقات، واضغط × لحذف صورة. الصورة الأولى هي الغلاف.</div>
+</div>
+<div class="checks full">
+<label class="check"><input checked="" id="pactive" type="checkbox"/> منشورة في المتجر — تظهر للزوار</label>
+<label class="check"><input checked="" id="pavailable" type="checkbox"/> متاحة في المعرض — يمكن الاستفسار عنها</label>
+<label class="check"><input id="pcoming" type="checkbox"/> Coming Soon — تظهر كقطعة قادمة</label>
+<label class="check"><input id="plastPiece" type="checkbox"/> Last Piece — آخر قطعة</label>
+<label class="check"><input id="pfeatured" type="checkbox"/> قطعة مميزة — تظهر في Featured Collection</label>
+<label class="check"><input id="pbest" type="checkbox"/> Best Seller — تظهر في الأكثر اهتمامًا</label>
+</div>
+<div class="field"><label>ترتيب العرض</label><input class="input" id="psort" type="number" value="0"/></div>
+</div>
+<div class="form-actions">
+<button class="btn btn-red" id="saveBtn" type="submit">حفظ القطعة</button>
+<button class="btn btn-light" onclick="closeProductModal()" type="button">إلغاء</button>
+</div>
+</form>
+</div>
+</div>
 <div class="toast" id="toast"></div>
-
 <script>
 const SUPABASE_URL='https://ftyvkwtbqpmehmzgsjnc.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_CTYRVQ_EN2xiW6wTk6TL2w_7mqTDtJi';
