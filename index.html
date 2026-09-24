@@ -35,22 +35,20 @@ a{text-decoration:none;color:inherit}
 .navlinks a{position:relative}.navlinks a:after{content:"";position:absolute;right:0;bottom:-8px;width:0;height:2px;background:var(--red);transition:.25s}.navlinks a:hover:after{width:100%}
 .nav-actions{display:flex;gap:9px;align-items:center}
 .icon-btn{width:43px;height:43px;border:1px solid #e6e6e6;background:#fff;border-radius:50%;display:grid;place-items:center}
-.hero{padding:34px 0 22px}
-.hero-box{min-height:460px;border-radius:32px;overflow:hidden;background:
+.hero{padding:28px 0 34px}
+.hero-box{min-height:500px;border-radius:32px;overflow:hidden;background:
 linear-gradient(90deg,rgba(0,0,0,.91),rgba(0,0,0,.53) 52%,rgba(0,0,0,.18)),
 url('awm-logo.jpg') center/cover;display:flex;align-items:center}
-.hero-content{color:#fff;max-width:680px;padding:55px}
+.hero-content{color:#fff;max-width:720px;padding:clamp(36px,6vw,72px)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(215,25,32,.18);border:1px solid rgba(255,255,255,.16);padding:7px 13px;border-radius:999px;font-size:13px;margin-bottom:17px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(215,25,32,.13)}
-.hero h1{font-size:clamp(34px,5vw,66px);line-height:1.05;margin:0 0 16px;font-weight:800}
+.hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.02;margin:0 0 18px;font-weight:800;letter-spacing:-1.5px}
 .hero h1 em{color:#e31c24;font-style:normal}
-.hero p{font-size:17px;line-height:1.9;color:#ddd;margin:0 0 27px;max-width:600px}
-.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:0;border-radius:14px;padding:12px 21px;font-weight:800;transition:.2s}
+.hero p{font-size:17px;line-height:1.95;color:rgba(255,255,255,.78);margin:0 0 30px;max-width:620px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:14px;padding:13px 23px;font-weight:800;transition:.25s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red2);transform:translateY(-2px)}
 .btn-white{background:#fff;color:#111}.btn-white:hover{transform:translateY(-2px)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.stat{background:#fff;border:1px solid #eee;border-radius:18px;padding:18px;text-align:center}.stat strong{font-size:25px}.stat span{display:block;color:#777;font-size:12px}
 .toolbar{padding:35px 0 16px;display:flex;justify-content:space-between;gap:16px;align-items:end}
 .section-title h2{margin:0;font-size:32px}.section-title p{margin:3px 0 0;color:#777}
 .filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
@@ -78,7 +76,7 @@ url('awm-logo.jpg') center/cover;display:flex;align-items:center}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr}.modal-media{background:#f4f4f4;min-height:550px}.modal-media img{width:100%;height:100%;min-height:550px;object-fit:cover}.modal-info{padding:38px}.modal-info .name{font-size:30px}.modal-price{font:800 28px Montserrat;margin:15px 0}.info-row{padding:12px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:20px}.info-row span:first-child{color:#888}.available{color:var(--green);font-weight:800}.unavailable{color:#d71920;font-weight:800}
 .toast{position:fixed;bottom:20px;left:20px;background:#111;color:#fff;padding:12px 17px;border-radius:12px;opacity:0;transform:translateY(15px);transition:.25s;z-index:200}.toast.show{opacity:1;transform:none}
 @media(max-width:1050px){.grid{grid-template-columns:repeat(3,1fr)}.navlinks{display:none}}
-@media(max-width:760px){.container{width:min(100% - 24px,1400px)}.nav{height:72px}.brand img{width:48px;height:48px}.brand strong{font-size:21px}.hero-box{min-height:520px}.hero-content{padding:30px 24px}.stats{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.filters{justify-content:stretch}.search{flex:1;min-width:0}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card{border-radius:16px}.card-body{padding:11px}.name{font-size:15px}.price{font-size:16px}.modal-grid{grid-template-columns:1fr}.modal-media,.modal-media img{min-height:360px;height:360px}.modal-info{padding:25px}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px}}
+@media(max-width:760px){.container{width:min(100% - 24px,1400px)}.nav{height:72px}.brand img{width:48px;height:48px}.brand strong{font-size:21px}.hero-box{min-height:500px}.hero-content{padding:34px 24px}.toolbar{align-items:stretch;flex-direction:column}.filters{justify-content:stretch}.search{flex:1;min-width:0}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card{border-radius:16px}.card-body{padding:11px}.name{font-size:15px}.price{font-size:16px}.modal-grid{grid-template-columns:1fr}.modal-media,.modal-media img{min-height:360px;height:360px}.modal-info{padding:25px}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px}}
 @media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:36px}}
 </style>
 </head>
@@ -105,11 +103,6 @@ url('awm-logo.jpg') center/cover;display:flex;align-items:center}
       <h1>اختار <em>ستايلك</em> من معرضنا.</h1>
       <p>استعرض أحدث قطع AWM بتفاصيلها، أسعارها، حالتها وتوفرها. المعرض للعرض فقط — بدون سلة مشتريات وبدون طلبات.</p>
       <div class="hero-cta"><a class="btn btn-red" href="#gallery">استكشف المعرض</a><a class="btn btn-white" href="#about">عن AWM</a></div>
-      <div class="stats">
-        <div class="stat"><strong id="statProducts">—</strong><span>قطعة بالمعرض</span></div>
-        <div class="stat"><strong id="statAvailable">—</strong><span>متاحة حالياً</span></div>
-        <div class="stat"><strong id="statCategories">—</strong><span>تصنيفات</span></div>
-      </div>
     </div>
   </div>
 </section>
@@ -159,9 +152,6 @@ async function loadProducts(){
   const {data,error}=await db.from('products').select('*').eq('is_active',true).order('sort_order',{ascending:true}).order('created_at',{ascending:false});
   if(error){console.error(error); $('#grid').innerHTML='<div class="empty">تعذر تحميل المعرض. تأكد من تنفيذ ملف supabase.sql.</div>';return}
   products=data||[]; renderCategories(); render();
-  $('#statProducts').textContent=products.length;
-  $('#statAvailable').textContent=products.filter(p=>p.is_available).length;
-  $('#statCategories').textContent=new Set(products.map(p=>p.category).filter(Boolean)).size;
 }
 function renderCategories(){
   const cats=[...new Set(products.map(p=>p.category).filter(Boolean))];
