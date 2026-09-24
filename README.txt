@@ -1,22 +1,15 @@
-# AWM Clothing Gallery
+AWM V2 PRO PACKAGE
+==================
+Files:
+- index.html       storefront
+- admin.html       admin dashboard
+- AWM_Supabase_V2_Migration.sql   database setup
+- awm-manifest.webmanifest         PWA manifest
+- awm-sw.js                        service worker
 
-ملفات المشروع:
-- index.html: معرض الملابس العام — عرض فقط، بدون سلة أو طلبات.
-- admin.html: لوحة الإدارة — تسجيل دخول، إضافة/تعديل/حذف، رفع صور، السعر، الحالة، التوفر، المقاسات، الألوان، التمييز والترتيب.
-- supabase.sql: الجداول + RLS + Storage policies.
-- awm-logo.jpg: اللوجو المرفوع.
-
-## التشغيل
-1. افتح Supabase SQL Editor ونفّذ `supabase.sql`.
-2. من Authentication > Users أنشئ مستخدم الإدارة (Email + Password).
-3. افتح `admin.html` وسجّل الدخول.
-4. أضف المنتجات والصور.
-5. افتح `index.html` لمشاهدة المعرض.
-
-## الأمان
-- المفتاح الموجود في HTML هو Publishable/Client key فقط.
-- لا تضع `SUPABASE_SECRET_KEY` في `index.html` أو `admin.html`.
-- في المشروع الحالي، أي مستخدم Authenticated يستطيع إدارة المنتجات. إذا أردت قصر الإدارة على حسابات Admin محددة، يمكن إضافة جدول admin_users أو claims قبل النشر العام.
-
-## الهوية
-التصميم مبني على اللوجو المرفوع: أسود + أحمر + أبيض، AWM، وعبارة ALWAYS YOUR STORE.
+IMPORTANT:
+1) Keep your existing awm-logo.jpg in the same folder as index.html and admin.html.
+2) Run AWM_Supabase_V2_Migration.sql in Supabase SQL Editor.
+3) Make sure your existing products table contains the columns used by the original project.
+4) Supabase Realtime must be enabled for products/homepage_sections/offers (the migration attempts to add them).
+5) The frontend uses the publishable/anon key only; keep database RLS enabled.
