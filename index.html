@@ -714,7 +714,9 @@
       galleryIndex: 0,
       toastTimer: null,
       lastScroll: 0,
-      fromDirectProduct: false
+      fromDirectProduct: false,
+      realtimeChannel: null,
+      realtimeRefreshTimer: null
     };
 
     const $ = (selector, root = document) => root.querySelector(selector);
@@ -809,6 +811,31 @@
       if (product?.is_available === false || (stockKnown && stockNum <= 0)) return { className: 'sold', label: 'خلصت الكمية', canOrder: false };
       if (stockKnown && stockNum <= 3) return { className: 'low', label: `متبقي ${stockNum} ${stockNum === 1 ? 'قطعة' : 'قطع'}`, canOrder: true };
       return { className: 'available', label: 'متاح', canOrder: true };
+    }
+
+    function scheduleRealtimeRefresh() {
+      clearTimeout(state.realtimeRefreshTimer);
+      state.realtimeRefreshTimer = setTimeout(() => loadProducts({ fromRealtime: true }), 280);
+    }
+
+    function subscribeToProductChanges() {
+      if (!db || state.realtimeChannel) return;
+      state.realtimeChannel = db.channel('awm-storefront-products-live')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, payload => {
+          console.log('AWM live product update:', payload.eventType, payload.new?.id || payload.old?.id || '');
+          scheduleRealtimeRefresh();
+        })
+        .subscribe(status => {
+          document.documentElement.dataset.realtime = status;
+          if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') console.warn('AWM Realtime status:', status);
+        });
+    }
+
+    async function stopProductRealtime() {
+      clearTimeout(state.realtimeRefreshTimer);
+      if (!state.realtimeChannel || !db) return;
+      try { await db.removeChannel(state.realtimeChannel); } catch (_) {}
+      state.realtimeChannel = null;
     }
 
     function showToast(message) {
@@ -918,7 +945,7 @@
       if (state.sort === 'priceAsc') list.sort((a,b) => Number(a.price || 0) - Number(b.price || 0));
       else if (state.sort === 'priceDesc') list.sort((a,b) => Number(b.price || 0) - Number(a.price || 0));
       else if (state.sort === 'discount') list.sort((a,b) => discountPercent(b) - discountPercent(a));
-      else list.sort((a,b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+      else list.sort((a,b) => Number(a.sort_order ?? 0) - Number(b.sort_order ?? 0) || new Date(b.created_at || 0) - new Date(a.created_at || 0));
       return list;
     }
 
@@ -1330,17 +1357,19 @@
       renderProducts();
     }
 
-    async function loadProducts() {
+    async function loadProducts({ fromRealtime = false } = {}) {
       if (!db) {
         showLoadError('مكتبة Supabase مش شغالة في الصفحة.');
         return;
       }
-      $('#resultsCount').textContent = 'بنحمّل المنتجات...';
+      $('#resultsCount').textContent = fromRealtime ? 'بنحدّث المنتجات لحظياً...' : 'بنحمّل المنتجات...';
       try {
+        const currentId = state.currentProduct?.id;
         const { data, error } = await db
           .from('products')
           .select('*')
-          .eq('is_active', true)
+          .or('is_active.eq.true,is_active.is.null')
+          .order('sort_order', { ascending: true })
           .order('created_at', { ascending: false });
 
         if (error) throw error;
@@ -1349,7 +1378,23 @@
         renderProducts();
         renderRecent();
         updateWishlistUI();
-        handleUrlProduct();
+
+        if (currentId != null) {
+          const updatedProduct = state.products.find(p => String(p?.id) === String(currentId));
+          if (updatedProduct && $('#productView').classList.contains('open')) {
+            state.currentProduct = updatedProduct;
+            $('#productHeaderTitle').textContent = updatedProduct.name || 'تفاصيل القطعة';
+            $('#productContent').innerHTML = buildProductHtml(updatedProduct);
+            $('#productWhatsappText').textContent = getAvailability(updatedProduct).canOrder ? 'استفسر على واتساب' : 'اسأل عن التوفر';
+            updateProductFavoriteUI();
+            bindProductInteractions();
+          } else if (!updatedProduct && $('#productView').classList.contains('open')) {
+            closeProduct();
+            showToast('القطعة اتم إخفاؤها أو اتشالت من المتجر');
+          }
+        } else {
+          handleUrlProduct();
+        }
       } catch (error) {
         console.error('AWM loadProducts error:', error);
         showLoadError('حصلت مشكلة وإحنا بنجيب المنتجات.');
@@ -1525,6 +1570,11 @@
     // Prevent broken inline URL params from staying open forever.
     window.addEventListener('load', () => {
       loadProducts();
+      subscribeToProductChanges();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      stopProductRealtime();
     });
   </script>
 </body>
