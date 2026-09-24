@@ -671,7 +671,578 @@ img{display:block;max-width:100%}
   box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
 .to-top.show{opacity:1;pointer-events:auto;transform:none}
+/* ===== AWM HERO ===== */
+.hero{
+  position:relative;
+  overflow:hidden;
+  margin-top:18px;
+  min-height:520px;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 78% 25%, rgba(215,25,32,.16), transparent 28%),
+    radial-gradient(circle at 15% 90%, rgba(255,255,255,.07), transparent 25%),
+    #0a0a0a;
+  color:#fff;
+  box-shadow:0 25px 70px rgba(0,0,0,.14);
+  isolation:isolate;
+}
 
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.02)),
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:auto,42px 42px,42px 42px;
+  mask-image:linear-gradient(90deg,#000 0%,#000 60%,transparent 100%);
+  pointer-events:none;
+}
+
+.hero::after{
+  content:"AWM";
+  position:absolute;
+  left:-35px;
+  bottom:-90px;
+  z-index:-1;
+  font:900 250px/1 Montserrat;
+  letter-spacing:-15px;
+  color:rgba(255,255,255,.022);
+  pointer-events:none;
+}
+
+.hero-container{
+  position:relative;
+  z-index:2;
+  width:min(1360px,calc(100% - 34px));
+  min-height:520px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.02fr .98fr;
+  align-items:center;
+  gap:40px;
+  padding:45px 42px;
+}
+
+.hero-copy{
+  max-width:650px;
+}
+
+.hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:17px;
+  color:#ef5b61;
+  font:800 10px Montserrat;
+  letter-spacing:2.4px;
+  text-transform:uppercase;
+}
+
+.hero-kicker::before{
+  content:"";
+  width:28px;
+  height:2px;
+  border-radius:99px;
+  background:var(--red);
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(42px,5.2vw,72px);
+  line-height:.98;
+  letter-spacing:-3.2px;
+  font-weight:900;
+}
+
+.hero h1 span{
+  color:#fff;
+  position:relative;
+  display:inline-block;
+}
+
+.hero h1 span::after{
+  content:"";
+  position:absolute;
+  right:0;
+  left:0;
+  bottom:-5px;
+  height:5px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--red),rgba(215,25,32,0));
+}
+
+.hero-desc{
+  max-width:540px;
+  margin:20px 0 0;
+  color:rgba(255,255,255,.63);
+  font-size:13px;
+  line-height:2;
+}
+
+.hero-actions{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:25px;
+}
+
+.hero-btn{
+  min-height:47px;
+  padding:0 18px;
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.14);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  font-size:11px;
+  font-weight:900;
+  transition:.22s;
+}
+
+.hero-btn.primary{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+
+.hero-btn.primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 35px rgba(0,0,0,.24);
+}
+
+.hero-btn.secondary{
+  color:#fff;
+  background:rgba(255,255,255,.045);
+}
+
+.hero-btn.secondary:hover{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
+  transform:translateY(-2px);
+}
+
+.hero-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:26px;
+}
+
+.hero-stat{
+  min-width:106px;
+  padding:11px 13px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:13px;
+  background:rgba(255,255,255,.035);
+  backdrop-filter:blur(10px);
+}
+
+.hero-stat strong{
+  display:block;
+  font:900 18px Montserrat;
+  color:#fff;
+}
+
+.hero-stat span{
+  display:block;
+  margin-top:2px;
+  color:rgba(255,255,255,.43);
+  font-size:8px;
+  font-weight:800;
+}
+
+.hero-showcase{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:430px;
+}
+
+.hero-orbit{
+  position:absolute;
+  width:390px;
+  height:390px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.hero-orbit::before{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  right:26px;
+  top:57px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 0 7px rgba(215,25,32,.1);
+}
+
+.hero-product-card{
+  position:relative;
+  width:min(390px,100%);
+  aspect-ratio:4/5;
+  border-radius:26px;
+  overflow:hidden;
+  background:#161616;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:
+    0 35px 80px rgba(0,0,0,.4),
+    0 0 0 10px rgba(255,255,255,.02);
+  transform:rotate(2deg);
+}
+
+.hero-product-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.82) 100%),
+    linear-gradient(120deg,transparent 50%,rgba(255,255,255,.08));
+  pointer-events:none;
+}
+
+.hero-product-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.hero-product-card:hover .hero-product-image{
+  transform:scale(1.045);
+}
+
+.hero-product-badge{
+  position:absolute;
+  top:13px;
+  right:13px;
+  z-index:3;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#fff;
+  color:#111;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.hero-product-info{
+  position:absolute;
+  right:17px;
+  left:17px;
+  bottom:17px;
+  z-index:3;
+}
+
+.hero-product-info small{
+  display:block;
+  margin-bottom:3px;
+  color:rgba(255,255,255,.54);
+  font-size:8px;
+}
+
+.hero-product-info strong{
+  display:block;
+  font-size:20px;
+  line-height:1.3;
+  font-weight:900;
+}
+
+.hero-product-price{
+  margin-top:7px;
+  font:900 15px Montserrat;
+}
+
+.hero-float{
+  position:absolute;
+  z-index:5;
+  min-width:125px;
+  padding:10px 12px;
+  border-radius:13px;
+  background:rgba(255,255,255,.95);
+  color:#111;
+  box-shadow:0 15px 40px rgba(0,0,0,.22);
+}
+
+.hero-float small{
+  display:block;
+  color:#999;
+  font-size:7px;
+  font-weight:800;
+  margin-bottom:2px;
+}
+
+.hero-float strong{
+  font-size:10px;
+  font-weight:900;
+}
+
+.hero-float.one{
+  right:-8px;
+  top:42px;
+  transform:rotate(-5deg);
+}
+
+.hero-float.two{
+  left:-15px;
+  bottom:44px;
+  transform:rotate(4deg);
+}
+
+.hero-accent{
+  position:absolute;
+  width:120px;
+  height:120px;
+  right:15%;
+  top:6%;
+  border-radius:50%;
+  background:var(--red);
+  filter:blur(70px);
+  opacity:.16;
+  z-index:-1;
+}
+
+.hero-scroll{
+  position:absolute;
+  right:50%;
+  bottom:15px;
+  transform:translateX(50%);
+  color:rgba(255,255,255,.34);
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.hero-scroll span{
+  width:30px;
+  height:1px;
+  background:rgba(255,255,255,.25);
+}
+
+@media(max-width:1080px){
+  .hero-container{
+    grid-template-columns:1fr .82fr;
+    gap:20px;
+    padding:35px 28px;
+  }
+
+  .hero{
+    min-height:480px;
+  }
+
+  .hero-container{
+    min-height:480px;
+  }
+
+  .hero-product-card{
+    width:min(330px,100%);
+  }
+
+  .hero-orbit{
+    width:330px;
+    height:330px;
+  }
+
+  .hero-float.one{
+    right:-2px;
+  }
+
+  .hero-float.two{
+    left:0;
+  }
+}
+
+@media(max-width:760px){
+  .hero{
+    margin-top:10px;
+    min-height:auto;
+    border-radius:22px;
+  }
+
+  .hero::after{
+    font-size:145px;
+    left:-20px;
+    bottom:-35px;
+    letter-spacing:-8px;
+  }
+
+  .hero-container{
+    width:calc(100% - 18px);
+    min-height:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:24px;
+    padding:28px 15px 24px;
+  }
+
+  .hero-copy{
+    max-width:none;
+  }
+
+  .hero-kicker{
+    font-size:8px;
+    letter-spacing:1.8px;
+    margin-bottom:12px;
+  }
+
+  .hero-kicker::before{
+    width:21px;
+  }
+
+  .hero h1{
+    font-size:38px;
+    line-height:1;
+    letter-spacing:-2px;
+  }
+
+  .hero-desc{
+    margin-top:13px;
+    font-size:10px;
+    line-height:1.85;
+    max-width:100%;
+  }
+
+  .hero-actions{
+    margin-top:17px;
+    gap:7px;
+  }
+
+  .hero-btn{
+    flex:1;
+    min-height:43px;
+    padding:0 11px;
+    border-radius:11px;
+    font-size:9px;
+  }
+
+  .hero-stats{
+    margin-top:15px;
+    gap:6px;
+  }
+
+  .hero-stat{
+    flex:1;
+    min-width:0;
+    padding:9px 8px;
+    border-radius:10px;
+    text-align:center;
+  }
+
+  .hero-stat strong{
+    font-size:15px;
+  }
+
+  .hero-stat span{
+    font-size:7px;
+  }
+
+  .hero-showcase{
+    min-height:310px;
+  }
+
+  .hero-product-card{
+    width:245px;
+    aspect-ratio:4/5;
+    border-radius:19px;
+    transform:rotate(1deg);
+  }
+
+  .hero-orbit{
+    width:270px;
+    height:270px;
+  }
+
+  .hero-product-badge{
+    top:9px;
+    right:9px;
+    padding:6px 8px;
+    font-size:7px;
+  }
+
+  .hero-product-info{
+    right:12px;
+    left:12px;
+    bottom:12px;
+  }
+
+  .hero-product-info small{
+    font-size:7px;
+  }
+
+  .hero-product-info strong{
+    font-size:16px;
+  }
+
+  .hero-product-price{
+    margin-top:5px;
+    font-size:13px;
+  }
+
+  .hero-float{
+    min-width:94px;
+    padding:8px 9px;
+    border-radius:10px;
+  }
+
+  .hero-float small{
+    font-size:6px;
+  }
+
+  .hero-float strong{
+    font-size:8px;
+  }
+
+  .hero-float.one{
+    right:2px;
+    top:27px;
+  }
+
+  .hero-float.two{
+    left:1px;
+    bottom:24px;
+  }
+
+  .hero-scroll{
+    display:none;
+  }
+}
+
+@media(max-width:390px){
+  .hero-container{
+    padding-inline:12px;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .hero-product-card{
+    width:220px;
+  }
+
+  .hero-showcase{
+    min-height:285px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-product-card,
+  .hero-product-image{
+    transform:none!important;
+  }
+}
 /* Responsive */
 @media(max-width:1080px){
   .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1000,7 +1571,107 @@ img{display:block;max-width:100%}
     </div>
   </div>
 </header>
+<section class="hero" id="hero">
+  <div class="hero-accent"></div>
 
+  <div class="hero-container">
+
+    <div class="hero-copy">
+      <div class="hero-kicker">AWM COLLECTION • MEN'S FASHION</div>
+
+      <h1>
+        اختار<br>
+        <span>ستايلك.</span>
+      </h1>
+
+      <p class="hero-desc">
+        اكتشف تشكيلة AWM من الملابس الرجالي، وشوف الصور والتفاصيل
+        والمقاسات والألوان والأسعار المحدثة لكل قطعة.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#gallery" class="hero-btn primary">
+          استكشف المعرض
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14"/>
+            <path d="m6 13 6 6 6-6"/>
+          </svg>
+        </a>
+
+        <a
+          class="hero-btn secondary"
+          href="https://wa.me/201020776397?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20AWM%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA"
+          target="_blank"
+          rel="noopener"
+        >
+          تواصل معنا
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.5 3.5A11.84 11.84 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.59 5.96L.02 24l6.27-1.64a11.88 11.88 0 0 0 5.75 1.47h.01c6.56 0 11.91-5.35 11.91-11.91a11.86 11.86 0 0 0-3.46-8.42Z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong id="heroProducts">0</strong>
+          <span>قطعة في المعرض</span>
+        </div>
+
+        <div class="hero-stat">
+          <strong id="heroAvailable">0</strong>
+          <span>متاح حالياً</span>
+        </div>
+
+        <div class="hero-stat">
+          <strong id="heroCategories">0</strong>
+          <span>أقسام متنوعة</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-showcase">
+      <div class="hero-orbit"></div>
+
+      <div class="hero-float one">
+        <small>AWM STATUS</small>
+        <strong>Always Your Store</strong>
+      </div>
+
+      <article class="hero-product-card">
+        <img
+          id="heroProductImage"
+          class="hero-product-image"
+          src="awm-logo.jpg"
+          alt="AWM"
+          loading="eager"
+          fetchpriority="high"
+          onerror="this.src='awm-logo.jpg'"
+        >
+
+        <span class="hero-product-badge">LATEST PICK</span>
+
+        <div class="hero-product-info">
+          <small id="heroProductCategory">AWM COLLECTION</small>
+          <strong id="heroProductName">اختيارات AWM</strong>
+          <div class="hero-product-price" id="heroProductPrice">—</div>
+        </div>
+      </article>
+
+      <div class="hero-float two">
+        <small>COLLECTION</small>
+        <strong>NEW • MODERN • AWM</strong>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero-scroll">
+    <span></span>
+    SCROLL TO EXPLORE
+    <span></span>
+  </div>
+</section>
 <main id="gallery">
   <section class="catalog-shell container">
     <div class="catalog-bar">
