@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="AWM Store — اختيارات رجالي مميزة ومنتجات متجددة.">
+  <meta name="description" content="AWM Store — اختيارات رجالي مميزة ومنتجات متجددة مع طلب مباشر عبر واتساب.">
   <meta name="theme-color" content="#0a0a0a">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="awm-manifest.webmanifest">
@@ -14,6 +14,8 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://ftyvkwtbqpmehmzgsjnc.supabase.co">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -164,7 +166,7 @@
       display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 14px; padding-bottom: 40px;
     }
-    .product-card { min-width: 0; }
+    .product-card { min-width: 0; content-visibility: auto; contain-intrinsic-size: 420px; }
     .card-media {
       position: relative; overflow: hidden; aspect-ratio: 3/4;
       border-radius: var(--r-md); background: var(--surface); border: 1px solid rgba(0,0,0,.03);
@@ -482,7 +484,8 @@
       .product-name { font-size: 22px; }
     }
   
-/* ========================= AWM V2 STOREFRONT ========================= */
+/* ========================= AWM V3 STOREFRONT ========================= */
+/* لا توجد خدمة شحن داخل المتجر؛ الطلب والاستفسار يتمان مباشرة عبر واتساب. */
 .home-builder{padding:16px 0 6px}.home-stack{display:grid;gap:14px}.home-hero{position:relative;overflow:hidden;min-height:260px;border-radius:26px;background:#111;color:#fff;padding:28px 24px;display:flex;align-items:flex-end}.home-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.58}.home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.78))}.home-hero-content{position:relative;z-index:2;max-width:720px}.home-kicker{font-size:9px;font-weight:900;letter-spacing:.18em;color:#ddd}.home-hero h2{margin:5px 0 7px;font-size:clamp(28px,5vw,54px);line-height:1.1}.home-hero p{margin:0 0 16px;color:#e8e8e8;font-size:12px;line-height:1.9}.home-cta{min-height:44px;padding:0 18px;border-radius:999px;background:#fff;color:#111;font-weight:900;font-size:11px;display:inline-flex;align-items:center}.home-section{padding:10px 0 12px}.home-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 12px}.home-section-head h3{margin:0;font-size:20px}.home-section-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.home-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.home-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.home-category{position:relative;min-height:120px;overflow:hidden;border-radius:18px;background:var(--surface);border:1px solid var(--line);display:flex;align-items:flex-end;padding:14px}.home-category img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.home-category::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7))}.home-category span{position:relative;z-index:2;color:#fff;font-weight:900;font-size:13px}.home-banner{border-radius:22px;min-height:150px;padding:22px;display:flex;align-items:end;position:relative;overflow:hidden;background:#f4f4f2}.home-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.home-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72))}.home-banner-content{position:relative;z-index:2;color:#fff}.home-banner-content h3{margin:0 0 4px;font-size:22px}.home-banner-content p{margin:0;font-size:11px}.offer-strip{display:none;margin:10px 0 4px;border-radius:16px;padding:12px 14px;background:#111;color:#fff;align-items:center;justify-content:space-between;gap:10px}.offer-strip.show{display:flex}.offer-copy strong{display:block;font-size:12px}.offer-copy span{display:block;margin-top:2px;color:#ccc;font-size:9px}.offer-countdown{font:900 13px Montserrat;white-space:nowrap}.search-suggest{position:absolute;left:0;right:0;top:56px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:7px;z-index:50;display:none}.search-suggest.open{display:block}.suggest-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:11px;text-align:right}.suggest-item:hover{background:var(--surface)}.suggest-item img{width:34px;height:43px;object-fit:cover;border-radius:8px}.suggest-name{font-size:10px;font-weight:900}.suggest-meta{font-size:9px;color:var(--muted)}.rec-title{font-size:9px;color:var(--soft);padding:5px 8px 3px;font-weight:900}.product-extra{margin-top:18px}.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.policy-card{padding:12px;border:1px solid var(--line);background:var(--surface);border-radius:13px}.policy-card strong{display:block;font-size:10px}.policy-card span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.7}.seo-share{color:var(--soft);font-size:9px;margin-top:7px}.install-prompt{position:fixed;left:14px;right:14px;bottom:90px;z-index:175;background:#111;color:#fff;border-radius:18px;padding:12px 14px;display:none;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow-lg)}.install-prompt.show{display:flex}.install-copy strong{font-size:11px}.install-copy span{display:block;color:#bbb;font-size:9px;margin-top:2px}.install-actions{display:flex;gap:6px}.install-actions button{min-height:36px;padding:0 11px;border-radius:10px;font-size:10px;font-weight:900}.install-primary{background:#fff;color:#111}.install-secondary{background:#262626;color:#fff}
 @media(min-width:600px){.home-products,.recommend-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.home-categories{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:900px){.home-products,.recommend-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.home-categories{grid-template-columns:repeat(5,minmax(0,1fr))}.home-hero{min-height:360px}.search-suggest{top:56px}}
@@ -985,7 +988,7 @@
       return `
         <article class="product-card" data-product-id="${escAttr(product?.id)}" style="--i:${index % 4};">
           <div class="card-media">
-            <img class="card-image" src="${escAttr(image)}" alt="${escAttr(product?.name || 'منتج AWM')}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='awm-logo.jpg'">
+            <img class="card-image" src="${escAttr(image)}" alt="${escAttr(product?.name || 'منتج AWM')}" loading="${index < 2 ? 'eager' : 'lazy'}" fetchpriority="${index < 2 ? 'high' : 'auto'}" decoding="async" onerror="this.onerror=null;this.src='awm-logo.jpg'">
             <div class="card-top">
               <div class="card-badges">${badges}</div>
               <button class="fav ${isFav ? 'active' : ''}" type="button" data-action="favorite" data-id="${escAttr(product?.id)}" aria-label="${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}" aria-pressed="${isFav}">
@@ -1185,8 +1188,8 @@
             </div>
             <div class="seo-share">رابط مشاركة مباشر للقطعة + بيانات SEO تلقائية.</div>
             <div class="policy-grid">
-              <div class="policy-card"><strong>الشحن</strong><span id="productShippingText">بنأكد طريقة الشحن معاك على واتساب.</span></div>
-              <div class="policy-card"><strong>الاستبدال</strong><span>التفاصيل تُراجع قبل تأكيد الطلب.</span></div>
+              <div class="policy-card"><strong>الطلب</strong><span>للاستفسار وتأكيد الطلب تواصل معنا مباشرة على واتساب.</span></div>
+              <div class="policy-card"><strong>الاستبدال</strong><span>التفاصيل تُراجع معانا قبل تأكيد الطلب.</span></div>
               <div class="policy-card"><strong>دليل المقاس</strong><span id="productSizeGuideText">اسألنا على واتساب عن المقاس المناسب.</span></div>
             </div>
             <div class="product-extra"><div class="section-head"><div><h3 style="margin:0;font-size:17px">ممكن يعجبك كمان</h3><p style="margin:4px 0 0;color:var(--muted);font-size:10px">اقتراحات من نفس القسم أو الكولكشن.</p></div></div><div class="recommend-grid" id="recommendGrid"></div></div>
@@ -1393,7 +1396,7 @@
         const currentId = state.currentProduct?.id;
         const { data, error } = await db
           .from('products')
-          .select('*')
+          .select('id,name,category,price,old_price,stock,condition,sizes,colors,collection,fabric,tags,description,image_url,image_urls,is_active,is_available,is_featured,is_bestseller,sort_order,created_at,updated_at')
           .or('is_active.eq.true,is_active.is.null')
           .order('sort_order', { ascending: true })
           .order('created_at', { ascending: false });
@@ -1607,7 +1610,11 @@ state.homeSections=[]; state.activeOffer=null; state.offerTimer=null; state.prod
 async function optionalRows(table, columns='*', build=''){
   try{let q=db.from(table).select(columns); if(build)q=build(q); const r=await q;if(r.error)throw r.error;return r.data||[];}catch(e){console.warn('AWM optional table',table,e.message);return []}
 }
-async function recordEvent(event_type,product_id=null,metadata={}){try{if(!db)return; await db.from('analytics_events').insert({event_type,product_id:product_id?String(product_id):null,session_id:getSessionId(),metadata});}catch(e){}}
+const analyticsQueue=[]; let analyticsFlushTimer=null;
+function queueEvent(event_type,product_id=null,metadata={}){if(!db)return;analyticsQueue.push({event_type,product_id:product_id?String(product_id):null,session_id:getSessionId(),metadata});if(analyticsQueue.length>=5)flushAnalytics();else if(!analyticsFlushTimer)analyticsFlushTimer=setTimeout(flushAnalytics,4000)}
+async function flushAnalytics(){if(analyticsFlushTimer){clearTimeout(analyticsFlushTimer);analyticsFlushTimer=null}if(!db||!analyticsQueue.length)return;const batch=analyticsQueue.splice(0,20);try{await db.from('analytics_events').insert(batch)}catch(e){}}
+function recordEvent(event_type,product_id=null,metadata={}){queueEvent(event_type,product_id,metadata)}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushAnalytics()});
 function getSessionId(){let k=sessionStorage.getItem('awm_session_id');if(!k){k=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random());sessionStorage.setItem('awm_session_id',k);}return k}
 function effectivePrice(product){let p=Number(product?.price||0);const offer=state.activeOffer;if(!offer||!Array.isArray(offer.product_ids)||!offer.product_ids.length||!offer.product_ids.map(String).includes(String(product?.id)))return p;if(offer.type==='percent')return Math.max(0,p-(p*Number(offer.discount_value||0)/100));if(offer.type==='amount')return Math.max(0,p-Number(offer.discount_value||0));return p;}
 function offerActiveNow(x){const now=Date.now();if(x?.is_active===false)return false;if(x?.start_at&&new Date(x.start_at).getTime()>now)return false;if(x?.end_at&&new Date(x.end_at).getTime()<now)return false;return true;}
@@ -1627,7 +1634,7 @@ function recommendationProducts(product){return state.products.filter(p=>String(
 function renderRecommendations(product){const root=$('#recommendGrid');if(!root)return;root.innerHTML=recommendationProducts(product).map((p,i)=>cardHtml(p,i)).join('')||'<div class="pro-empty">مفيش اقتراحات كفاية دلوقتي.</div>';root.querySelectorAll('[data-product-id]').forEach(card=>card.addEventListener('click',()=>openProduct(card.dataset.productId)))}
 function injectProductStructuredData(product){document.getElementById('awmProductJsonLd')?.remove();const data={"@context":"https://schema.org","@type":"Product","name":product.name||'AWM Product',"image":parseImages(product),"description":product.description||'',"sku":productCode(product),"brand":{"@type":"Brand","name":"AWM"},"offers":{"@type":"Offer","priceCurrency":"EGP","price":effectivePrice(product),"availability":getAvailability(product).canOrder?'https://schema.org/InStock':'https://schema.org/OutOfStock','url':location.href}};const script=document.createElement('script');script.type='application/ld+json';script.id='awmProductJsonLd';script.textContent=JSON.stringify(data);document.head.appendChild(script);}
 function setSocialMeta(product){const title=product?.name?`${product.name} | AWM`: 'AWM Store';const desc=product?.description||'اختيارات رجالي مميزة من AWM.';document.title=title;for(const [name,content] of [['description',desc],['og:title',title],['og:description',desc]]){let meta=document.querySelector(`meta[name="${name}"]`)||document.querySelector(`meta[property="${name}"]`);if(!meta){meta=document.createElement('meta');if(name.startsWith('og:'))meta.setAttribute('property',name);else meta.setAttribute('name',name);document.head.appendChild(meta)}meta.setAttribute('content',content)}}
-async function hydrateProductExtras(product){const m=await loadProductMetaClient(product.id);$('#productShippingText')?.replaceChildren(document.createTextNode(m.shipping_text||'بنأكد طريقة الشحن معاك على واتساب.'));$('#productSizeGuideText')?.replaceChildren(document.createTextNode(m.size_guide||'اسألنا على واتساب عن المقاس المناسب.'));renderRecommendations(product)}
+async function hydrateProductExtras(product){const m=await loadProductMetaClient(product.id);$('#productSizeGuideText')?.replaceChildren(document.createTextNode(m.size_guide||'اسألنا على واتساب عن المقاس المناسب.'));renderRecommendations(product)}
 function setupInstallPrompt(){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.deferredInstallPrompt=e;$('#installPrompt')?.classList.add('show')});$('#installNow')?.addEventListener('click',async()=>{if(!state.deferredInstallPrompt)return;await state.deferredInstallPrompt.prompt();state.deferredInstallPrompt=null;$('#installPrompt')?.classList.remove('show')});$('#installLater')?.addEventListener('click',()=>$('#installPrompt')?.classList.remove('show'));window.addEventListener('appinstalled',()=>$('#installPrompt')?.classList.remove('show'));}
 
 // Track existing favorite action.
@@ -1640,12 +1647,13 @@ orderViaWhatsapp=function(){if(state.currentProduct)recordEvent('whatsapp_click'
 
 // Extend loadProducts with homepage/offer refresh and update URL SEO state.
 const _loadProductsOriginal=loadProducts;
-loadProducts=async function(opts={}){await _loadProductsOriginal(opts);await Promise.all([loadHomepage(),loadOffer()]);};
+loadProducts=async function(opts={}){await _loadProductsOriginal(opts);void Promise.all([loadHomepage(),loadOffer()]);};
 const _openProductOriginal=openProduct;
 openProduct=function(id,options={}){_openProductOriginal(id,options);if(state.currentProduct){recordEvent('product_view',state.currentProduct.id,{source:options.direct?'direct':'catalog'});injectProductStructuredData(state.currentProduct);setSocialMeta(state.currentProduct);setTimeout(()=>hydrateProductExtras(state.currentProduct),0);}};
 
 function bindV2Events(){
-  ['desktop','mobile'].forEach(kind=>{const input=$(`#${kind}Search`);const suggest=$(`#${kind}Suggest`);if(!input)return;input.addEventListener('input',()=>renderSearchSuggestions(input.value,`#${kind}Suggest`));input.addEventListener('focus',()=>{if(input.value)renderSearchSuggestions(input.value,`#${kind}Suggest`)});document.addEventListener('click',e=>{if(suggest&&!suggest.contains(e.target)&&e.target!==input)suggest.classList.remove('open')});});
+  ['desktop','mobile'].forEach(kind=>{const input=$(`#${kind}Search`);if(!input)return;input.addEventListener('input',()=>renderSearchSuggestions(input.value,`#${kind}Suggest`));input.addEventListener('focus',()=>{if(input.value)renderSearchSuggestions(input.value,`#${kind}Suggest`)});});
+  document.addEventListener('click',e=>{['desktopSuggest','mobileSuggest'].forEach(id=>{const box=$(`#${id}`);if(!box)return;const input=id==='desktopSuggest'?$('#desktopSearch'):$('#mobileSearch');if(!box.contains(e.target)&&e.target!==input)box.classList.remove('open')});});
 }
 
 setupInstallPrompt();bindV2Events();
