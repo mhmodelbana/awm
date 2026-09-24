@@ -136,6 +136,9 @@ img{max-width:100%}
 /* Toast */
 .toast{position:fixed;bottom:18px;left:18px;background:#111;color:#fff;padding:12px 16px;border-radius:12px;z-index:200;opacity:0;transform:translateY(10px);transition:.22s;box-shadow:0 12px 30px rgba(0,0,0,.2);font-size:12px}.toast.show{opacity:1;transform:none}
 .toast.success{background:#111}.toast.error{background:#b40f18}
+.sync-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:#f3f4f6;color:#777;border:1px solid #e5e5e2;font-size:9px;font-weight:900;white-space:nowrap}
+.sync-pill.live{background:#eaf8f0;color:#16834b;border-color:#ccebd9}
+.sync-pill.error{background:#fff0f2;color:#c81924;border-color:#ffd2d7}
 /* Small helpers */
 .no-data{font-size:12px;color:#888;text-align:center;padding:25px 10px}
 @media(max-width:1050px){
@@ -371,6 +374,7 @@ body{
         <p id="pageSubtitle">نظرة سريعة على المنتجات والظهور في المعرض.</p>
       </div>
       <div class="top-actions">
+        <span id="syncState" class="sync-pill" title="حالة المزامنة">● جاري الاتصال</span>
         <button class="btn btn-light" onclick="window.open('index.html','_blank')">فتح المعرض</button>
         <button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button>
         <button class="btn btn-dark" onclick="logout()">خروج</button>
@@ -396,8 +400,8 @@ body{
     <section id="dashboardSection" class="section">
       <div class="stats">
         <div class="stat"><span>إجمالي المنتجات</span><strong id="sTotal">0</strong><div class="stat-note" id="sTotalNote">كل القطع في قاعدة البيانات</div></div>
-        <div class="stat"><span>متاحة في المعرض</span><strong id="sAvailable">0</strong><div class="stat-note" id="sAvailNote">جاهزة للعرض</div></div>
-        <div class="stat"><span>غير متاحة</span><strong id="sUnavailable">0</strong><div class="stat-note">يمكن إخفاؤها أو إعادة تفعيلها</div></div>
+        <div class="stat"><span>منشورة في المعرض</span><strong id="sAvailable">0</strong><div class="stat-note" id="sAvailNote">جاهزة للعرض</div></div>
+        <div class="stat"><span>متوقفة للطلب</span><strong id="sUnavailable">0</strong><div class="stat-note">يمكن إخفاؤها أو إعادة تفعيلها</div></div>
         <div class="stat"><span>قطع مميزة</span><strong id="sFeatured">0</strong><div class="stat-note">تظهر في Featured Collection</div></div>
       </div>
 
@@ -428,8 +432,10 @@ body{
           </div>
           <select id="statusFilter" class="select">
             <option value="all">كل الحالات</option>
-            <option value="available">متاحة</option>
-            <option value="unavailable">غير متاحة</option>
+            <option value="published">منشورة</option>
+            <option value="hidden">مخفية</option>
+            <option value="available">متاحة للطلب</option>
+            <option value="unavailable">متوقفة للطلب</option>
             <option value="featured">مميزة</option>
           </select>
           <select id="sortFilter" class="select">
@@ -447,8 +453,10 @@ body{
           <div class="selection-bar">
             <span class="selection-count" id="selectionCount">0 محدد</span>
             <div class="bulk" id="bulkBar">
-              <button class="btn btn-soft" onclick="bulkToggleAvailability(true)">تفعيل</button>
-              <button class="btn btn-soft" onclick="bulkToggleAvailability(false)">إخفاء</button>
+              <button class="btn btn-soft" onclick="bulkToggleActive(true)">نشر</button>
+              <button class="btn btn-soft" onclick="bulkToggleActive(false)">إخفاء من المتجر</button>
+              <button class="btn btn-soft" onclick="bulkToggleAvailability(true)">إتاحة الطلب</button>
+              <button class="btn btn-soft" onclick="bulkToggleAvailability(false)">إيقاف الطلب</button>
               <button class="btn btn-soft" onclick="bulkToggleFeatured(true)">تمييز</button>
               <button class="btn btn-danger" onclick="bulkDelete()">حذف</button>
             </div>
@@ -514,7 +522,8 @@ body{
         </div>
 
         <div class="checks full">
-          <label class="check"><input id="pavailable" type="checkbox" checked> القطعة متاحة للعرض</label>
+          <label class="check"><input id="pactive" type="checkbox" checked> منشورة في المتجر — تظهر للزوار</label>
+          <label class="check"><input id="pavailable" type="checkbox" checked> متاحة للطلب — يمكن الاستفسار عنها وطلبها</label>
           <label class="check"><input id="pfeatured" type="checkbox"> قطعة مميزة — تظهر في Featured Collection</label>
           <label class="check"><input id="pbest" type="checkbox"> Best Seller — تظهر في الأكثر طلباً</label>
         </div>
@@ -544,6 +553,8 @@ let activeCategory='all';
 let editingImages=[];
 let pendingFiles=[];
 let draggedImageIndex=null;
+let realtimeChannel=null;
+let refreshTimer=null;
 
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
@@ -583,6 +594,44 @@ function storagePathFromUrl(url){
     return i>=0?decodeURIComponent(u.pathname.slice(i+marker.length)):null;
   }catch{return null}
 }
+function isPublished(p){return p?.is_active!==false}
+function isOrderable(p){
+  if(p?.is_available===false)return false;
+  const stock=Number(p?.stock);
+  const stockKnown=p?.stock!==null&&p?.stock!==undefined&&p?.stock!==''&&Number.isFinite(stock);
+  return !(stockKnown&&stock<=0);
+}
+function setSyncState(mode,text){
+  const el=$('#syncState');
+  if(!el)return;
+  el.textContent='● '+text;
+  el.className='sync-pill '+(mode||'');
+}
+function scheduleProductsRefresh(){
+  clearTimeout(refreshTimer);
+  refreshTimer=setTimeout(()=>loadProducts({fromRealtime:true}),260);
+}
+function subscribeToProductChanges(){
+  if(!db||realtimeChannel)return;
+  setSyncState('', 'جاري تفعيل المزامنة');
+  realtimeChannel=db.channel('awm-admin-products-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'products'},payload=>{
+      console.log('AWM product change:',payload.eventType,payload.new?.id||payload.old?.id||'');
+      scheduleProductsRefresh();
+    })
+    .subscribe(status=>{
+      if(status==='SUBSCRIBED') setSyncState('live','متصل Live');
+      else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'||status==='CLOSED') setSyncState('error','المزامنة غير متاحة');
+    });
+}
+async function unsubscribeRealtime(){
+  clearTimeout(refreshTimer);
+  if(realtimeChannel){
+    try{await db.removeChannel(realtimeChannel)}catch(_){}
+    realtimeChannel=null;
+  }
+  setSyncState('', 'غير متصل');
+}
 function isRecent(p){
   if(!p?.updated_at&&!p?.created_at)return false;
   const d=new Date(p.updated_at||p.created_at);
@@ -596,7 +645,7 @@ async function init(){
   db.auth.onAuthStateChange((_event,s)=>{session=s;s?showApp():showLogin()});
 }
 function showLogin(){$('#loginView').classList.remove('hidden');$('#app').classList.add('hidden')}
-function showApp(){$('#loginView').classList.add('hidden');$('#app').classList.remove('hidden');loadProducts()}
+function showApp(){$('#loginView').classList.add('hidden');$('#app').classList.remove('hidden');loadProducts();subscribeToProductChanges()}
 async function login(){
   $('#loginMsg').textContent='';
   $('#loginBtn').disabled=true; $('#loginBtn').textContent='جاري الدخول...';
@@ -605,7 +654,7 @@ async function login(){
   if(error)$('#loginMsg').textContent=error.message;
   $('#loginBtn').disabled=false; $('#loginBtn').textContent='دخول لوحة الإدارة';
 }
-async function logout(){await db.auth.signOut()}
+async function logout(){await unsubscribeRealtime();await db.auth.signOut()}
 $('#loginForm').addEventListener('submit',e=>{e.preventDefault();login()});
 
 function switchSection(sec){
@@ -617,21 +666,23 @@ function switchSection(sec){
 }
 $$('.menu button').forEach(b=>b.addEventListener('click',()=>switchSection(b.dataset.section)));
 
-async function loadProducts(){
-  $('#productRows').innerHTML='<tr><td colspan="8" class="no-data">جاري تحميل المنتجات...</td></tr>';
+async function loadProducts({fromRealtime=false}={}){
+  $('#productRows').innerHTML='<tr><td colspan="9" class="no-data">جاري تحميل المنتجات...</td></tr>';
   const {data,error}=await db.from('products').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
-  if(error){toast('تعذر تحميل المنتجات: '+error.message,'error');return}
+  if(error){setSyncState('error','فشل تحميل البيانات');toast('تعذر تحميل المنتجات: '+error.message,'error');return}
   products=data||[];
   selectedIds.clear();
   renderAll();
+  if(!fromRealtime) setSyncState(realtimeChannel?'live':'','تم تحميل البيانات');
 }
 function renderAll(){
   updateStats(); renderRecent(); renderCategoriesDashboard(); renderCategoryChips(); renderTable(); updateSelectionUI();
 }
 function updateStats(){
-  const total=products.length,available=products.filter(p=>p.is_available).length,unavailable=total-available,featured=products.filter(p=>p.is_featured).length;
-  $('#sTotal').textContent=total; $('#sAvailable').textContent=available; $('#sUnavailable').textContent=unavailable; $('#sFeatured').textContent=featured;
-  $('#sAvailNote').textContent=total?`${Math.round(available/total*100)}% من إجمالي القطع`:'لا توجد بيانات بعد';
+  const total=products.length,published=products.filter(isPublished).length,unavailable=products.filter(p=>!isOrderable(p)).length,featured=products.filter(p=>p.is_featured).length;
+  $('#sTotal').textContent=total; $('#sAvailable').textContent=published; $('#sUnavailable').textContent=unavailable; $('#sFeatured').textContent=featured;
+  $('#sAvailNote').textContent=total?`${Math.round(published/total*100)}% منشورة في المتجر`:'لا توجد بيانات بعد';
+  $('#sTotalNote').textContent=total?`${products.filter(p=>!isPublished(p)).length} مخفية حالياً`:'كل القطع في قاعدة البيانات';
 }
 function renderRecent(){
   const list=[...products].sort((a,b)=>new Date(b.updated_at||b.created_at||0)-new Date(a.updated_at||a.created_at||0)).slice(0,7);
@@ -641,7 +692,7 @@ function renderRecent(){
         <img src="${esc(parseImages(p)[0]||'awm-logo.jpg')}" alt="" onerror="this.src='awm-logo.jpg'">
         <div style="min-width:0"><div class="quick-name">${esc(p.name)}</div><div class="quick-meta">${esc(p.category||'بدون قسم')} • ${parseImages(p).length} صور</div></div>
       </div>
-      <div class="quick-right"><div class="quick-price">${money(p.price)}</div><div class="mini-status" style="color:${p.is_available?'#16834b':'#c81924'}">${p.is_available?'متاح':'غير متاح'}</div></div>
+      <div class="quick-right"><div class="quick-price">${money(p.price)}</div><div class="mini-status" style="color:${isPublished(p)?'#16834b':'#c81924'}">${isPublished(p)?(isOrderable(p)?'منشورة • متاحة':'منشورة • متوقفة'):'مخفية من المتجر'}</div></div>
     </div>`).join(''):'<div class="no-data">لا توجد منتجات بعد.</div>';
 }
 function renderCategoriesDashboard(){
@@ -662,8 +713,10 @@ function renderCategoryChips(){
 function filteredProducts(){
   let list=products.filter(p=>activeCategory==='all'||p.category===activeCategory);
   const status=$('#statusFilter').value;
-  if(status==='available')list=list.filter(p=>p.is_available);
-  if(status==='unavailable')list=list.filter(p=>!p.is_available);
+  if(status==='published')list=list.filter(isPublished);
+  if(status==='hidden')list=list.filter(p=>!isPublished(p));
+  if(status==='available')list=list.filter(isOrderable);
+  if(status==='unavailable')list=list.filter(p=>!isOrderable(p));
   if(status==='featured')list=list.filter(p=>p.is_featured);
   const q=$('#search').value.trim().toLowerCase();
   if(q){
@@ -700,7 +753,8 @@ function productRow(p){
     <td><b class="mono">${money(p.price)}</b>${hasOld?`<div style="font-size:9px;color:#999;text-decoration:line-through">${money(old)}</div>`:''}</td>
     <td>${hasStock?`<span class="badge ${stock<=3?'amber':'green'}">${stock}</span>`:'<span class="muted">—</span>'}</td>
     <td>${esc(p.condition||'—')}</td>
-    <td><span class="badge ${p.is_available?'green':'red'}">${p.is_available?'متاح':'غير متاح'}</span></td>
+    <td><span class="badge ${isPublished(p)?'green':'red'}">${isPublished(p)?'منشورة':'مخفية'}</span></td>
+    <td><span class="badge ${isOrderable(p)?'green':'red'}">${isOrderable(p)?'متاح للطلب':'متوقف'}</span></td>
     <td><div class="badges">${badges.join('')}</div></td>
     <td><div class="row-actions"><button class="mini" onclick="openProductModal('${p.id}')">تعديل</button><button class="mini red" onclick="deleteProduct('${p.id}')">حذف</button></div></td>
   </tr>`;
@@ -736,7 +790,8 @@ async function bulkUpdate(payload,success){
   if(error){toast('تعذر تنفيذ العملية: '+error.message,'error');return}
   toast(success);await loadProducts();
 }
-function bulkToggleAvailability(v){bulkUpdate({is_available:v},v?'تم تفعيل القطع المحددة':'تم إخفاء القطع المحددة')}
+function bulkToggleActive(v){bulkUpdate({is_active:v},v?'تم نشر القطع المحددة في المتجر':'تم إخفاء القطع المحددة من المتجر')}
+function bulkToggleAvailability(v){bulkUpdate({is_available:v},v?'تم إتاحة الطلب للقطع المحددة':'تم إيقاف الطلب للقطع المحددة')}
 function bulkToggleFeatured(v){bulkUpdate({is_featured:v},v?'تم تمييز القطع المحددة':'تم إلغاء التمييز')}
 async function bulkDelete(){
   if(!selectedIds.size||!confirm(`حذف ${selectedIds.size} قطعة نهائياً؟`))return;
@@ -752,7 +807,7 @@ async function bulkDelete(){
 
 /* Product modal + multi-image manager */
 function resetProductForm(){
-  $('#productForm').reset();$('#pid').value='';$('#psort').value='0';$('#pavailable').checked=true;$('#pfeatured').checked=false;$('#pbest').checked=false;
+  $('#productForm').reset();$('#pid').value='';$('#psort').value='0';$('#pactive').checked=true;$('#pavailable').checked=true;$('#pfeatured').checked=false;$('#pbest').checked=false;
   editingImages=[];pendingFiles=[];renderImageManager();$('#modalTitle').textContent='إضافة قطعة';
 }
 function openProductModal(id=null){
@@ -765,7 +820,7 @@ function openProductModal(id=null){
     $('#pcondition').value=p.condition||'جديد';$('#psizes').value=p.sizes||'';$('#pcolors').value=p.colors||'';
     $('#pcollection').value=p.collection??p.collection_name??'';$('#pfabric').value=p.fabric??p.material??p.fabric_type??'';
     $('#ptags').value=Array.isArray(p.tags)?p.tags.join(', '):(p.tags??p.keywords??'');
-    $('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#pbest').checked=!!(p.is_bestseller??p.best_seller??p.is_best_seller);$('#psort').value=p.sort_order??0;
+    $('#pdesc').value=p.description||'';$('#pactive').checked=isPublished(p);$('#pavailable').checked=isOrderable(p);$('#pfeatured').checked=!!p.is_featured;$('#pbest').checked=!!(p.is_bestseller??p.best_seller??p.is_best_seller);$('#psort').value=p.sort_order??0;
     editingImages=parseImages(p);
     renderImageManager();
   }
@@ -845,10 +900,10 @@ async function saveProduct(e){
       description:$('#pdesc').value.trim()||null,
       image_url:cleanImages[0]||null,
       image_urls:cleanImages,
+      is_active:$('#pactive').checked,
       is_available:$('#pavailable').checked,
       is_featured:$('#pfeatured').checked,
       is_bestseller:$('#pbest').checked,
-      is_active:true,
       sort_order:Number($('#psort').value)||0
     };
     const res=id?await db.from('products').update(payload).eq('id',id):await db.from('products').insert(payload);
