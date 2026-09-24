@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AWM | لوحة الإدارة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--red:#d71920;--black:#090909;--bg:#f5f6f8;--white:#fff;--line:#e7e8eb;--muted:#74777d;--green:#16834b;--danger:#c81924;--radius:18px;--shadow:0 12px 40px rgba(15,18,25,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#17181a;font-family:Cairo,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.hidden{display:none!important}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top right,#222 0,#080808 45%,#000 100%)}
+.login-card{width:min(440px,100%);background:#fff;border-radius:26px;padding:35px;box-shadow:0 25px 80px rgba(0,0,0,.25);text-align:center}.login-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}.login-card h1{margin:12px 0 2px}.login-card p{color:#777;margin:0 0 25px}
+.input{width:100%;border:1px solid #ddd;border-radius:12px;padding:12px 14px;outline:0;background:#fff}.input:focus{border-color:#111}.field{margin-bottom:14px;text-align:right}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:800}.btn-red{background:var(--red);color:#fff}.btn-dark{background:#111;color:#fff}.btn-light{background:#fff;border:1px solid #ddd}.btn-danger{background:#fff1f2;color:var(--danger);border:1px solid #ffd3d6}
+.app{display:grid;grid-template-columns:265px 1fr;min-height:100vh}.side{background:#090909;color:#fff;padding:22px;position:sticky;top:0;height:100vh}.side-brand{display:flex;align-items:center;gap:11px;padding:4px 0 25px;border-bottom:1px solid #252525}.side-brand img{width:49px;height:49px;border-radius:50%}.side-brand strong{font:800 22px Montserrat;letter-spacing:3px}.side-brand small{display:block;color:#888;font-size:9px;letter-spacing:1.5px}
+.menu{padding-top:22px}.menu button{width:100%;border:0;background:transparent;color:#aaa;text-align:right;padding:12px 13px;border-radius:12px;margin-bottom:4px;font-weight:700}.menu button.active,.menu button:hover{background:#1b1b1b;color:#fff}.menu button.active{border-right:3px solid var(--red)}
+.side-foot{position:absolute;bottom:22px;right:22px;left:22px;color:#666;font-size:11px}
+.main{padding:25px 30px}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:23px}.top h1{margin:0;font-size:27px}.top p{margin:3px 0 0;color:#777}.top-actions{display:flex;gap:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.stat span{color:#777;font-size:12px}.stat strong{display:block;font:800 27px Montserrat;margin-top:5px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.panel-head h2{margin:0;font-size:19px}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:780px}.table th,.table td{text-align:right;padding:13px 10px;border-bottom:1px solid #eee}.table th{font-size:12px;color:#777;background:#fafafa}.thumb{width:52px;height:62px;border-radius:9px;object-fit:cover;background:#eee}.status{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}.status.on{background:#eaf8f0;color:var(--green)}.status.off{background:#fff0f1;color:var(--danger)}.actions{display:flex;gap:6px}.mini{border:1px solid #ddd;background:#fff;border-radius:9px;padding:7px 10px;font-size:12px;font-weight:700}.mini.red{color:var(--danger);border-color:#ffd2d5}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.overlay.open{display:flex}.modal{background:#fff;width:min(850px,100%);max-height:92vh;overflow:auto;border-radius:24px;padding:25px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{margin:0}.x{border:0;background:#f2f2f2;width:38px;height:38px;border-radius:50%;font-size:19px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.full{grid-column:1/-1}.check{display:flex;gap:9px;align-items:center;border:1px solid #eee;padding:11px 13px;border-radius:12px}.preview{display:flex;gap:12px;align-items:center}.preview img{width:90px;height:110px;object-fit:cover;border-radius:12px;background:#eee}.upload{border:1px dashed #bbb;padding:15px;border-radius:13px;text-align:center;background:#fafafa}.upload input{margin-top:8px;width:100%}
+.toast{position:fixed;bottom:18px;left:18px;background:#111;color:#fff;padding:12px 16px;border-radius:11px;z-index:200;opacity:0;transform:translateY(10px);transition:.2s}.toast.show{opacity:1;transform:none}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:relative;height:auto;padding:12px 15px}.menu{display:flex;gap:5px;overflow:auto;padding-top:12px}.menu button{white-space:nowrap;width:auto}.side-foot{display:none}.main{padding:18px}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.main{padding:13px}.top{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<section id="loginView" class="login">
+  <div class="login-card">
+    <img src="awm-logo.jpg" alt="AWM"><h1>AWM ADMIN</h1><p>إدارة معرض Always Your Store</p>
+    <div class="field"><label>البريد الإلكتروني</label><input id="email" class="input" type="email" autocomplete="username" placeholder="admin@example.com"></div>
+    <div class="field"><label>كلمة المرور</label><input id="password" class="input" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+    <button class="btn btn-red" style="width:100%" onclick="login()">دخول لوحة الإدارة</button>
+    <div id="loginMsg" style="color:#c81924;margin-top:12px;font-size:12px"></div>
+  </div>
+</section>
+
+<div id="app" class="app hidden">
+<aside class="side">
+  <div class="side-brand"><img src="awm-logo.jpg"><div><strong>AWM</strong><small>ALWAYS YOUR STORE</small></div></div>
+  <div class="menu"><button class="active" data-section="dashboard">لوحة التحكم</button><button data-section="products">المنتجات والمعرض</button></div>
+  <div class="side-foot">نظام إدارة معرض AWM<br>بدون طلبات أو سلة مشتريات</div>
+</aside>
+<main class="main">
+  <div class="top"><div><h1 id="pageTitle">لوحة التحكم</h1><p>إدارة قطع الملابس الظاهرة في المعرض.</p></div><div class="top-actions"><button class="btn btn-light" onclick="window.open('index.html','_blank')">فتح المعرض</button><button class="btn btn-dark" onclick="logout()">خروج</button></div></div>
+
+  <section id="dashboardSection">
+    <div class="stats">
+      <div class="stat"><span>إجمالي المنتجات</span><strong id="sTotal">0</strong></div>
+      <div class="stat"><span>متاحة</span><strong id="sAvailable">0</strong></div>
+      <div class="stat"><span>غير متاحة</span><strong id="sUnavailable">0</strong></div>
+      <div class="stat"><span>مميزة</span><strong id="sFeatured">0</strong></div>
+    </div>
+    <div class="panel"><div class="panel-head"><h2>آخر القطع</h2><button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button></div><div class="table-wrap"><table class="table"><thead><tr><th>الصورة</th><th>القطعة</th><th>القسم</th><th>السعر</th><th>الحالة</th><th>التوفر</th><th>إجراء</th></tr></thead><tbody id="dashRows"></tbody></table></div></div>
+  </section>
+
+  <section id="productsSection" class="hidden"><div class="panel"><div class="panel-head"><h2>كل المنتجات</h2><button class="btn btn-red" onclick="openProductModal()">+ إضافة قطعة</button></div><div class="table-wrap"><table class="table"><thead><tr><th>الصورة</th><th>القطعة</th><th>القسم</th><th>السعر</th><th>الحالة</th><th>التوفر</th><th>مميز</th><th>إجراء</th></tr></thead><tbody id="productRows"></tbody></table></div></div></section>
+</main>
+</div>
+
+<div class="overlay" id="productOverlay"><div class="modal">
+  <div class="modal-head"><h2 id="modalTitle">إضافة قطعة</h2><button class="x" onclick="closeProductModal()">×</button></div>
+  <form id="productForm">
+    <input type="hidden" id="pid">
+    <div class="form-grid">
+      <div class="field"><label>اسم القطعة *</label><input id="pname" class="input" required></div>
+      <div class="field"><label>القسم</label><input id="pcategory" class="input" placeholder="رجالي، حريمي، أطفال..."></div>
+      <div class="field"><label>السعر بالجنيه *</label><input id="pprice" class="input" type="number" min="0" step="0.01" required></div>
+      <div class="field"><label>حالة القطعة</label><select id="pcondition" class="input"><option>جديد</option><option>ممتاز</option><option>جيد جداً</option><option>مستعمل</option></select></div>
+      <div class="field"><label>المقاسات</label><input id="psizes" class="input" placeholder="S / M / L / XL"></div>
+      <div class="field"><label>الألوان</label><input id="pcolors" class="input" placeholder="أسود، أبيض..."></div>
+      <div class="field full"><label>وصف القطعة</label><textarea id="pdesc" class="input" rows="4" placeholder="تفاصيل القماش، الموديل، الملاحظات..."></textarea></div>
+      <div class="field full"><label>صورة القطعة</label><div class="upload"><div id="uploadText">ارفع صورة للقطعة (JPG / PNG / WEBP)</div><input id="pfile" type="file" accept="image/*"></div><div class="preview" style="margin-top:10px"><img id="preview" src="awm-logo.jpg"><small id="imageUrlHint" style="color:#777"></small></div></div>
+      <label class="check"><input id="pavailable" type="checkbox" checked> القطعة متاحة للعرض</label>
+      <label class="check"><input id="pfeatured" type="checkbox"> قطعة مميزة</label>
+      <div class="field"><label>ترتيب العرض</label><input id="psort" class="input" type="number" value="0"></div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-start;margin-top:20px"><button class="btn btn-red" type="submit" id="saveBtn">حفظ القطعة</button><button class="btn btn-light" type="button" onclick="closeProductModal()">إلغاء</button></div>
+  </form>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL='https://ftyvkwtbqpmehmzgsjnc.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_CTYRVQ_EN2xiW6wTk6TL2w_7mqTDtJi';
+const {createClient}=supabase; const db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let products=[]; let session=null;
+const $=s=>document.querySelector(s);
+const money=v=>Number(v||0).toLocaleString('ar-EG',{maximumFractionDigits:2})+' ج.م';
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+async function init(){const r=await db.auth.getSession();session=r.data.session;if(session) showApp(); else showLogin();db.auth.onAuthStateChange((_e,s)=>{session=s;s?showApp():showLogin()})}
+function showLogin(){$('#loginView').classList.remove('hidden');$('#app').classList.add('hidden')}
+function showApp(){$('#loginView').classList.add('hidden');$('#app').classList.remove('hidden');loadProducts()}
+async function login(){const email=$('#email').value.trim(),password=$('#password').value;const {error}=await db.auth.signInWithPassword({email,password});if(error)$('#loginMsg').textContent=error.message}
+async function logout(){await db.auth.signOut()}
+document.querySelectorAll('.menu button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.menu button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const sec=b.dataset.section;$('#dashboardSection').classList.toggle('hidden',sec!=='dashboard');$('#productsSection').classList.toggle('hidden',sec!=='products');$('#pageTitle').textContent=sec==='dashboard'?'لوحة التحكم':'المنتجات والمعرض'});
+
+async function loadProducts(){
+ const {data,error}=await db.from('products').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+ if(error){toast('تعذر تحميل المنتجات: '+error.message);return}
+ products=data||[];renderTables();$('#sTotal').textContent=products.length;$('#sAvailable').textContent=products.filter(p=>p.is_available).length;$('#sUnavailable').textContent=products.filter(p=>!p.is_available).length;$('#sFeatured').textContent=products.filter(p=>p.is_featured).length;
+}
+function row(p,full=false){return `<tr><td><img class="thumb" src="${esc(p.image_url||'awm-logo.jpg')}"></td><td><b>${esc(p.name)}</b></td><td>${esc(p.category||'—')}</td><td>${money(p.price)}</td><td>${esc(p.condition||'—')}</td><td><span class="status ${p.is_available?'on':'off'}">${p.is_available?'متاح':'غير متاح'}</span></td>${full?`<td>${p.is_featured?'★':'—'}</td>`:''}<td><div class="actions"><button class="mini" onclick="editProduct('${p.id}')">تعديل</button><button class="mini red" onclick="deleteProduct('${p.id}')">حذف</button></div></td></tr>`}
+function renderTables(){$('#dashRows').innerHTML=products.slice(0,8).map(p=>row(p)).join('')||'<tr><td colspan="7">لا توجد منتجات.</td></tr>';$('#productRows').innerHTML=products.map(p=>row(p,true)).join('')||'<tr><td colspan="8">لا توجد منتجات.</td></tr>'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+function openProductModal(id=null){
+ $('#productForm').reset();$('#pid').value='';$('#preview').src='awm-logo.jpg';$('#imageUrlHint').textContent='';$('#modalTitle').textContent=id?'تعديل قطعة':'إضافة قطعة';
+ if(id){const p=products.find(x=>x.id===id);if(!p)return;$('#pid').value=p.id;$('#pname').value=p.name;$('#pcategory').value=p.category||'';$('#pprice').value=p.price;$('#pcondition').value=p.condition||'جديد';$('#psizes').value=p.sizes||'';$('#pcolors').value=p.colors||'';$('#pdesc').value=p.description||'';$('#pavailable').checked=!!p.is_available;$('#pfeatured').checked=!!p.is_featured;$('#psort').value=p.sort_order||0;$('#preview').src=p.image_url||'awm-logo.jpg';$('#imageUrlHint').textContent=p.image_url?'الصورة الحالية محفوظة':''}
+ $('#productOverlay').classList.add('open')
+}
+function editProduct(id){openProductModal(id)} function closeProductModal(){$('#productOverlay').classList.remove('open')}
+$('#pfile').addEventListener('change',e=>{const f=e.target.files[0];if(f){$('#preview').src=URL.createObjectURL(f);$('#uploadText').textContent=f.name}});
+
+async function uploadImage(file){
+ if(!file)return null;
+ const ext=(file.name.split('.').pop()||'jpg').toLowerCase();const path=`${crypto.randomUUID()}.${ext}`;
+ const {error}=await db.storage.from('products').upload(path,file,{upsert:false,contentType:file.type});
+ if(error)throw error;
+ const {data}=db.storage.from('products').getPublicUrl(path);return data.publicUrl;
+}
+$('#productForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('#saveBtn').disabled=true;$('#saveBtn').textContent='جاري الحفظ...';
+ try{
+  const id=$('#pid').value;const old=products.find(x=>x.id===id);let image=old?.image_url||null;const file=$('#pfile').files[0];if(file)image=await uploadImage(file);
+  const payload={name:$('#pname').value.trim(),category:$('#pcategory').value.trim()||null,price:Number($('#pprice').value),condition:$('#pcondition').value,sizes:$('#psizes').value.trim()||null,colors:$('#pcolors').value.trim()||null,description:$('#pdesc').value.trim()||null,image_url:image,is_available:$('#pavailable').checked,is_featured:$('#pfeatured').checked,sort_order:Number($('#psort').value)||0};
+  const res=id?await db.from('products').update(payload).eq('id',id):await db.from('products').insert(payload);
+  if(res.error)throw res.error;toast(id?'تم تحديث القطعة':'تمت إضافة القطعة');closeProductModal();loadProducts();
+ }catch(err){toast('حدث خطأ: '+err.message)}finally{$('#saveBtn').disabled=false;$('#saveBtn').textContent='حفظ القطعة'}
+});
+async function deleteProduct(id){const p=products.find(x=>x.id===id);if(!p||!confirm(`حذف "${p.name}" نهائياً؟`))return;const {error}=await db.from('products').delete().eq('id',id);if(error){toast('تعذر الحذف: '+error.message);return}toast('تم حذف القطعة');loadProducts()}
+$('#productOverlay').addEventListener('click',e=>{if(e.target.id==='productOverlay')closeProductModal()});
+init();
+</script>
+</body>
+</html>
