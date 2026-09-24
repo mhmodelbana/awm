@@ -806,6 +806,174 @@ img{display:block;max-width:100%}
   *{scroll-behavior:auto!important}
   *,*:before,*:after{animation:none!important;transition:none!important}
 }
+
+/* ===== PRODUCT DETAIL V2 ===== */
+.modal-info{
+  position:relative;
+}
+.modal-info::before{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:54px;
+  height:3px;
+  border-radius:99px;
+  background:var(--red);
+}
+.modal-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+.modal-category{
+  color:#888;
+  font-size:10px;
+  font-weight:800;
+}
+.modal-photo-count{
+  font-size:9px;
+  color:#777;
+  padding:5px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fafafa;
+}
+.modal-name{
+  margin-top:0!important;
+}
+.modal-price{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.modal-price::after{
+  content:"السعر الحالي";
+  font-family:Cairo,Arial,sans-serif;
+  font-size:9px;
+  font-weight:700;
+  color:#999;
+}
+.detail-divider{
+  height:1px;
+  background:var(--line);
+  margin:18px 0 2px;
+}
+.detail-section{
+  padding-top:2px;
+}
+.detail-label-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:16px 0 8px;
+}
+.detail-label-row .info-label{
+  margin:0;
+}
+.detail-note{
+  color:#999;
+  font-size:8px;
+}
+.detail-chip-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.detail-chip{
+  min-width:42px;
+  min-height:34px;
+  padding:7px 10px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:900;
+}
+.detail-chip.color{
+  border-radius:999px;
+  min-height:31px;
+}
+.details-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:14px;
+}
+.detail-stat{
+  padding:10px 11px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
+}
+.detail-stat small{
+  display:block;
+  color:#999;
+  font-size:8px;
+  margin-bottom:3px;
+}
+.detail-stat strong{
+  display:block;
+  color:#222;
+  font-size:10px;
+}
+.contact-box{
+  margin-top:21px!important;
+  padding-top:16px!important;
+}
+.contact-btn{
+  min-height:52px!important;
+  border-radius:15px!important;
+  font-size:12px!important;
+  letter-spacing:-.1px;
+}
+.contact-note{
+  font-size:9px!important;
+  margin-top:8px!important;
+}
+.gallery-caption{
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  z-index:3;
+  background:rgba(0,0,0,.58);
+  color:#fff;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  padding:6px 8px;
+  font-size:8px;
+  font-weight:800;
+}
+@media(max-width:760px){
+  .modal-info{
+    padding:17px 15px 29px!important;
+  }
+  .modal-info::before{
+    width:38px;
+    height:2px;
+  }
+  .modal-topline{margin-bottom:9px}
+  .modal-category{font-size:9px}
+  .modal-photo-count{font-size:8px;padding:4px 7px}
+  .modal-name{font-size:24px!important;line-height:1.18!important}
+  .modal-price{font-size:21px!important;margin:7px 0 9px!important}
+  .detail-divider{margin:14px 0 0}
+  .detail-label-row{margin:12px 0 7px}
+  .detail-note{display:none}
+  .details-grid{margin-top:11px;gap:6px}
+  .detail-stat{padding:9px 10px;border-radius:10px}
+  .detail-stat small{font-size:7px}.detail-stat strong{font-size:9px}
+  .contact-box{margin-top:16px!important}
+  .contact-btn{min-height:48px!important;border-radius:13px!important}
+}
+
 </style>
 </head>
 
@@ -922,27 +1090,49 @@ img{display:block;max-width:100%}
     <div class="modal-media">
       <div class="main-image" id="mainImage">
         <button class="modal-nav modal-prev" id="prevImage" aria-label="الصورة السابقة">›</button>
-        <img id="modalImage" src="awm-logo.jpg" alt="">
+        <img id="modalImage" src="awm-logo.jpg" alt=""><div class="gallery-caption" id="galleryCaption"></div>
         <button class="modal-nav modal-next" id="nextImage" aria-label="الصورة التالية">‹</button>
       </div>
       <div class="thumbs" id="modalThumbs"></div>
     </div>
 
     <div class="modal-info">
-      <div class="meta" id="modalCategory"></div>
+      <div class="modal-topline">
+        <div class="modal-category" id="modalCategory"></div>
+        <div class="modal-photo-count" id="modalPhotoCount"></div>
+      </div>
+
       <div class="modal-name" id="modalName"></div>
       <div class="modal-price" id="modalPrice"></div>
       <div id="modalStatus"></div>
       <div id="modalMeta" class="info-chips" style="margin-top:9px"></div>
 
-      <div class="info-label" id="sizesLabel" hidden>المقاسات</div>
-      <div class="info-chips" id="modalSizes"></div>
+      <div class="detail-divider"></div>
 
-      <div class="info-label" id="colorsLabel" hidden>الألوان</div>
-      <div class="info-chips" id="modalColors"></div>
+      <div class="details-grid" id="detailStats"></div>
 
-      <div class="info-label" id="descLabel" hidden>التفاصيل</div>
-      <p class="modal-desc" id="modalDesc"></p>
+      <div class="detail-section" id="sizesSection" hidden>
+        <div class="detail-label-row">
+          <div class="info-label">المقاسات</div>
+          <span class="detail-note">المقاسات المسجلة للقطعة</span>
+        </div>
+        <div class="detail-chip-group" id="modalSizes"></div>
+      </div>
+
+      <div class="detail-section" id="colorsSection" hidden>
+        <div class="detail-label-row">
+          <div class="info-label">الألوان</div>
+          <span class="detail-note">الألوان المتاحة</span>
+        </div>
+        <div class="detail-chip-group" id="modalColors"></div>
+      </div>
+
+      <div class="detail-section" id="descSection" hidden>
+        <div class="detail-label-row">
+          <div class="info-label">تفاصيل القطعة</div>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+      </div>
 
       <div class="contact-box">
         <button class="contact-btn" id="contactBtn" type="button">
@@ -1118,7 +1308,6 @@ function productCard(p){
       <div class="card-name">${esc(p.name||'قطعة AWM')}</div>
       <div class="card-foot"><div class="card-price">${money(p.price)}</div></div>
       <button class="card-detail" type="button" onclick="openProduct('${p.id}')">عرض التفاصيل</button>
-      <button class="card-contact" type="button" onclick="contactProduct('${p.id}')">تواصل بخصوص القطعة</button>
     </div>
   </article>`;
 }
@@ -1167,6 +1356,8 @@ function openProduct(id){
   $('#modalCategory').textContent=p.category||'AWM';
   $('#modalName').textContent=p.name||'';
   $('#modalPrice').textContent=money(p.price);
+  $('#modalPhotoCount').textContent=`${modalImages.length} ${modalImages.length===1?'صورة':'صور'}`;
+  $('#galleryCaption').textContent=modalImages.length>1?`1 / ${modalImages.length}`:'';
 
   $('#modalStatus').innerHTML=p.is_available
     ? '<span class="modal-status on">● متاح حالياً</span>'
@@ -1178,16 +1369,23 @@ function openProduct(id){
   if(p.condition)meta.push(`<span class="badge">${esc(p.condition)}</span>`);
   $('#modalMeta').innerHTML=meta.join('');
 
+  const stats=[];
+  if(p.category)stats.push(`<div class="detail-stat"><small>التصنيف</small><strong>${esc(p.category)}</strong></div>`);
+  if(p.condition)stats.push(`<div class="detail-stat"><small>الحالة</small><strong>${esc(p.condition)}</strong></div>`);
+  stats.push(`<div class="detail-stat"><small>التوفر</small><strong>${p.is_available?'متاح الآن':'غير متاح حالياً'}</strong></div>`);
+  if(p.is_featured)stats.push('<div class="detail-stat"><small>الظهور</small><strong>ضمن القطع المميزة</strong></div>');
+  $('#detailStats').innerHTML=stats.join('');
+
   const sizes=splitValues(p.sizes);
-  $('#sizesLabel').hidden=!sizes.length;
-  $('#modalSizes').innerHTML=sizes.map(s=>`<span class="size-chip">${esc(s)}</span>`).join('');
+  $('#sizesSection').hidden=!sizes.length;
+  $('#modalSizes').innerHTML=sizes.map(s=>`<span class="detail-chip">${esc(s)}</span>`).join('');
 
   const colors=splitValues(p.colors);
-  $('#colorsLabel').hidden=!colors.length;
-  $('#modalColors').innerHTML=colors.map(c=>`<span class="color-chip"><span class="color-dot" style="background:${colorCss(c)}"></span>${esc(c)}</span>`).join('');
+  $('#colorsSection').hidden=!colors.length;
+  $('#modalColors').innerHTML=colors.map(c=>`<span class="detail-chip color"><span class="color-dot" style="background:${colorCss(c)}"></span>${esc(c)}</span>`).join('');
 
   const desc=(p.description||'').trim();
-  $('#descLabel').hidden=!desc;
+  $('#descSection').hidden=!desc;
   $('#modalDesc').textContent=desc;
 
   $('#modalThumbs').innerHTML=modalImages.length>1
@@ -1213,6 +1411,7 @@ function setModalImage(i,immediate=false){
     img.style.opacity='1';
   }
   $$('.thumb').forEach((b,n)=>b.classList.toggle('active',n===modalIndex));
+  if($('#galleryCaption')) $('#galleryCaption').textContent=modalImages.length>1?`${modalIndex+1} / ${modalImages.length}`:'';
 }
 function nextImage(){if(modalImages.length>1)setModalImage(modalIndex+1)}
 function prevImage(){if(modalImages.length>1)setModalImage(modalIndex-1)}
