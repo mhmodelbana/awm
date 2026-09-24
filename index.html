@@ -6,8 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="color-scheme" content="light">
   <title>AWM | ستايل رجالي مميز</title>
-  <meta name="description" content="AWM — اختيارات رجالي مميزة بأسلوب بسيط وفخم.">
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -1159,7 +1158,7 @@
 
       $('#productHeaderTitle').textContent = product.name || 'تفاصيل القطعة';
       $('#productContent').innerHTML = buildProductHtml(product);
-      $('#productWhatsappText').textContent = getAvailability(product).canOrder ? 'اطلبها على واتساب' : 'اسأل عن التوفر';
+      $('#productWhatsappText').textContent = getAvailability(product).canOrder ? 'استفسر على واتساب' : 'اسأل عن التوفر';
       $('#productWhatsapp').disabled = false;
       updateProductFavoriteUI();
 
