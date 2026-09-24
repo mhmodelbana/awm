@@ -670,15 +670,20 @@ img{display:block;max-width:100%}
   z-index:70;
   box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
-/* ===== AWM PREMIUM HERO ===== */
+/* =====================================================
+   AWM HERO — MINIMAL / PREMIUM
+===================================================== */
 
 .hero-minimal{
   position:relative;
+
   width:min(1360px,calc(100% - 34px));
-  min-height:360px;
+  min-height:340px;
+
   margin:18px auto 0;
 
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
 
@@ -687,75 +692,51 @@ img{display:block;max-width:100%}
 
   background:
     radial-gradient(
-      circle at 50% 48%,
-      rgba(215,25,32,.065),
-      transparent 46%
+      circle at 50% 45%,
+      rgba(215,25,32,.055),
+      transparent 45%
     ),
     linear-gradient(
-      145deg,
+      135deg,
       #ffffff 0%,
-      #fafaf8 55%,
-      #f2f2ef 100%
+      #f8f8f6 100%
     );
 
-  border:1px solid rgba(0,0,0,.055);
+  border:1px solid rgba(0,0,0,.05);
   border-radius:25px;
 
   box-shadow:
-    0 18px 55px rgba(0,0,0,.055),
-    inset 0 1px 0 rgba(255,255,255,.9);
+    0 18px 50px rgba(0,0,0,.05);
 }
 
-.hero-minimal::before{
-  content:"";
+/* glow */
+.hero-glow{
   position:absolute;
-  inset:0;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,255,255,.45) 50%,
-      transparent 100%
-    );
+  width:240px;
+  height:240px;
 
-  opacity:.45;
-  pointer-events:none;
-}
-
-.hero-minimal::after{
-  content:"AWM";
-
-  position:absolute;
   left:50%;
-  bottom:-75px;
+  top:50%;
 
-  transform:translateX(-50%);
+  transform:translate(-50%,-50%);
 
-  font:900 190px/1 Montserrat;
-  letter-spacing:-12px;
+  border-radius:50%;
 
-  color:rgba(0,0,0,.022);
+  background:radial-gradient(
+    circle,
+    rgba(215,25,32,.11),
+    transparent 68%
+  );
 
-  white-space:nowrap;
+  filter:blur(12px);
+
+  animation:heroGlow 5s ease-in-out infinite;
+
   pointer-events:none;
 }
 
-.hero-minimal-inner{
-  position:relative;
-  z-index:5;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  text-align:center;
-
-  padding:38px 20px;
-}
-
-/* LOGO */
-
+/* logo */
 .hero-logo-animation{
   position:relative;
 
@@ -766,17 +747,19 @@ img{display:block;max-width:100%}
   align-items:center;
   justify-content:center;
 
-  animation:heroLogoFloat 4.5s ease-in-out infinite;
+  animation:logoFloat 4.5s ease-in-out infinite;
 
-  filter:drop-shadow(0 16px 25px rgba(0,0,0,.10));
+  filter:drop-shadow(
+    0 14px 22px rgba(0,0,0,.10)
+  );
 }
 
 .hero-logo-animation img{
   position:relative;
   z-index:3;
 
-  width:80px;
-  height:80px;
+  width:82px;
+  height:82px;
 
   object-fit:cover;
 
@@ -786,130 +769,80 @@ img{display:block;max-width:100%}
 
   box-shadow:
     0 0 0 1px rgba(0,0,0,.045),
-    0 12px 30px rgba(0,0,0,.08);
+    0 10px 28px rgba(0,0,0,.08);
 
-  animation:heroLogoBreath 3.6s ease-in-out infinite;
+  animation:logoBreath 3.8s ease-in-out infinite;
 }
 
-/* RED AURA */
-
+/* logo aura */
 .logo-aura{
   position:absolute;
-  inset:7px;
 
-  border-radius:27px;
+  inset:5px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(215,25,32,.14),
-      transparent 68%
-    );
+  border-radius:26px;
+
+  background:radial-gradient(
+    circle,
+    rgba(215,25,32,.14),
+    transparent 67%
+  );
 
   filter:blur(10px);
 
-  animation:heroAura 3.6s ease-in-out infinite;
+  animation:logoAura 3.8s ease-in-out infinite;
 }
 
-/* LIGHT SWEEP */
-
+/* shine */
 .logo-shine{
   position:absolute;
-  z-index:6;
 
-  top:-15%;
+  z-index:5;
+
+  top:-20%;
   left:-80%;
 
-  width:28%;
-  height:130%;
+  width:27%;
+  height:140%;
 
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,255,255,.9),
+    rgba(255,255,255,.95),
     transparent
   );
 
   transform:rotate(18deg);
 
-  animation:heroShine 5s ease-in-out infinite;
+  animation:logoShine 5.2s ease-in-out infinite;
 
   pointer-events:none;
 }
 
-/* RINGS */
-
-.hero-ring{
-  position:absolute;
-
-  top:50%;
-  left:50%;
-
-  border-radius:50%;
-
-  transform:translate(-50%,-50%);
-
-  pointer-events:none;
-}
-
-.ring-1{
-  width:230px;
-  height:230px;
-
-  border:1px solid rgba(215,25,32,.065);
-
-  animation:heroRingOne 14s linear infinite;
-}
-
-.ring-2{
-  width:295px;
-  height:295px;
-
-  border:1px solid rgba(0,0,0,.035);
-
-  animation:heroRingTwo 20s linear infinite;
-}
-
-.ring-1::after{
-  content:"";
-
-  position:absolute;
-
-  top:15px;
-  left:50%;
-
-  width:5px;
-  height:5px;
-
-  transform:translateX(-50%);
-
-  border-radius:50%;
-
-  background:var(--red);
-
-  box-shadow:
-    0 0 0 5px rgba(215,25,32,.07),
-    0 0 15px rgba(215,25,32,.22);
-}
-
-/* TITLE */
-
+/* title */
 .hero-minimal h1{
-  margin:23px 0 0;
+  position:relative;
+
+  z-index:5;
+
+  margin:21px 0 0;
 
   color:#111;
 
-  font-size:clamp(37px,4.5vw,52px);
-  line-height:1.12;
+  font-size:clamp(36px,4.5vw,51px);
+  line-height:1.1;
 
   letter-spacing:-1.8px;
 
   font-weight:900;
+
+  text-align:center;
 }
 
 .hero-minimal h1 span{
-  position:relative;
   color:var(--red);
+
+  position:relative;
 }
 
 .hero-minimal h1 span::after{
@@ -919,6 +852,7 @@ img{display:block;max-width:100%}
 
   right:0;
   left:0;
+
   bottom:-5px;
 
   height:2px;
@@ -927,26 +861,29 @@ img{display:block;max-width:100%}
 
   background:var(--red);
 
-  transform:scaleX(.3);
+  transform:scaleX(.35);
 
-  animation:heroTitleLine 3s ease-in-out infinite;
+  transform-origin:center;
+
+  animation:titleAccent 3s ease-in-out infinite;
 }
 
-/* EXPLORE */
-
+/* explore */
 .hero-explore{
+  position:relative;
+
+  z-index:5;
+
   margin-top:22px;
 
-  min-width:105px;
-  height:41px;
+  min-width:100px;
+  height:40px;
 
-  display:inline-flex;
+  display:flex;
   align-items:center;
   justify-content:center;
-  gap:7px;
 
-  border:0;
-  border-radius:11px;
+  border-radius:10px;
 
   background:#111;
   color:#fff;
@@ -954,7 +891,8 @@ img{display:block;max-width:100%}
   font-size:9px;
   font-weight:900;
 
-  box-shadow:0 10px 23px rgba(0,0,0,.12);
+  box-shadow:
+    0 9px 22px rgba(0,0,0,.11);
 
   transition:
     transform .22s ease,
@@ -968,20 +906,15 @@ img{display:block;max-width:100%}
   background:var(--red);
 
   box-shadow:
-    0 12px 27px rgba(215,25,32,.18);
+    0 12px 26px rgba(215,25,32,.18);
 }
 
-.hero-explore svg{
-  transition:transform .22s ease;
-}
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 
-.hero-explore:hover svg{
-  transform:translateY(3px);
-}
+@keyframes logoFloat{
 
-/* ANIMATIONS */
-
-@keyframes heroLogoFloat{
   0%,100%{
     transform:translateY(0);
   }
@@ -989,9 +922,11 @@ img{display:block;max-width:100%}
   50%{
     transform:translateY(-7px);
   }
+
 }
 
-@keyframes heroLogoBreath{
+@keyframes logoBreath{
+
   0%,100%{
     transform:scale(1);
   }
@@ -999,21 +934,25 @@ img{display:block;max-width:100%}
   50%{
     transform:scale(1.025);
   }
+
 }
 
-@keyframes heroAura{
+@keyframes logoAura{
+
   0%,100%{
-    opacity:.32;
+    opacity:.30;
     transform:scale(.92);
   }
 
   50%{
-    opacity:.75;
+    opacity:.72;
     transform:scale(1.08);
   }
+
 }
 
-@keyframes heroShine{
+@keyframes logoShine{
+
   0%,15%{
     left:-80%;
     opacity:0;
@@ -1027,31 +966,33 @@ img{display:block;max-width:100%}
     left:140%;
     opacity:0;
   }
+
 }
 
-@keyframes heroRingOne{
-  from{
-    transform:translate(-50%,-50%) rotate(0);
-  }
+@keyframes heroGlow{
 
-  to{
-    transform:translate(-50%,-50%) rotate(360deg);
-  }
-}
-
-@keyframes heroRingTwo{
-  from{
-    transform:translate(-50%,-50%) rotate(360deg);
-  }
-
-  to{
-    transform:translate(-50%,-50%) rotate(0);
-  }
-}
-
-@keyframes heroTitleLine{
   0%,100%{
-    transform:scaleX(.3);
+    transform:
+      translate(-50%,-50%)
+      scale(.92);
+
+    opacity:.55;
+  }
+
+  50%{
+    transform:
+      translate(-50%,-50%)
+      scale(1.08);
+
+    opacity:1;
+  }
+
+}
+
+@keyframes titleAccent{
+
+  0%,100%{
+    transform:scaleX(.35);
     opacity:.4;
   }
 
@@ -1059,58 +1000,53 @@ img{display:block;max-width:100%}
     transform:scaleX(1);
     opacity:1;
   }
+
 }
 
-/* MOBILE */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:760px){
 
   .hero-minimal{
+
     width:calc(100% - 18px);
-    min-height:285px;
+
+    min-height:280px;
 
     margin-top:10px;
 
     border-radius:20px;
   }
 
-  .hero-minimal::after{
-    font-size:110px;
-    bottom:-42px;
-    letter-spacing:-7px;
-  }
+  .hero-glow{
 
-  .hero-ring.ring-1{
-    width:175px;
-    height:175px;
-  }
-
-  .hero-ring.ring-2{
-    width:225px;
-    height:225px;
-  }
-
-  .hero-minimal-inner{
-    padding:27px 14px;
+    width:190px;
+    height:190px;
   }
 
   .hero-logo-animation{
-    width:84px;
-    height:84px;
+
+    width:85px;
+    height:85px;
   }
 
   .hero-logo-animation img{
-    width:66px;
-    height:66px;
+
+    width:67px;
+    height:67px;
+
     border-radius:15px;
   }
 
   .logo-aura{
-    inset:6px;
+    inset:5px;
   }
 
   .hero-minimal h1{
-    margin-top:18px;
+
+    margin-top:17px;
 
     font-size:29px;
 
@@ -1118,13 +1054,16 @@ img{display:block;max-width:100%}
   }
 
   .hero-minimal h1 span::after{
+
     bottom:-4px;
     height:2px;
   }
 
   .hero-explore{
-    min-width:98px;
-    height:39px;
+
+    min-width:96px;
+
+    height:38px;
 
     margin-top:18px;
 
@@ -1132,40 +1071,50 @@ img{display:block;max-width:100%}
 
     font-size:8.5px;
   }
+
 }
 
 @media(max-width:390px){
 
   .hero-minimal{
-    min-height:270px;
+
+    min-height:265px;
   }
 
   .hero-logo-animation{
-    width:76px;
-    height:76px;
+
+    width:77px;
+    height:77px;
   }
 
   .hero-logo-animation img{
-    width:60px;
-    height:60px;
+
+    width:61px;
+    height:61px;
   }
 
   .hero-minimal h1{
+
     font-size:27px;
   }
 
   .hero-explore{
-    min-width:94px;
-    height:37px;
+
+    min-width:92px;
+    height:36px;
   }
+
 }
 
 @media(prefers-reduced-motion:reduce){
+
   .hero-minimal *,
   .hero-minimal::before,
   .hero-minimal::after{
+
     animation:none!important;
   }
+
 }
 </head>
 
@@ -1195,31 +1144,24 @@ img{display:block;max-width:100%}
 </header>
 
  <section class="hero-minimal" id="hero">
+
   <div class="hero-glow"></div>
-  <div class="hero-ring ring-1"></div>
-  <div class="hero-ring ring-2"></div>
 
-  <div class="hero-minimal-inner">
+  <div class="hero-logo-animation">
+    <span class="logo-aura"></span>
+    <span class="logo-shine"></span>
 
-    <div class="hero-logo-animation">
-      <span class="logo-aura"></span>
-      <span class="logo-shine"></span>
-
-      <img src="awm-logo.jpg" alt="AWM">
-    </div>
-
-    <h1>ستايلك <span>يبدأ من هنا</span></h1>
-
-    <a href="#gallery" class="hero-explore">
-      استكشف
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14"/>
-        <path d="m6 13 6 6 6-6"/>
-      </svg>
-    </a>
-
+    <img src="awm-logo.jpg" alt="AWM">
   </div>
+
+  <h1>
+    ستايلك <span>يبدأ من هنا</span>
+  </h1>
+
+  <a href="#gallery" class="hero-explore">
+    استكشف
+  </a>
+
 </section>
 <main id="gallery">
   <section class="catalog-shell container">
