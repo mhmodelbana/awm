@@ -882,6 +882,125 @@ body{background:var(--awm-paper)}
   .hero h1{font-size:36px!important}
 }
 
+
+/* ===== AWM HERO V7 — MINIMAL / TRANSPARENT ===== */
+.hero{
+  padding:8px 0 22px!important;
+}
+.hero-box{
+  position:relative!important;
+  min-height:245px!important;
+  height:245px!important;
+  border-radius:0!important;
+  overflow:visible!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+.hero-box::before,
+.hero-box::after,
+.hero-content::before{
+  display:none!important;
+}
+.hero-content{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  padding:22px 18px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#111!important;
+}
+.hero-logo{
+  width:82px!important;
+  height:82px!important;
+  margin:0 0 17px!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  border:0!important;
+  box-shadow:0 10px 26px rgba(0,0,0,.12)!important;
+  animation:awmMinimalLogo .55s ease both!important;
+}
+.hero h1{
+  margin:0!important;
+  color:#111!important;
+  font-size:clamp(30px,4vw,48px)!important;
+  line-height:1.05!important;
+  letter-spacing:-.055em!important;
+  font-weight:950!important;
+  text-align:center!important;
+  text-shadow:none!important;
+  animation:awmMinimalTitle .55s .05s ease both!important;
+}
+.hero h1 em{
+  color:#111!important;
+  font-style:normal!important;
+}
+.hero h1 em::after{
+  content:""!important;
+  width:34px!important;
+  height:2px!important;
+  margin:11px auto 0!important;
+  display:block!important;
+  border-radius:99px!important;
+  background:#e10d18!important;
+  box-shadow:none!important;
+}
+@keyframes awmMinimalLogo{
+  from{opacity:0;transform:translateY(9px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+@keyframes awmMinimalTitle{
+  from{opacity:0;transform:translateY(9px)}
+  to{opacity:1;transform:none}
+}
+
+@media(max-width:760px){
+  .hero{
+    width:100%!important;
+    padding:4px 0 13px!important;
+  }
+  .hero-box{
+    min-height:215px!important;
+    height:215px!important;
+  }
+  .hero-content{
+    padding:15px 12px!important;
+  }
+  .hero-logo{
+    width:68px!important;
+    height:68px!important;
+    border-radius:15px!important;
+    margin-bottom:13px!important;
+    box-shadow:0 8px 20px rgba(0,0,0,.11)!important;
+  }
+  .hero h1{
+    font-size:31px!important;
+    line-height:1.04!important;
+    letter-spacing:-.06em!important;
+  }
+  .hero h1 em::after{
+    width:29px!important;
+    height:2px!important;
+    margin-top:9px!important;
+  }
+}
+@media(max-width:390px){
+  .hero-box{
+    min-height:195px!important;
+    height:195px!important;
+  }
+  .hero-logo{
+    width:60px!important;
+    height:60px!important;
+    border-radius:14px!important;
+    margin-bottom:11px!important;
+  }
+  .hero h1{font-size:28px!important}
+}
+
 </style>
 </head>
 <body>
